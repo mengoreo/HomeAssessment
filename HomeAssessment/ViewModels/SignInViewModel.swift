@@ -9,11 +9,15 @@
 import Foundation
 import SwiftUI
 
-fileprivate enum Editing {
+enum ErrorType {
     case nameField
     case passwordField
 }
 
+struct ErrorMessage {
+    var body: String
+    var type: ErrorType
+}
 class SignInViewModel: ObservableObject {
     
     private var welcomViewModel: OnboardingViewModel!
@@ -23,7 +27,7 @@ class SignInViewModel: ObservableObject {
     @Published var password: String!
     @Published var showPassword: Bool!
     @Published var authorisingUser: Bool!
-    @Published var errorMessage: String!
+    @Published var errorMessage: ErrorMessage!
     @Published var isErrorShown: Bool!
     
     // set by other properties
@@ -96,10 +100,10 @@ class SignInViewModel: ObservableObject {
     
     func readyForDisplaying() {
         print(debugStringHeader, "readyForDisplaying")
-        name = "mengoreo1"
-        password = "1234"
+        name = ""
+        password = ""
         displayed = true
-        editNameField()
+//        editNameField()
     }
     
     // while editing
@@ -127,11 +131,22 @@ class SignInViewModel: ObservableObject {
         }
     }
     
-    func showError(message: String) {
+    func showError(message: String, type: ErrorType) {
         DispatchQueue.main.async {
             self.isErrorShown = true
-            self.errorMessage = message
+            self.errorMessage = ErrorMessage(body: message, type: type)
             self.authorisingUser = false
+        }
+    }
+    
+    func handleError() {
+        switch errorMessage.type {
+        case .nameField:
+            editNameField()
+            break
+        case .passwordField:
+            editPasswordField()
+            break
         }
     }
     
@@ -150,11 +165,11 @@ class SignInViewModel: ObservableObject {
         self.editingPasswordField = false
         self.authorisingUser = true
         if name.count == 0 {
-            self.showError(message: "用户名不能为空")
+            self.showError(message: "用户名不能为空", type: .nameField)
             return
         }
         if password.count == 0 {
-            self.showError(message: "密码不能为空")
+            self.showError(message: "密码不能为空", type: .passwordField)
             return
         }
         _ = tokenFetcher.fetchToken(completionHandler: checkTokenResponse(_:_:))
@@ -176,7 +191,7 @@ class SignInViewModel: ObservableObject {
     // MARK: - Helper
     func checkTokenResponse(_ token: String, _ error: NSError?) {
         if error != nil {
-            self.showError(message: error!.cnDescription())
+            self.showError(message: error!.cnDescription(), type: .passwordField)
         }
         else {
             self.authorised()
@@ -188,14 +203,13 @@ class SignInViewModel: ObservableObject {
         password = ""
         showPassword = false
         authorisingUser = false
-        errorMessage = ""
+//        errorMessage = ""
         isErrorShown = false
         displayed = false
         
-        DispatchQueue.main.async {
-            self.editingPasswordField = false
-            self.editingNameField = false
-        }
+        editingPasswordField = false
+        editingNameField = false
+        
         
     }
     
