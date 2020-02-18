@@ -1,5 +1,5 @@
 //
-//  SignInView.swift
+//  SignInUpView.swift
 //  HomeAssessment
 //
 //  Created by Mengoreo on 2020/2/9.
@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-struct SignInView: View {
+struct SignInUpView: View {
     @ObservedObject var viewModel: SignInViewModel
     
     
@@ -37,7 +37,7 @@ struct SignInView: View {
     }
 }
 
-extension SignInView {
+extension SignInUpView {
     func NameView() -> some View {
         return HStack {
             Image(systemName: "person")
@@ -102,32 +102,10 @@ struct SignInView_Previews: PreviewProvider {
     
     static var previews: some View {
         ForEach(["iPhone 11 Pro", "iPhone SE"], id: \.self) { deviceName in
-            SignInView(viewModel: .init(from: OnboardingViewModel()))
+            SignInUpView(viewModel: .init(from: OnboardingViewModel()))
             .previewDevice(PreviewDevice(rawValue: deviceName))
             .previewDisplayName(deviceName)
         }
         
-    }
-}
-
-struct Icon: View {
-    var width: CGFloat = 100
-    var height: CGFloat = 100
-    @Binding var isAnimating: Bool
-    @State var animatedValue: Double = 0
-    var body: some View {
-        ZStack{
-            
-            Image("house")
-            .resizable()
-            .frame(width: width * 0.68, height: height * 0.68)
-            .opacity(isAnimating ? 0 : 1)
-//            .animation(.myease)
-            
-            Image("circle").resizable().frame(width: width, height: height).rotationEffect(Angle(degrees: isAnimating ? 360 : 0))
-                
-            
-            
-        }.frame(width: width, height: height)
     }
 }
