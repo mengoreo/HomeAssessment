@@ -1,5 +1,5 @@
 //
-//  SignInViewModel.swift
+//  SignInUpViewModel.swift
 //  HomeAssessment
 //
 //  Created by Mengoreo on 2020/2/11.
@@ -18,7 +18,7 @@ struct ErrorMessage {
     var body: String
     var type: ErrorType
 }
-class SignInViewModel: ObservableObject {
+class SignInUpViewModel: ObservableObject {
     
     private var welcomViewModel: OnboardingViewModel!
     private var debugStringHeader = "** SignInViewModel:"
@@ -140,6 +140,9 @@ class SignInViewModel: ObservableObject {
     }
     
     func handleError() {
+        DispatchQueue.main.async {
+            self.welcomViewModel.readyForErrors()
+        }
         switch errorMessage.type {
         case .nameField:
             editNameField()
@@ -152,18 +155,29 @@ class SignInViewModel: ObservableObject {
     
     // done editing
     func dismiss() {
-        DispatchQueue.main.async {
-            print(self.debugStringHeader, "dismiss")
-            self.editingNameField = false
-            self.editingPasswordField = false
-            self.welcomViewModel.showWelcom()
-        }
+        print(self.debugStringHeader, "dismiss")
+        self.editingNameField = false
+        self.editingPasswordField = false
+        self.welcomViewModel.showWelcom()
+        
     }
     
-    func authorising() {
+    func authorising(_ forced: Bool? = nil) {
         self.editingNameField = false
         self.editingPasswordField = false
         self.authorisingUser = true
+        
+        if forced != nil {
+            DispatchQueue.main.async {
+                self.welcomViewModel.readyForAuthorising()
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.authorised()
+            }
+            return
+        }
+        
         if name.count == 0 {
             self.showError(message: "用户名不能为空", type: .nameField)
             return
@@ -172,6 +186,10 @@ class SignInViewModel: ObservableObject {
             self.showError(message: "密码不能为空", type: .passwordField)
             return
         }
+        
+        DispatchQueue.main.async {
+            self.welcomViewModel.readyForAuthorising()
+        }
         _ = tokenFetcher.fetchToken(completionHandler: checkTokenResponse(_:_:))
     }
     
@@ -179,7 +197,8 @@ class SignInViewModel: ObservableObject {
         // make sure this will execute while authorising
         DispatchQueue.main.async {
             if self.authorisingUser {
-                self.welcomViewModel.authorised = true
+                
+                self.welcomViewModel.authorised = true                
                 self.dismiss()
             }
             else {

@@ -22,8 +22,11 @@ class AssessmentListViewModel: ObservableObject {
     @Published var imgYOffset: CGFloat = Device.width / 8
     
     func readyForDisplay() {
-        imgWidth = 20
-        imgXOffset = -10
-        imgYOffset = 0
+        DispatchQueue.main.async {
+            self.imgWidth = 20
+            self.imgXOffset = -13
+            self.imgYOffset = 0
+        }
+        
     }
 }

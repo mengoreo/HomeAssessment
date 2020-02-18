@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct SignInUpView: View {
-    @ObservedObject var viewModel: SignInViewModel
+    @ObservedObject var viewModel: SignInUpViewModel
     
     
     var body: some View {
@@ -20,9 +20,14 @@ struct SignInUpView: View {
                 .foregroundColor(.red)
                 .opacity(viewModel.authorisingUser ? 1 : 0)
             ZStack {
-                NameView().alignmentGuide(VerticalAlignment.center, computeValue:nameV(_:))
-                
                 PasswordView().alignmentGuide(VerticalAlignment.center, computeValue:passwordV(_:))
+                    .opacity(viewModel.editing() ? 1 : 0).animation(.myease)
+                NameView().alignmentGuide(VerticalAlignment.center, computeValue:nameV(_:))
+                    .alert(isPresented: $viewModel.isErrorShown) {
+                        Alert(title: Text(viewModel.errorMessage!.body), dismissButton: .default(Text("知道了"), action: {
+                            self.viewModel.handleError()
+                        }))
+                    }
             }
             .padding()
             .opacity(viewModel.authorisingUser ? 0 : 1)
@@ -43,11 +48,11 @@ extension SignInUpView {
             Image(systemName: "person")
                 .foregroundColor(.secondary)
             
-            CustomTextField(text: $viewModel.name, isEditing: $viewModel.editingNameField, didEndEditing: {self.viewModel.editPasswordField()}).truncationMode(.middle).frame(height: 30)
+            CustomTextField("用户名", text: $viewModel.name, isEditing: $viewModel.editingNameField, didEndEditing: {self.viewModel.editPasswordField()}).truncationMode(.middle).frame(height: 30)
         }
         .padding()
         .gradientBorder([.red, .yellow], cornerRadius: 30)
-        .frame(width: Device.width * 0.8)
+        .frame(width: viewModel.editing() ? Device.width * 0.8 : 200)
         .scaleEffect(viewModel.nameFieldScale)
         .padding(.bottom, 10)
     }
@@ -56,7 +61,7 @@ extension SignInUpView {
             Image(systemName: "lock")
                 .foregroundColor(.secondary)
             
-            CustomTextField(text: $viewModel.password, isEditing: $viewModel.editingPasswordField, showPassword: $viewModel.showPassword)
+            CustomTextField("密码", text: $viewModel.password, isEditing: $viewModel.editingPasswordField, showPassword: $viewModel.showPassword)
                 .truncationMode(.middle)
                 .frame(height: 30)
             if viewModel.editingPasswordField {
@@ -70,7 +75,7 @@ extension SignInUpView {
         }
         .padding()
         .gradientBorder([.green, .blue], cornerRadius: 30)
-        .frame(width: Device.width * 0.8)
+        .frame(width:Device.width * 0.8)
             .scaleEffect(viewModel.passwordFieldScale)
             .padding(.bottom, 10)
     }

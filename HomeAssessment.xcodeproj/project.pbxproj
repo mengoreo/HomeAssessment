@@ -30,8 +30,7 @@
 		0894E4E923F0F2CF007D8CB7 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */; };
 		0894E50D23F1837B007D8CB7 /* Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E50C23F1837B007D8CB7 /* Effects.swift */; };
 		0894E51123F285FD007D8CB7 /* AssessmentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51023F285FD007D8CB7 /* AssessmentListView.swift */; };
-		0894E51323F28DEB007D8CB7 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51223F28DEB007D8CB7 /* SignInViewModel.swift */; };
-		0894E51523F28DF8007D8CB7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51423F28DF8007D8CB7 /* SignUpViewModel.swift */; };
+		0894E51323F28DEB007D8CB7 /* SignInUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51223F28DEB007D8CB7 /* SignInUpViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,8 +59,7 @@
 		0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		0894E50C23F1837B007D8CB7 /* Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effects.swift; sourceTree = "<group>"; };
 		0894E51023F285FD007D8CB7 /* AssessmentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentListView.swift; sourceTree = "<group>"; };
-		0894E51223F28DEB007D8CB7 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
-		0894E51423F28DF8007D8CB7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		0894E51223F28DEB007D8CB7 /* SignInUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUpViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,8 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				0875966F23F024E300CF6C4E /* OnboardingViewModel.swift */,
-				0894E51223F28DEB007D8CB7 /* SignInViewModel.swift */,
-				0894E51423F28DF8007D8CB7 /* SignUpViewModel.swift */,
+				0894E51223F28DEB007D8CB7 /* SignInUpViewModel.swift */,
 				0869DAD523FBC5CE003EBF2C /* AssessmentListViewModel.swift */,
 			);
 			path = ViewModels;
@@ -269,12 +266,11 @@
 				08558A1C23EE905F0081C53D /* States.swift in Sources */,
 				08558A2723EFDADF0081C53D /* SignInUpView.swift in Sources */,
 				08558A0623EE8F370081C53D /* AppDelegate.swift in Sources */,
-				0894E51323F28DEB007D8CB7 /* SignInViewModel.swift in Sources */,
+				0894E51323F28DEB007D8CB7 /* SignInUpViewModel.swift in Sources */,
 				0869DAD423FBBE79003EBF2C /* Extensions.swift in Sources */,
 				0881319223F69E1A0088C4E4 /* NewElderView.swift in Sources */,
 				08219A1523F0397F00D6CF07 /* TokenFetcher.swift in Sources */,
 				0881319423F6CC590088C4E4 /* TestPicker.swift in Sources */,
-				0894E51523F28DF8007D8CB7 /* SignUpViewModel.swift in Sources */,
 				0881319023F68E270088C4E4 /* TestList.swift in Sources */,
 				0894E4E923F0F2CF007D8CB7 /* CustomViews.swift in Sources */,
 				0869DAD823FBD30C003EBF2C /* CustomStyles.swift in Sources */,

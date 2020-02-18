@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
 //        let welcomeView = WelcomeView(viewModel: .init())
-        let welcomeView = AssessmentListView()
+        let welcomeView = AssessmentListView(viewModel: .init())
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

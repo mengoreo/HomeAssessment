@@ -55,7 +55,7 @@ class TokenFetcher {
         let session = URLSession.shared
         
         let task = session.dataTask(with: request) { (data, response, error) in
-            
+            sleep(1)
             if error != nil {
                 completionHandler?("", error as NSError?)
                 return
@@ -74,9 +74,10 @@ class TokenFetcher {
     
                 if response.statusCode == 200 {
                     // ok
-                    sleep(5)
+                    
                     let tokenResponse = try JSONDecoder().decode(TokenResponse.self, from: data)
                     completionHandler?(tokenResponse.token, nil)
+                    
                 } else {
                     // not ok
                     completionHandler?("", NSError(domain: "HA", code: 7070, userInfo: ["Not Authorised": 7070]))

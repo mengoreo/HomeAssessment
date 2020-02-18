@@ -67,7 +67,9 @@ struct AssessmentListView: View {
                 )
         }
         .accentColor(Color("DarkGreen"))
-        
+        .onAppear {
+            self.viewModel.readyForDisplay()            
+        }
     }
 }
 

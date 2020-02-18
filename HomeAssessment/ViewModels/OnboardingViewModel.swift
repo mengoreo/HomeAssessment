@@ -49,6 +49,18 @@ class OnboardingViewModel: ObservableObject {
         self.displayHome = self.authorised
         updateView()
     }
+    
+    func readyForAuthorising() {
+        print("*** hiding buttons")
+        uiProperties.iconOpacity = 0.3
+        uiProperties.buttonBottomPadding = -100
+    }
+    
+    func readyForErrors() {
+        print("*** showing buttons")
+        uiProperties.iconOpacity = 1
+        uiProperties.buttonBottomPadding = 23
+    }
 }
 
 struct Device {

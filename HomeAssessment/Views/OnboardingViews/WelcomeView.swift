@@ -22,7 +22,9 @@ struct WelcomeView: View {
     
     var body: some View {
         ZStack {           
-            
+            if viewModel.displayHome {
+                assessmentListView
+            }
             VStack {
                 ICON()
                 if viewModel.signInUpViewModal {
@@ -31,9 +33,7 @@ struct WelcomeView: View {
                 BUTTONS()
             }
             
-            assessmentListView
-            .opacity(viewModel.displayHome ? 1 : 0)
-            .animation(.myease)
+            
             
         }.onAppear{
             self.viewModel.showWelcom()
@@ -60,15 +60,12 @@ extension WelcomeView {
                 Button(action: {
 //                    self.viewModel.showSignInView()
                     if self.viewModel.signInUpViewModal {
-//                        self.signInUpView.viewModel.authorising()
-                        self.viewModel.authorised = true
-                        self.viewModel.showWelcom()
-                        self.viewModel.updateView()
-                        self.assessmentListView.viewModel.readyForDisplay()
+                        self.signInUpView.viewModel.authorising()
                     } else {
                         self.viewModel.showSignInUpView()
-                        self.viewModel.updateView()
+                        
                     }
+                    self.viewModel.updateView()
                 }) {
                     Text("登录/注册")
                         .fontWeight(.semibold)
@@ -78,7 +75,8 @@ extension WelcomeView {
                 
             }
         }
-        .padding(.bottom, viewModel.uiProperties.buttonBottomPadding).animation(.myease)
+        .padding(.bottom, viewModel.uiProperties.buttonBottomPadding)
+        .animation(.myease)
     }
     
     func ICON() -> some View {
@@ -92,8 +90,7 @@ extension WelcomeView {
             .padding(.bottom, viewModel.uiProperties.iconBottomPadding)
             .padding(.trailing, viewModel.uiProperties.iconTrailingPadding)
             .opacity(viewModel.uiProperties.iconOpacity)
-            .animation(.myease)
-            
+            .animation(.myease)           
             
         }
 
@@ -104,7 +101,7 @@ extension WelcomeView {
 #if DEBUG
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
-        ForEach(["iPhone 11 Pro", "iPhone SE"], id: \.self) { deviceName in
+        ForEach(["iPhone SE"], id: \.self) { deviceName in
             WelcomeView(viewModel: .init())
             .previewDevice(PreviewDevice(rawValue: deviceName))
             .previewDisplayName(deviceName)
