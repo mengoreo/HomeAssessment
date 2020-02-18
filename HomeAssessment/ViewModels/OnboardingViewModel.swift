@@ -10,49 +10,42 @@ import Foundation
 import SwiftUI
 
 class OnboardingViewModel: ObservableObject {
-    @Published var signInViewModal = false
-    @Published var signUpViewModal = false
+    @Published var signInUpViewModal = false
     
     var authorised = false
-    var displayHome = false    
-    var iconProperties = IconProperties()
-    var buttonProperties = ButtonProperties()
+    var displayHome = false
+    @Published var uiProperties = UIProperties()
     
-    func updateIcon() {
-        if self.authorised {
-            iconProperties.topPadding = 0
-            iconProperties.opacity = 0
-            iconProperties.frame.width = 1000
-            iconProperties.frame.height = 1000
-        } else if (self.signInViewModal || self.signUpViewModal) {
-            iconProperties.topPadding = Device.height / 10
-            iconProperties.bottomPadding = Device.height / 10
-            iconProperties.opacity = 1
-            iconProperties.topPadding = Device.height / 10
-            iconProperties.frame = CGSize(width: Device.width / 4, height: Device.width / 4)
-        } else {
-            iconProperties.topPadding = Device.height / 7
-            iconProperties.opacity = 1
-            iconProperties.frame = CGSize(width: Device.width / 2, height: Device.width / 2)
+    func updateView() {
+        if authorised { // show assessment list
+            uiProperties.iconTopPadding = 13
+            uiProperties.iconTrailingPadding = Device.width - 50
+            uiProperties.iconOpacity = 0
+            uiProperties.iconFrame.width = 20
+            uiProperties.iconFrame.height = 20
+        }
+        else if signInUpViewModal { // show sig in/up
+            uiProperties.iconTopPadding = Device.height / 10
+            uiProperties.iconBottomPadding = Device.height / 10
+            uiProperties.buttonBottomPadding = 23
+            uiProperties.iconOpacity = 1
+            uiProperties.iconFrame = CGSize(width: Device.width / 4, height: Device.width / 4)
+        }
+        else {
+            uiProperties.iconTopPadding = Device.height / 7
+            uiProperties.iconTrailingPadding = 0
+            uiProperties.buttonBottomPadding = 23
+            uiProperties.iconOpacity = 1
+            uiProperties.iconFrame = CGSize(width: Device.width / 2, height: Device.width / 2)
         }
     }
     
-    func updateView() {
-        updateIcon()
-    }
-    func showSignInView() {
-        self.signInViewModal = true
-        self.signUpViewModal = false
-    }
-    
-    func showSignUpView() {
-        self.signUpViewModal = true
-        self.signInViewModal = false
+    func showSignInUpView() {
+        self.signInUpViewModal = true
     }
     
     func showWelcom() {
-        self.signUpViewModal = false
-        self.signInViewModal = false
+        self.signInUpViewModal = false
         self.displayHome = self.authorised
         updateView()
     }
@@ -70,14 +63,12 @@ struct Device {
     }
 }
 
-struct IconProperties {
-    var topPadding: CGFloat = 0
-    var bottomPadding: CGFloat = 0
-    var opacity: Double = 1
-    var frame = CGSize(width: Device.width / 2, height: Device.width / 2)
+struct UIProperties {
+    var iconTopPadding: CGFloat = 0
+    var iconBottomPadding: CGFloat = 0
+    var iconTrailingPadding: CGFloat = 0
+    var iconOpacity: Double = 1
+    var iconFrame = CGSize(width: Device.width / 2, height: Device.width / 2)
+    var buttonBottomPadding: CGFloat = 0
     
-}
-
-struct ButtonProperties {
-    var bottomPadding: CGFloat = 0
 }
