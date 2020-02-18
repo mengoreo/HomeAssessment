@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08219A1123F02D1C00D6CF07 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08219A1023F02D1C00D6CF07 /* SignUpView.swift */; };
 		08219A1523F0397F00D6CF07 /* TokenFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08219A1423F0397F00D6CF07 /* TokenFetcher.swift */; };
 		0832EA6A23F663A600D95605 /* NewAssessmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0832EA6923F663A600D95605 /* NewAssessmentView.swift */; };
 		08558A0623EE8F370081C53D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0523EE8F370081C53D /* AppDelegate.swift */; };
@@ -18,15 +17,17 @@
 		08558A1A23EE8F510081C53D /* UserInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A1923EE8F510081C53D /* UserInterfaces.swift */; };
 		08558A1C23EE905F0081C53D /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A1B23EE905F0081C53D /* States.swift */; };
 		08558A2523EFCF2D0081C53D /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A2423EFCF2D0081C53D /* WelcomeView.swift */; };
-		08558A2723EFDADF0081C53D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A2623EFDADF0081C53D /* SignInView.swift */; };
-		0873F82223F57ECA00362554 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873F82123F57ECA00362554 /* test.swift */; };
+		08558A2723EFDADF0081C53D /* SignInUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A2623EFDADF0081C53D /* SignInUpView.swift */; };
+		0869DAD423FBBE79003EBF2C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0869DAD323FBBE79003EBF2C /* Extensions.swift */; };
+		0869DAD623FBC5CF003EBF2C /* AssessmentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0869DAD523FBC5CE003EBF2C /* AssessmentListViewModel.swift */; };
+		0869DAD823FBD30C003EBF2C /* CustomStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0869DAD723FBD30C003EBF2C /* CustomStyles.swift */; };
 		0875967023F024E300CF6C4E /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0875966F23F024E300CF6C4E /* OnboardingViewModel.swift */; };
 		0881319023F68E270088C4E4 /* TestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0881318F23F68E270088C4E4 /* TestList.swift */; };
 		0881319223F69E1A0088C4E4 /* NewElderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0881319123F69E1A0088C4E4 /* NewElderView.swift */; };
 		0881319423F6CC590088C4E4 /* TestPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0881319323F6CC590088C4E4 /* TestPicker.swift */; };
 		0884313523F8023E005B53A1 /* SearchStandardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0884313423F8023D005B53A1 /* SearchStandardView.swift */; };
 		088F50EF23F2F1FD0012B7E7 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088F50EE23F2F1FD0012B7E7 /* Errors.swift */; };
-		0894E4E923F0F2CF007D8CB7 /* UIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E4E823F0F2CE007D8CB7 /* UIElements.swift */; };
+		0894E4E923F0F2CF007D8CB7 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */; };
 		0894E50D23F1837B007D8CB7 /* Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E50C23F1837B007D8CB7 /* Effects.swift */; };
 		0894E51123F285FD007D8CB7 /* AssessmentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51023F285FD007D8CB7 /* AssessmentListView.swift */; };
 		0894E51323F28DEB007D8CB7 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51223F28DEB007D8CB7 /* SignInViewModel.swift */; };
@@ -34,7 +35,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		08219A1023F02D1C00D6CF07 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		08219A1423F0397F00D6CF07 /* TokenFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFetcher.swift; sourceTree = "<group>"; };
 		0832EA6923F663A600D95605 /* NewAssessmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAssessmentView.swift; sourceTree = "<group>"; };
 		08558A0223EE8F370081C53D /* HomeAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,15 +47,17 @@
 		08558A1923EE8F510081C53D /* UserInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterfaces.swift; sourceTree = "<group>"; };
 		08558A1B23EE905F0081C53D /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
 		08558A2423EFCF2D0081C53D /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		08558A2623EFDADF0081C53D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		0873F82123F57ECA00362554 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		08558A2623EFDADF0081C53D /* SignInUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUpView.swift; sourceTree = "<group>"; };
+		0869DAD323FBBE79003EBF2C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		0869DAD523FBC5CE003EBF2C /* AssessmentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentListViewModel.swift; sourceTree = "<group>"; };
+		0869DAD723FBD30C003EBF2C /* CustomStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStyles.swift; sourceTree = "<group>"; };
 		0875966F23F024E300CF6C4E /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		0881318F23F68E270088C4E4 /* TestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestList.swift; sourceTree = "<group>"; };
 		0881319123F69E1A0088C4E4 /* NewElderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewElderView.swift; sourceTree = "<group>"; };
 		0881319323F6CC590088C4E4 /* TestPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPicker.swift; sourceTree = "<group>"; };
 		0884313423F8023D005B53A1 /* SearchStandardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStandardView.swift; sourceTree = "<group>"; };
 		088F50EE23F2F1FD0012B7E7 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		0894E4E823F0F2CE007D8CB7 /* UIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElements.swift; sourceTree = "<group>"; };
+		0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		0894E50C23F1837B007D8CB7 /* Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effects.swift; sourceTree = "<group>"; };
 		0894E51023F285FD007D8CB7 /* AssessmentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentListView.swift; sourceTree = "<group>"; };
 		0894E51223F28DEB007D8CB7 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
@@ -110,7 +112,7 @@
 				08558A0523EE8F370081C53D /* AppDelegate.swift */,
 				08558A0723EE8F370081C53D /* SceneDelegate.swift */,
 				088F50EE23F2F1FD0012B7E7 /* Errors.swift */,
-				0894E4E723F0F2B7007D8CB7 /* UILayer */,
+				0894E4E723F0F2B7007D8CB7 /* Customisation */,
 				08219A1323F0395C00D6CF07 /* DjangoAPI */,
 				0875966E23F024CC00CF6C4E /* ViewModels */,
 				08558A2323EFCF1B0081C53D /* Views */,
@@ -160,6 +162,7 @@
 				0875966F23F024E300CF6C4E /* OnboardingViewModel.swift */,
 				0894E51223F28DEB007D8CB7 /* SignInViewModel.swift */,
 				0894E51423F28DF8007D8CB7 /* SignUpViewModel.swift */,
+				0869DAD523FBC5CE003EBF2C /* AssessmentListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -168,21 +171,21 @@
 			isa = PBXGroup;
 			children = (
 				08558A2423EFCF2D0081C53D /* WelcomeView.swift */,
-				08558A2623EFDADF0081C53D /* SignInView.swift */,
-				08219A1023F02D1C00D6CF07 /* SignUpView.swift */,
-				0873F82123F57ECA00362554 /* test.swift */,
+				08558A2623EFDADF0081C53D /* SignInUpView.swift */,
 				0881318F23F68E270088C4E4 /* TestList.swift */,
 			);
 			path = OnboardingViews;
 			sourceTree = "<group>";
 		};
-		0894E4E723F0F2B7007D8CB7 /* UILayer */ = {
+		0894E4E723F0F2B7007D8CB7 /* Customisation */ = {
 			isa = PBXGroup;
 			children = (
-				0894E4E823F0F2CE007D8CB7 /* UIElements.swift */,
+				0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */,
+				0869DAD723FBD30C003EBF2C /* CustomStyles.swift */,
 				0894E50C23F1837B007D8CB7 /* Effects.swift */,
+				0869DAD323FBBE79003EBF2C /* Extensions.swift */,
 			);
-			path = UILayer;
+			path = Customisation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,23 +263,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0869DAD623FBC5CF003EBF2C /* AssessmentListViewModel.swift in Sources */,
 				0894E51123F285FD007D8CB7 /* AssessmentListView.swift in Sources */,
 				088F50EF23F2F1FD0012B7E7 /* Errors.swift in Sources */,
 				08558A1C23EE905F0081C53D /* States.swift in Sources */,
-				08558A2723EFDADF0081C53D /* SignInView.swift in Sources */,
+				08558A2723EFDADF0081C53D /* SignInUpView.swift in Sources */,
 				08558A0623EE8F370081C53D /* AppDelegate.swift in Sources */,
-				0873F82223F57ECA00362554 /* test.swift in Sources */,
 				0894E51323F28DEB007D8CB7 /* SignInViewModel.swift in Sources */,
+				0869DAD423FBBE79003EBF2C /* Extensions.swift in Sources */,
 				0881319223F69E1A0088C4E4 /* NewElderView.swift in Sources */,
 				08219A1523F0397F00D6CF07 /* TokenFetcher.swift in Sources */,
 				0881319423F6CC590088C4E4 /* TestPicker.swift in Sources */,
 				0894E51523F28DF8007D8CB7 /* SignUpViewModel.swift in Sources */,
 				0881319023F68E270088C4E4 /* TestList.swift in Sources */,
-				0894E4E923F0F2CF007D8CB7 /* UIElements.swift in Sources */,
+				0894E4E923F0F2CF007D8CB7 /* CustomViews.swift in Sources */,
+				0869DAD823FBD30C003EBF2C /* CustomStyles.swift in Sources */,
 				0884313523F8023E005B53A1 /* SearchStandardView.swift in Sources */,
 				0894E50D23F1837B007D8CB7 /* Effects.swift in Sources */,
 				0875967023F024E300CF6C4E /* OnboardingViewModel.swift in Sources */,
-				08219A1123F02D1C00D6CF07 /* SignUpView.swift in Sources */,
 				0832EA6A23F663A600D95605 /* NewAssessmentView.swift in Sources */,
 				08558A0823EE8F370081C53D /* SceneDelegate.swift in Sources */,
 				08558A1A23EE8F510081C53D /* UserInterfaces.swift in Sources */,
