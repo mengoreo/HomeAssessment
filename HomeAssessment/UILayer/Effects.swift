@@ -8,57 +8,6 @@
 
 import Foundation
 import SwiftUI
-//struct SearchViewController<Content: View>: UIViewControllerRepresentable {
-//    @Binding var searchText: String
-//    var content: () -> Content
-//    let searchResultsView = UIView()
-//
-//    init(searchText: Binding<String>, @ViewBuilder content: @escaping () -> Content) {
-//        self._searchText = searchText
-//        self.content = content
-//    }
-//
-//    func makeUIViewController(context: Context) -> UINavigationController {
-//
-//        let rootViewController = UIHostingController(rootView: EmptyView())
-//        let navigationController = UINavigationController(rootViewController: rootViewController)
-//        let searchResultsController = UIHostingController(rootView: content())
-//
-//        // Set nav properties
-//        navigationController.navigationBar.prefersLargeTitles = true
-//        navigationController.definesPresentationContext = true
-//
-//        // Create search controller
-//        let searchController = UISearchController(searchResultsController: nil)
-//        searchController.searchBar.autocapitalizationType = .none
-//        searchController.delegate =  context.coordinator
-//        searchController.searchBar.delegate = context.coordinator // Monitor when the search button is tapped.
-//
-//        // Create default view
-//        rootViewController.navigationItem.searchController = searchController
-//        rootViewController.title = "Search"
-//
-//        return navigationController
-//    }
-//
-//    func updateUIViewController(_ navigationController: UINavigationController, context: UIViewControllerRepresentableContext<SearchViewController>) {
-//        //
-//    }
-//
-//    func makeCoordinator() -> Coordinator {
-//        Coordinator(self)
-//    }
-//
-//    final class Coordinator: NSObject, UISearchControllerDelegate, UISearchBarDelegate {
-//        var parent: SearchViewController
-//        init(_ parent: SearchViewController) {
-//            self.parent = parent
-//        }
-//        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//            parent.searchText = searchText
-//        }
-//    }
-//}
 
 extension Animation {
     public static var myease: Animation {
