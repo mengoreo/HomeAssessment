@@ -1,5 +1,5 @@
 //
-//  UIElements.swift
+//  CustomViews.swift
 //  HomeAssessment
 //
 //  Created by Mengoreo on 2020/2/10.
@@ -8,14 +8,7 @@
 
 import SwiftUI
 //import UIKit
-extension UIApplication {
-    func endEditing(_ force: Bool) {
-        self.windows
-            .filter{$0.isKeyWindow}
-            .first?
-            .endEditing(force)
-    }
-}
+
 
 struct ResignKeyboardOnDragGesture: ViewModifier {
     var gesture = DragGesture().onChanged{_ in
@@ -24,25 +17,6 @@ struct ResignKeyboardOnDragGesture: ViewModifier {
     func body(content: Content) -> some View {
         content.gesture(gesture)
     }
-}
-
-extension View {
-    func resignKeyboardOnDragGesture() -> some View {
-        return modifier(ResignKeyboardOnDragGesture())
-    }
-}
-struct NavigationConfigurator: UIViewControllerRepresentable {
-    var configure: (UINavigationController) -> Void = { _ in }
-
-    func makeUIViewController(context: UIViewControllerRepresentableContext<NavigationConfigurator>) -> UIViewController {
-        UIViewController()
-    }
-    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<NavigationConfigurator>) {
-        if let nc = uiViewController.navigationController {
-            self.configure(nc)
-        }
-    }
-
 }
 
 struct SelectableRow<Label>: View where Label: View {
@@ -73,11 +47,7 @@ struct SelectableRow<Label>: View where Label: View {
     }
 }
 
-extension String {
-    var floatValue: Float {
-        return (self as NSString).floatValue
-    }
-}
+
 struct AttributedText: UIViewRepresentable {
 
     private var attributedString: NSAttributedString
@@ -91,40 +61,6 @@ struct AttributedText: UIViewRepresentable {
 
     func updateUIView(_ uiView: UILabel, context: Context) {
         uiView.attributedText = attributedString
-    }
-}
-
-extension Color {
-    public static var darkGreen: Color {
-        return Color("DarkGreen")
-    }
-    public static var lightGreen: Color {
-        return Color("LightGreen")
-    }
-}
-extension UIColor {
-    public static var darkGreen: UIColor {
-        return UIColor(named: "DarkGreen") ?? UIColor.green
-    }
-    public static var lightGreen: UIColor {
-        return UIColor(named: "LightGreen") ?? UIColor.green
-    }
-}
-
-extension View {
-    public func roundedBorder(_ color: Color, width: CGFloat = 3, cornerRadius: CGFloat = 40) -> some View {
-        return overlay(RoundedRectangle(cornerRadius: cornerRadius).strokeBorder(color, lineWidth: width))
-    }
-    public func gradientBorder(_ colors: [Color], width: CGFloat = 3, cornerRadius: CGFloat = 40) -> some View {
-        return overlay(RoundedRectangle(cornerRadius: cornerRadius).strokeBorder(LinearGradient(gradient: Gradient(colors: colors), startPoint: .leading, endPoint: .trailing), lineWidth: width))
-    }
-}
-
-class CustomSearchBar: UISearchBar {
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setShowsCancelButton(false, animated: true)
     }
 }
 
@@ -189,55 +125,6 @@ struct SearchBar : UIViewRepresentable {
 }
 
 
-struct CollapsableGradientBackgroundStyle: ButtonStyle {
-    
-    var collapsed: Bool = false
-    var colors: [Color] = [Color("DarkGreen"), Color("LightGreen")]
- 
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(minWidth: 0, maxWidth: collapsed ? 30 : .infinity)
-            .padding()
-            .foregroundColor(.white)
-            .background(LinearGradient(gradient: Gradient(colors: colors), startPoint: .leading, endPoint: .trailing))
-            .cornerRadius(40)
-            .padding(.horizontal, collapsed ? 0 : 20)
-            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
-    }
-}
-
-struct ImageButtonStyle: ButtonStyle {
-    var width: CGFloat = Device.height / 7
-    var height: CGFloat = Device.height / 7
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(width: width, height: height, alignment: .center)
-            .shadow(radius: configuration.isPressed ? 0 : 3.0)
-            .padding(3)
-            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
-    }
-}
-
-struct CollapsableOutlineBackgroundStyle: ButtonStyle {
-    var collapsed: Bool = false
-    
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(minWidth: 0, maxWidth: collapsed ? 30 : .infinity)
-            .padding()
-            .foregroundColor(.darkGreen)
-            .cornerRadius(40)
-            .padding(.horizontal, collapsed ? 0 : 20)            
-            .overlay(
-                RoundedRectangle(cornerRadius: 40)
-                    .stroke(Color.darkGreen, lineWidth: 3)
-                    .padding(.horizontal, collapsed ? 0 : 20)
-            )
-            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
-    }
-}
-
-
 struct ActivityIndicator: UIViewRepresentable {
 
     @Binding var isAnimating: Bool
@@ -252,26 +139,7 @@ struct ActivityIndicator: UIViewRepresentable {
     }
 }
 
-extension UITextField{
 
-    func addDoneButtonToKeyboard(myAction:Selector?){
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: Device.width, height: 40))
-        doneToolbar.barStyle = UIBarStyle.default
-
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "完成", style: UIBarButtonItem.Style.done, target: self, action: myAction)
-        done.tintColor = .lightGreen
-
-        var items = [UIBarButtonItem]()
-        items.append(flexSpace)
-        items.append(done)
-
-        doneToolbar.items = items
-        doneToolbar.sizeToFit()
-
-        self.inputAccessoryView = doneToolbar
-    }
-}
 struct CustomTextField: UIViewRepresentable {
 
     private var placeholder: String
