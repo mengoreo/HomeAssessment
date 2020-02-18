@@ -110,17 +110,7 @@ extension UIColor {
         return UIColor(named: "LightGreen") ?? UIColor.green
     }
 }
-extension Image {
-    public static var mapPreviewLight: Image {
-        return Image("mapPreviewLight")
-    }
-    public static var mapPreviewDark: Image {
-        return Image("mapPreviewDark")
-    }
-    public static var icon: Image {
-        return Image("icon")
-    }
-}
+
 extension View {
     public func roundedBorder(_ color: Color, width: CGFloat = 3, cornerRadius: CGFloat = 40) -> some View {
         return overlay(RoundedRectangle(cornerRadius: cornerRadius).strokeBorder(color, lineWidth: width))
@@ -143,21 +133,7 @@ struct SearchBar : UIViewRepresentable {
     
     
     @Binding var text : String
-//    @State var typping = true
-    
-    class Cordinator : NSObject, UISearchBarDelegate {
-        
-        @Binding var text : String
-        
-        init(text : Binding<String>) {
-            _text = text
-        }
-        
-        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            text = searchText
-        }
-    }
-    
+    @Binding var searching: Bool
     
     
     func makeUIView(context: UIViewRepresentableContext<SearchBar>) -> UISearchBar {
@@ -182,6 +158,7 @@ struct SearchBar : UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         return Coordinator(self)
     }
+    
     final class Coordinator: NSObject, UISearchBarDelegate {
         var parent: SearchBar
         
@@ -192,6 +169,7 @@ struct SearchBar : UIViewRepresentable {
         func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
             searchBar.resignFirstResponder()
             searchBar.setShowsCancelButton(false, animated: true)
+            parent.searching = false
             print("*** searchBarCancelButtonClicked")
         }
         
@@ -201,8 +179,10 @@ struct SearchBar : UIViewRepresentable {
         }
         func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
             print("*** searchBarTextDidBeginEditin")
+            parent.searching = true
             searchBar.setShowsCancelButton(true, animated: true)
         }
+        
         
         
     }
@@ -212,8 +192,6 @@ struct SearchBar : UIViewRepresentable {
 struct CollapsableGradientBackgroundStyle: ButtonStyle {
     
     var collapsed: Bool = false
-    var xOffset: CGFloat = 0
-    var yOffset: CGFloat = 0
     var colors: [Color] = [Color("DarkGreen"), Color("LightGreen")]
  
     func makeBody(configuration: Self.Configuration) -> some View {
@@ -224,7 +202,6 @@ struct CollapsableGradientBackgroundStyle: ButtonStyle {
             .background(LinearGradient(gradient: Gradient(colors: colors), startPoint: .leading, endPoint: .trailing))
             .cornerRadius(40)
             .padding(.horizontal, collapsed ? 0 : 20)
-            .offset(x: xOffset, y: yOffset)
             .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
     }
 }
@@ -243,23 +220,19 @@ struct ImageButtonStyle: ButtonStyle {
 
 struct CollapsableOutlineBackgroundStyle: ButtonStyle {
     var collapsed: Bool = false
-    var xOffset: CGFloat = 0
-    var yOffset: CGFloat = 0
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(minWidth: 0, maxWidth: collapsed ? 30 : .infinity)
             .padding()
-            .foregroundColor(Color("LightGreen"))
+            .foregroundColor(.darkGreen)
             .cornerRadius(40)
-            .padding(.horizontal, collapsed ? 0 : 20)
-            
+            .padding(.horizontal, collapsed ? 0 : 20)            
             .overlay(
                 RoundedRectangle(cornerRadius: 40)
-                    .stroke(Color("LightGreen"),lineWidth: 3)
+                    .stroke(Color.darkGreen, lineWidth: 3)
                     .padding(.horizontal, collapsed ? 0 : 20)
             )
-            .offset(x: xOffset, y: yOffset)
             .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
     }
 }
@@ -279,7 +252,26 @@ struct ActivityIndicator: UIViewRepresentable {
     }
 }
 
+extension UITextField{
 
+    func addDoneButtonToKeyboard(myAction:Selector?){
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: Device.width, height: 40))
+        doneToolbar.barStyle = UIBarStyle.default
+
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "完成", style: UIBarButtonItem.Style.done, target: self, action: myAction)
+        done.tintColor = .lightGreen
+
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+
+        self.inputAccessoryView = doneToolbar
+    }
+}
 struct CustomTextField: UIViewRepresentable {
 
     private var placeholder: String
@@ -293,8 +285,8 @@ struct CustomTextField: UIViewRepresentable {
 
     private var autocorrection: UITextAutocorrectionType = .default
     private var autocapitalization: UITextAutocapitalizationType = .sentences
-    private var keyboardType: UIKeyboardType = .default
-    private var returnKeyType: UIReturnKeyType = .default
+    private var keyboardType: UIKeyboardType
+    private var returnKeyType: UIReturnKeyType
     
     private var isUserInteractionEnabled: Bool = true
     private var showClearButton: Bool
@@ -310,7 +302,9 @@ struct CustomTextField: UIViewRepresentable {
          showClearButton: Bool = false,
          disabled: Bool = false,
          tintColor: UIColor = .lightGreen,
-         textColor: UIColor = .darkGreen,
+         textColor: UIColor = .label,
+         keyboardType: UIKeyboardType = .default,
+         returnKeyType: UIReturnKeyType = .default,
          didBeginEditing: @escaping () -> Void = { },
          didChange: @escaping () -> Void = { },
          didEndEditing: @escaping () -> Void = { })
@@ -326,6 +320,8 @@ struct CustomTextField: UIViewRepresentable {
         self.showPassword = showPassword
         self.tintColor = tintColor
         self.textColor = textColor
+        self.keyboardType = keyboardType
+        self.returnKeyType = returnKeyType
     }
 
     func makeUIView(context: Context) -> UITextField {
@@ -336,6 +332,9 @@ struct CustomTextField: UIViewRepresentable {
         textField.autocorrectionType = autocorrection
         textField.autocapitalizationType = autocapitalization
         textField.keyboardType = keyboardType
+        if keyboardType == .phonePad {
+            textField.addDoneButtonToKeyboard(myAction: #selector(textField.resignFirstResponder))
+        }
         textField.returnKeyType = returnKeyType
         textField.placeholder = placeholder
         
@@ -394,6 +393,7 @@ struct CustomTextField: UIViewRepresentable {
         }
         
         func textFieldDidBeginEditing(_ textField: UITextField) {
+            print("*** textFieldDidBeginEditing")
             DispatchQueue.main.async {
                 if let isEditing = self.parent.isEditing,
                     !isEditing.wrappedValue {
@@ -402,26 +402,22 @@ struct CustomTextField: UIViewRepresentable {
                 self.parent.didBeginEditing()
             }
         }
-
+        func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+            self.parent.isEditing?.wrappedValue = false
+            return true
+        }
         @objc func textFieldDidChange(_ textField: UITextField) {
             self.parent.text = textField.text ?? ""
             self.parent.didChange()
         }
-
-        func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-            DispatchQueue.main.async {
-                self.parent.isEditing?.wrappedValue = false
-                
-                self.parent.didEndEditing()
-            }
-        }
-
+        
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             textField.resignFirstResponder()
             if parent.showPassword != nil {
                 parent.showPassword?.wrappedValue = false
             }
             parent.isEditing?.wrappedValue = false
+            self.parent.didEndEditing()
             return true
         }
     }
