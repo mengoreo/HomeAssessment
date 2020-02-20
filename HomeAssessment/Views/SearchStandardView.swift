@@ -30,7 +30,6 @@ struct SearchStandardView: View {
 
             }
         }
-        .edgesIgnoringSafeArea(.all)
         .accentColor(.lightGreen)
         
     }
