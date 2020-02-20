@@ -17,15 +17,16 @@ class AssessmentListViewModel: ObservableObject {
     
     @Published var displayActionSheet = false
     
-    @Published var imgWidth: CGFloat = Device.width / 7
-    @Published var imgXOffset: CGFloat = Device.width / 8
-    @Published var imgYOffset: CGFloat = Device.width / 8
+    @Published var uiProperties = ALUIProperties(imgWidth: Device.width / 7,
+                                                 imgXOffset: Device.width / 8,
+                                                 imgYOffset: Device.width / 8)
+    
     
     func readyForDisplay() {
         DispatchQueue.main.async {
-            self.imgWidth = 20
-            self.imgXOffset = -13
-            self.imgYOffset = 0
+            self.uiProperties.imgWidth = 20
+            self.uiProperties.imgXOffset = -13
+            self.uiProperties.imgYOffset = 0
         }
         
     }

@@ -9,15 +9,7 @@
 import Foundation
 import SwiftUI
 
-enum ErrorType {
-    case nameField
-    case passwordField
-}
 
-struct ErrorMessage {
-    var body: String
-    var type: ErrorType
-}
 class SignInUpViewModel: ObservableObject {
     
     private var welcomViewModel: OnboardingViewModel!
