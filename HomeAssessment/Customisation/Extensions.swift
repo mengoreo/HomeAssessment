@@ -66,17 +66,23 @@ extension Image {
     }
 }
 
+extension Animation {
+    public static var myease: Animation {
+        return Animation.timingCurve(0.68, -0.33, 0.265, 1.55, duration: 0.87)
+    }
+    public static func myease(duration: Double = 0.87, delay: Double = 0) -> Animation {
+        return Animation.timingCurve(0.68, -0.33, 0.265, 1.55, duration: duration).delay(delay)
+    }
+}
+
 extension View {
     static var plusCircleFill: some View {
-        ZStack {
-            Image(systemName: "circle.fill").foregroundColor(.lightGreen)
-            Image(systemName: "plus").scaleEffect(0.6).foregroundColor(.init(UIColor.white))
-        }
+        return Image(systemName: "plus.circle.fill").imageScale(.large).accentColor(.lightGreen)
     }
     static var ellipsisCircleFill: some View {
         ZStack {
-            Image(systemName: "circle.fill").foregroundColor(.init(UIColor.tertiarySystemFill))
-            Image(systemName: "ellipsis").scaleEffect(0.6).foregroundColor(.lightGreen)
+            Image(systemName: "circle.fill").imageScale(.large).foregroundColor(.init(UIColor.tertiarySystemFill))
+            Image(systemName: "ellipsis").imageScale(.large).scaleEffect(0.6).foregroundColor(.lightGreen)
         }
     }
     public func roundedBorder(_ color: Color, width: CGFloat = 3, cornerRadius: CGFloat = 40) -> some View {
@@ -87,6 +93,9 @@ extension View {
     }
     func resignKeyboardOnDragGesture() -> some View {
         return modifier(ResignKeyboardOnDragGesture())
+    }
+    func actionSheetTintColor(color: UIColor) -> some View {
+        return modifier(ActionSheetTint(color: color))
     }
 }
 
