@@ -62,25 +62,3 @@ class OnboardingViewModel: ObservableObject {
         uiProperties.buttonBottomPadding = 23
     }
 }
-
-struct Device {
-    public static var height: CGFloat {
-        return UIScreen.main.bounds.height
-    }
-    public static var width: CGFloat {
-        return UIScreen.main.bounds.width
-    }
-    public static var rotation: UIDeviceOrientation {
-        return UIDevice.current.orientation
-    }
-}
-
-struct UIProperties {
-    var iconTopPadding: CGFloat = 0
-    var iconBottomPadding: CGFloat = 0
-    var iconTrailingPadding: CGFloat = 0
-    var iconOpacity: Double = 1
-    var iconFrame = CGSize(width: Device.width / 2, height: Device.width / 2)
-    var buttonBottomPadding: CGFloat = 0
-    
-}
