@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct AssessmentListView: View {
-    var rowHeight = Device.width / 5
-    
     @ObservedObject var viewModel: AssessmentListViewModel
     
     
@@ -22,9 +20,17 @@ struct AssessmentListView: View {
                         Button(action:{
                             print("** add row")
                         }){
-                            Image.mapPreviewLight.resizable()
+                            Button(action:{}){
+                            Image.mapPreviewLight.resizable().contextMenu{
+                                Button(action:{}) {
+                                    Text("action 1")
+                                }
+                                Button(action:{}) {
+                                    Text("action 2")
+                                }
+                                }}
                         }
-                        .buttonStyle(ImageButtonStyle(width: rowHeight, height: rowHeight))
+                        .buttonStyle(ImageButtonStyle(width: Device.width / 5, height: Device.width / 5))
                         .padding(.bottom, 5)
 
                         VStack(alignment: .leading, spacing: 10) {
@@ -38,7 +44,7 @@ struct AssessmentListView: View {
                         .foregroundColor(.secondary)
                     }
                 }.buttonStyle(PlainButtonStyle())
-
+                
             }
             .sheet(isPresented: $viewModel.adding) {
                 NewAssessmentView()
@@ -47,28 +53,28 @@ struct AssessmentListView: View {
             .navigationBarItems(
                 leading:
                     Image.icon.resizable()
-                        .frame(width: viewModel.imgWidth, height: viewModel.imgWidth, alignment: .center)
-                        .offset(x: viewModel.imgXOffset, y: viewModel.imgYOffset).animation(.myease)
+                        .frame(width: viewModel.uiProperties.imgWidth, height: viewModel.uiProperties.imgWidth, alignment: .center)
+                        .offset(x: viewModel.uiProperties.imgXOffset, y: viewModel.uiProperties.imgYOffset).animation(.myease)
                 ,trailing:
                 
                     HStack {
                         Button(action:{
                             self.viewModel.displayActionSheet.toggle()
                         }){
-                            Image.ellipsisCircleFill.scaleEffect(1.3)
+                            Image.ellipsisCircleFill
                         }
                         Spacer().frame(width: 20)
                         Button(action:{
                             self.viewModel.adding.toggle()
                         }){
-                            Image.plusCircleFill.scaleEffect(1.3)
+                            Image.plusCircleFill
                         }
                     }
                 )
         }
         .accentColor(Color("DarkGreen"))
         .onAppear {
-            self.viewModel.readyForDisplay()            
+            self.viewModel.readyForDisplay()
         }
     }
 }
