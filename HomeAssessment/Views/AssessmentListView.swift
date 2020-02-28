@@ -36,7 +36,7 @@ struct AssessmentListView: View {
 
                 Text("").hidden().sheet(isPresented: $viewModel.showNewAssessmentModal, onDismiss: viewModel.newAssessmentModalDismissed) {
                     NewEditAssessmentView(viewModel: .init(assessment: self.viewModel.assessmentToCreateOrEdit!), barTitle: self.viewModel.newBarTitle)
-                        .accentColor(.darkGreen)
+                        .accentColor(.accentColor)
                 }
             }
             .navigationBarTitle("我的评估")
@@ -58,16 +58,7 @@ struct AssessmentListView: View {
                     }
                 )
         }
-        .accentColor(.darkGreen)
+        .accentColor(.accentColor)
     }
 }
 
-struct AssessmentListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ForEach(["iPhone SE"], id: \.self) { deviceName in
-            AssessmentListView(viewModel: .init())
-            .previewDevice(PreviewDevice(rawValue: deviceName))
-            .previewDisplayName(deviceName)
-        }
-    }
-}

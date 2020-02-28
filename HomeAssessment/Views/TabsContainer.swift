@@ -30,7 +30,7 @@ struct TabsContainer: View {
                 }
             
         }
-            .accentColor(.darkGreen)
+            .accentColor(.accentColor)
             .edgesIgnoringSafeArea(.top)
 
     }

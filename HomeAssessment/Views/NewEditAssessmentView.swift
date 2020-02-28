@@ -40,7 +40,7 @@ struct NewEditAssessmentView: View {
                                 StandardListView(
                                     viewModel: .init(user: .currentUser),
                                     selected: self.$viewModel.selectedStandard)
-                                    .accentColor(.darkGreen)
+                                    .accentColor(.accentColor)
                                 
                         }
                         

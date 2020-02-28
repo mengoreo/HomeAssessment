@@ -37,7 +37,7 @@ struct StandardListView: View {
                             }
                             if self.selected.wrappedValue != nil && self.selected.wrappedValue == standard {
                                 Spacer()
-                                Image(systemName: "checkmark").foregroundColor(.darkGreen)
+                                Image(systemName: "checkmark").foregroundColor(.accentColor)
                             }
                         }.contextMenu {
                             NavigationLink(destination: QuestionListView(questions: standard.getQuestions())) {
