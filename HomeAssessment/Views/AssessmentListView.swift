@@ -11,55 +11,54 @@ import SwiftUI
 struct AssessmentListView: View {
     @ObservedObject var viewModel: AssessmentListViewModel
     
-    
     var body: some View {
+        
         NavigationView {
-            List {
-                ForEach(viewModel.assessments) {assessment in
-                    Button(action:{
-                        self.viewModel.update(assessment)
-                    }){
-                        VStack(alignment: .leading) {
-                            Text(assessment.remarks)
-                            Spacer().frame(height: 3)
-                            Text("\(assessment.standard?.name ?? "No Standard")")
-                            Text("elders: \(assessment.getElders().count)")
+            ZStack {
+                List {
+                    ForEach(viewModel.assessments) {assessment in
+                        Button(action:{
+                            self.viewModel.update(assessment)
+                        }){
+                            VStack(alignment: .leading) {
+                                Text(assessment.remarks)
+                                Spacer().frame(height: 3)
+                                Text("\(assessment.standard?.name ?? "No Standard")")
+                                Text("elders: \(assessment.getElders().count)")
+                            }
                         }
-                    }
-                }.onDelete(perform: {(offsets) in
-                    for index in offsets {
-                        self.viewModel.assessments[index].delete()
-                    }
-                })
+                    }.onDelete(perform: {(offsets) in
+                        for index in offsets {
+                            self.viewModel.assessments[index].delete()
+                        }
+                    })
+                }.onAppear(perform: viewModel.onAppear)
 
-                .navigationBarTitle("我的评估")
-                .navigationBarItems(
-                    leading:
-                        Image.icon.resizable()
-                            .frame(width: 20, height: 20, alignment: .center)
-                    ,trailing:
-                        HStack {
-                            Button(action:{
-    //                            self.viewModel.displayActionSheet.toggle()
-                            }){
-                                Image.ellipsisCircleFill
-                            }
-                            Spacer().frame(width: 20)
-                            Button(action:{
-                                self.viewModel.createNewAssessment()
-                            }){
-                                Image.plusCircleFill
-                            }
+                Text("").hidden().sheet(isPresented: $viewModel.showNewAssessmentModal, onDismiss: viewModel.newAssessmentModalDismissed) {
+                    NewEditAssessmentView(viewModel: .init(assessment: self.viewModel.assessmentToCreateOrEdit!), barTitle: self.viewModel.newBarTitle)
+                        .accentColor(.darkGreen)
+                }
+            }
+            .navigationBarTitle("我的评估")
+            .navigationBarItems(
+                leading:
+                    Image.icon.resizable()
+                        .frame(width: 20, height: 20, alignment: .center)
+                ,trailing:
+                    HStack {
+                        Button(action:{}){
+                            Image.ellipsisCircleFill
                         }
-                    )
-            }
-            .onAppear(perform: viewModel.onAppear)
-            Text("").hidden().sheet(isPresented: $viewModel.showNewAssessmentModal) {
-                Text("to be implemen")
-//                NewEditAssessmentView(viewModel: .init(assessment: self.viewModel.assessmentToCreateOrEdit!))
-            }
+                        Spacer().frame(width: 20)
+                        Button(action:{
+                            self.viewModel.createNewAssessment()
+                        }){
+                            Image.plusCircleFill
+                        }
+                    }
+                )
         }
-        .accentColor(Color("DarkGreen"))
+        .accentColor(.darkGreen)
     }
 }
 

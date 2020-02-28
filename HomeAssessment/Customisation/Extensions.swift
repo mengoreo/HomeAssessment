@@ -20,12 +20,26 @@ extension CLPlacemark {
         line1 += self.subThoroughfare ?? ""
         return line1.isEmpty ? "无详细信息" : line1
     }
+    func isEqualTo(_ another: CLPlacemark) -> Bool {
+        if (self.location == nil) != (another.location == nil) {
+            // one of them not valid
+            return false
+        }
+        if let a = self.location, let b = another.location {
+            // both valid
+            return a.distance(from: b) < 10
+        }
+        return true // both not valide
+    }
 }
 
 // MARK: - Foundation
 extension String {
     var floatValue: Float {
         return (self as NSString).floatValue
+    }
+    var intValue: Int32 {
+        return (self as NSString).intValue
     }
 }
 
@@ -91,12 +105,12 @@ extension Animation {
 
 extension View {
     static var plusCircleFill: some View {
-        return Image(systemName: "plus.circle.fill").imageScale(.large).accentColor(.lightGreen)
+        return Image(systemName: "plus.circle.fill").imageScale(.large).accentColor(.darkGreen)
     }
     static var ellipsisCircleFill: some View {
         ZStack {
             Image(systemName: "circle.fill").imageScale(.large).foregroundColor(.init(UIColor.tertiarySystemFill))
-            Image(systemName: "ellipsis").imageScale(.large).scaleEffect(0.6).foregroundColor(.lightGreen)
+            Image(systemName: "ellipsis").imageScale(.large).scaleEffect(0.6).foregroundColor(.darkGreen)
         }
     }
     public func roundedBorder(_ color: Color, width: CGFloat = 3, cornerRadius: CGFloat = 40) -> some View {

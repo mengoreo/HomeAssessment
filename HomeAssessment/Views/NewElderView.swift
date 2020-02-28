@@ -1,27 +1,25 @@
 //
 //  NewElderView.swift
-//  HomeAssessment
+//  tet
 //
-//  Created by Mengoreo on 2020/2/14.
+//  Created by Mengoreo on 2020/2/23.
 //  Copyright © 2020 Mengoreo. All rights reserved.
 //
 
 import SwiftUI
 import Combine
+import CoreData
+
 struct ElderInfo {
     var name: String
     var height: String
     var category: Int
 }
 
-struct NewElderView: View {
-    @Binding var elder: ElderInfo
-    private var categories = ["低龄自理", "高龄自理", "慢病自理", "专业照护", "长期卧床", "失智"]
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
-    init(elder: Binding<ElderInfo> = .constant(ElderInfo(name: "", height: "", category: 2))) {
-        self._elder = elder
-    }
+class NewElderViewModel: NSObject, ObservableObject {
+    @Published var elderInfo: ElderInfo
+//    @Published var presentationMode: PresentationMode
+    var categories = ["低龄自理", "高龄自理", "慢病自理", "专业照护", "长期卧床", "失智"]
     var descriptionView = [
         Group{
             Text("身体健康，活力充沛，绝大多数时候无生活协助或生活助理的需求；") +
@@ -49,55 +47,71 @@ struct NewElderView: View {
         }, // 失智
     ]
     
+    private var assessment: Assessment
+    var elder: Elder?
+    var barTitle: String!
+    
+    init(assessment: Assessment, elder: Elder? = nil) {
+        self.elder = elder
+        self.elderInfo = ElderInfo(name: elder?.name ?? "", height: elder == nil ? "" : "\(elder!.heightInCM)", category: categories.firstIndex(of: elder?.status ?? "慢病自理")!)
+        self.assessment = assessment
+        super.init()
+        barTitle = elderInfo.name.isEmpty ? "新建老人信息" : elderInfo.name
+    }
+    
+    var disableDoneButton: Bool {
+        return elderInfo.name.isEmpty || elderInfo.height.isEmpty
+    }
+    
+    func save() {
+        // check height later
+        if elder != nil {
+            elder!.update(name: elderInfo.name, heightInCM: elderInfo.height.intValue, status: categories[elderInfo.category])
+        } else {
+            Elder.create(for: assessment, name: elderInfo.name, heightInCM: elderInfo.height.intValue, status: categories[elderInfo.category])
+        }
+        
+    }
     
     
+}
+struct NewElderView: View {
+    
+    @ObservedObject var viewModel: NewElderViewModel
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>    
     var body: some View {
-        NavigationView {
-            
-            Form {
-                Section(header: Text("个人信息").padding(.top, 20)){
-                    CustomTextField("姓名", text: $elder.name, showClearButton: true, textColor: UIColor.label)
-                    HStack {
-                        CustomTextField("身高", text: $elder.height, showClearButton: true, textColor: UIColor.label)
-                            .keyboardType(.numberPad)
-                            .onReceive(Just(elder.height)) { newValue in
-                                let filtered = newValue.filter { "0123456789".contains($0) }
-                                if filtered != newValue {
-                                    self.elder.height = filtered
-                                }
-                            }
-                        Spacer()
-                        Text("厘米").foregroundColor(.secondary)
-                        
-                    }
-                }
-                
-                Section(header:Text("老年人能力等级"),footer:
-                    descriptionView[elder.category].font(.callout)
-                ) {
+        Form {
+            Section(header: Text("个人信息").padding(.top, 20)){
+                TextField("姓名", text: $viewModel.elderInfo.name)
+
+                HStack {
+                    TextField("身高", text: $viewModel.elderInfo.height)
+                    Spacer()
+                    Text("厘米").foregroundColor(.secondary)
                     
-                    Picker("dddd",selection: $elder.category) {
-                        ForEach(0 ..< categories.count, id: \.self) { index in
-                            Text(self.categories[index]).tag(index).foregroundColor(.init(.label))
-                        }
-                    }
-                    .labelsHidden()
                 }
             }
-            .navigationBarTitle("新建老人信息", displayMode: .inline)
-            .navigationBarItems(
-                leading:
-                Button(action:{
-                    DispatchQueue.main.async {
-                        self.presentationMode.wrappedValue.dismiss()
+            
+            Section(header:Text("老年人能力等级"),footer:
+                viewModel.descriptionView[viewModel.elderInfo.category].font(.callout)
+            ) {
+                
+                Picker("dddd",selection: $viewModel.elderInfo.category) {
+                    ForEach(0 ..< viewModel.categories.count, id: \.self) { index in
+                        Text(self.viewModel.categories[index]).tag(index).foregroundColor(.init(UIColor.label))
                     }
-                    
-                }){
-                    Text("取消")
-                }, 
-                trailing: Button(action:{
-                    self.presentationMode.wrappedValue.dismiss()
-                }){Text("完成")})
-        }.accentColor(.lightGreen)
+                }
+                .labelsHidden()
+            }
+        }
+        .navigationBarTitle("\(viewModel.barTitle)", displayMode: .inline)
+        .navigationBarItems(
+            trailing: Button(action:{
+                self.viewModel.save()
+                self.presentationMode.wrappedValue.dismiss()
+            }){Text("完成")}.disabled(viewModel.disableDoneButton))
+        
     }
 }
+

@@ -14,7 +14,8 @@ class AssessmentListViewModel: NSObject, NSFetchedResultsControllerDelegate, Obs
         return assessmentController.fetchedObjects?.filter{$0.user == .currentUser} ?? []
     }
     @Published var showNewAssessmentModal = false
-    @Published var updating = false
+    @Published var newBarTitle = "新建评估"
+    
     private lazy var assessmentController: NSFetchedResultsController<Assessment> = {
         let controller = Assessment.resultController
         controller.delegate = self
@@ -31,14 +32,20 @@ class AssessmentListViewModel: NSObject, NSFetchedResultsControllerDelegate, Obs
     
     func update(_ assessment: Assessment) {
         assessmentToCreateOrEdit = assessment
+        newBarTitle = assessment.remarks
         showNewAssessmentModal.toggle()
     }
     
     func createNewAssessment() {
         self.assessmentToCreateOrEdit = .create(for: UserSession.currentUser, with: nil, remarks: "", address: nil)
+        newBarTitle = "新建评估"
         showNewAssessmentModal.toggle()
     }
 
+    func newAssessmentModalDismissed() {
+        print("** newAssessmentModalDismissed")
+        CoreDataHelper.stack.context.rollback()
+    }
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         objectWillChange.send()
     }

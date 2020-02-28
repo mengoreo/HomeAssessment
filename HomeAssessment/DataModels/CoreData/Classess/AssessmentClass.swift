@@ -58,41 +58,61 @@ public class Assessment: NSManagedObject, Identifiable {
     }
     
     func update(_ force: Bool = false,
-                remarks: String? = nil,
-                progress: Double? = nil,
+                remarks: String? = nil,                
                 address: CLPlacemark? = nil,
+                progress: Double? = nil,
                 standard: Standard? = nil) {
         var updated = force
         if let remarks = remarks, remarks != self.remarks {
+            print("** update remarks")
             self.remarks = remarks
             updated = true
         }
         if let progress = progress, progress != self.progress {
+            print("** update progress")
             self.progress = progress
             updated = true
         }
-        if let address = address, address != self.address {
-            self.address = address
-            updated = true
+        if let address = address {
+            if self.address == nil || !self.address!.isEqualTo(address){
+                print("** update address")
+                self.address = address
+                updated = true
+            }
         }
         if let standard = standard, standard != self.standard {
+            print("** update standard")
             self.standard = standard
             updated = true
         }
         if updated {
+            print("** update date")
             self.dateUpdated = Date()
         }
         print("** updated assessment")
     }
+    
     func delete() {
         print(self, "deleting")
         CoreDataHelper.stack.context.delete(self)
     }
     func getElders() -> [Elder] {
+//        if self.elders != nil {
+//            let request = Elder.fetch()
+//            request.predicate = NSPredicate(format: "SELF IN %@", self.elders!)
+//            return CoreDataHelper.stack.fetch(request)
+//        }
+//        return []
         return Elder.all().filter{$0.assessment == self}
     }
     func getContacts() -> [Contact] {
-        return Contact.all().filter{$0.assessment == self}
+        if self.contacts != nil {
+            let request = Contact.fetch()
+            request.predicate = NSPredicate(format: "SELF IN %@", self.contacts!)
+            return CoreDataHelper.stack.fetch(request)
+        }
+        return []
+//        return Contact.all().filter{$0.assessment == self}
     }
     func isValid() -> Bool {
         return

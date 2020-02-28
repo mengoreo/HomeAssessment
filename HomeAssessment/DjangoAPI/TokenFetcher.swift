@@ -8,18 +8,6 @@
 
 import Foundation
 
-struct DjangoAPI {
-//  static let scheme = "http"
-//  static let host = "localhost:8000"
-//  static let path = "/api/token_auth/"
-    static let apiPath = "http://localhost:8000/api/token_auth/"
-}
-
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let tokenResponse = try? newJSONDecoder().decode(TokenResponse.self, from: jsonData)
-
 
 // MARK: - Token
 struct TokenResponse: Codable {
@@ -43,7 +31,7 @@ class TokenFetcher {
     
     func fetchToken(completionHandler: ((String, NSError?) -> Void)?) -> URLSessionDataTask {
         print("** TokenFetcher:", "name:\(name), password:\(password)")
-        let url = URL(string: DjangoAPI.apiPath)!
+        let url = URL(string: DjangoAPI.tokenPath)!
         let postString = "username=\(name)&password=\(password)"
         var request = URLRequest(url: url)
         
