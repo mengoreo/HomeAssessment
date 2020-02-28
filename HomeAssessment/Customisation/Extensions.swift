@@ -73,6 +73,9 @@ extension UITextField{
     }
 }
 extension UIColor {
+    public static var tintColor: UIColor {
+        return UIColor(named: "myAccentColor") ?? UIColor.green
+    }
     public static var darkGreen: UIColor {
         return UIColor(named: "DarkGreen") ?? UIColor.green
     }
@@ -105,12 +108,12 @@ extension Animation {
 
 extension View {
     static var plusCircleFill: some View {
-        return Image(systemName: "plus.circle.fill").imageScale(.large).accentColor(.darkGreen)
+        return Image(systemName: "plus.circle.fill").imageScale(.large).accentColor(.accentColor)
     }
     static var ellipsisCircleFill: some View {
         ZStack {
             Image(systemName: "circle.fill").imageScale(.large).foregroundColor(.init(UIColor.tertiarySystemFill))
-            Image(systemName: "ellipsis").imageScale(.large).scaleEffect(0.6).foregroundColor(.darkGreen)
+            Image(systemName: "ellipsis").imageScale(.large).scaleEffect(0.6).foregroundColor(.accentColor)
         }
     }
     public func roundedBorder(_ color: Color, width: CGFloat = 3, cornerRadius: CGFloat = 40) -> some View {
@@ -128,6 +131,9 @@ extension View {
 }
 
 extension Color {
+    public static var accentColor: Color {
+        return Color("myAccentColor")
+    }
     public static var darkGreen: Color {
         return Color("DarkGreen")
     }
