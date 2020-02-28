@@ -47,8 +47,8 @@ class SearchPlacesViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBlurView()
-        setUpMapView()
-        setUpLocationManager()
+        setupMapView()
+        setupLocationManager()
         setupSearchController()
         setupNavigationBar()
         
@@ -73,7 +73,7 @@ class SearchPlacesViewController : UIViewController {
     }
     
     // MARK: -setUpMapView
-    func setUpMapView() {
+    func setupMapView() {
         let displayWidth: CGFloat = self.view.frame.width
         let displayHeight: CGFloat = self.view.frame.height
         mapView = MKMapView(frame: CGRect(x: 0, y: 0, width: displayWidth, height: displayHeight))
@@ -85,7 +85,7 @@ class SearchPlacesViewController : UIViewController {
     }
     
     // MARK: - setUpLocationManager
-    func setUpLocationManager() {
+    func setupLocationManager() {
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -201,17 +201,7 @@ class SearchPlacesViewController : UIViewController {
 }
 
 // MARK: - MKMapViewDelegate
-extension SearchPlacesViewController: MKMapViewDelegate {
-    
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        print("** mapView didUpdate userLocation")
-//        if selectedPlace == nil {
-//            focusMap(on: userLocation.coordinate)
-//        } else {
-//            focusMap(on: selectedPlace!.coordinate)
-//        }
-    }
-    
+extension SearchPlacesViewController: MKMapViewDelegate {    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("** mapView didSelect view")
         if view.annotation!.isKind(of: MKUserLocation.self) {
