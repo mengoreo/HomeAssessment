@@ -86,11 +86,8 @@ extension UIColor {
 
 // MARK: - SwiftUI
 extension Image {
-    static var mapPreviewLight: Image {
-        return Image("mapPreviewLight")
-    }
-    static var mapPreviewDark: Image {
-        return Image("mapPreviewDark")
+    static var mapPreview: Image {
+        return Image("mapPreview")
     }
     static var icon: Image {
         return Image("icon")
