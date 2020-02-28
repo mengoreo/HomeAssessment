@@ -15,67 +15,51 @@ struct AssessmentListView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: SignInUpView(viewModel: .init(from: .init()))) {
-                    HStack(alignment: .center) {
-                        Button(action:{
-                            print("** add row")
-                        }){
-                            Button(action:{}){
-                            Image.mapPreviewLight.resizable().contextMenu{
-                                Button(action:{}) {
-                                    Text("action 1")
-                                }
-                                Button(action:{}) {
-                                    Text("action 2")
-                                }
-                                }}
+                ForEach(viewModel.assessments) {assessment in
+                    Button(action:{
+                        self.viewModel.update(assessment)
+                    }){
+                        VStack(alignment: .leading) {
+                            Text(assessment.remarks)
+                            Spacer().frame(height: 3)
+                            Text("\(assessment.standard?.name ?? "No Standard")")
+                            Text("elders: \(assessment.getElders().count)")
                         }
-                        .buttonStyle(ImageButtonStyle(width: Device.width / 5, height: Device.width / 5))
-                        .padding(.bottom, 5)
+                    }
+                }.onDelete(perform: {(offsets) in
+                    for index in offsets {
+                        self.viewModel.assessments[index].delete()
+                    }
+                })
 
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("万亭花园").font(.headline)
-                            Text("评估进度：33%").font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }.alignmentGuide(VerticalAlignment.center
-                            , computeValue: {_ in 27})
-                        Spacer()
-                        Text("9:31")
-                        .foregroundColor(.secondary)
-                    }
-                }.buttonStyle(PlainButtonStyle())
-                
-            }
-            .sheet(isPresented: $viewModel.adding) {
-                NewAssessmentView()
-            }
-            .navigationBarTitle("我的评估", displayMode: .automatic)
-            .navigationBarItems(
-                leading:
-                    Image.icon.resizable()
-                        .frame(width: viewModel.uiProperties.imgWidth, height: viewModel.uiProperties.imgWidth, alignment: .center)
-                        .offset(x: viewModel.uiProperties.imgXOffset, y: viewModel.uiProperties.imgYOffset).animation(.myease)
-                ,trailing:
-                
-                    HStack {
-                        Button(action:{
-                            self.viewModel.displayActionSheet.toggle()
-                        }){
-                            Image.ellipsisCircleFill
+                .navigationBarTitle("我的评估")
+                .navigationBarItems(
+                    leading:
+                        Image.icon.resizable()
+                            .frame(width: 20, height: 20, alignment: .center)
+                    ,trailing:
+                        HStack {
+                            Button(action:{
+    //                            self.viewModel.displayActionSheet.toggle()
+                            }){
+                                Image.ellipsisCircleFill
+                            }
+                            Spacer().frame(width: 20)
+                            Button(action:{
+                                self.viewModel.createNewAssessment()
+                            }){
+                                Image.plusCircleFill
+                            }
                         }
-                        Spacer().frame(width: 20)
-                        Button(action:{
-                            self.viewModel.adding.toggle()
-                        }){
-                            Image.plusCircleFill
-                        }
-                    }
-                )
+                    )
+            }
+            .onAppear(perform: viewModel.onAppear)
+            Text("").hidden().sheet(isPresented: $viewModel.showNewAssessmentModal) {
+                Text("to be implemen")
+//                NewEditAssessmentView(viewModel: .init(assessment: self.viewModel.assessmentToCreateOrEdit!))
+            }
         }
         .accentColor(Color("DarkGreen"))
-        .onAppear {
-            self.viewModel.readyForDisplay()
-        }
     }
 }
 

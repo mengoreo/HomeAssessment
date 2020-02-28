@@ -7,6 +7,20 @@
 //
 
 import SwiftUI
+import CoreLocation
+
+extension CLPlacemark {
+    func address() -> String {
+        var line1 = self.administrativeArea ?? ""
+
+        line1 += self.subAdministrativeArea ?? ""
+        line1 += self.locality ?? ""
+        line1 += self.subLocality ?? ""
+        line1 += self.thoroughfare == nil ? "" : "\n" + self.thoroughfare!
+        line1 += self.subThoroughfare ?? ""
+        return line1.isEmpty ? "无详细信息" : line1
+    }
+}
 
 // MARK: - Foundation
 extension String {

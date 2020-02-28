@@ -6,28 +6,40 @@
 //  Copyright © 2020 Mengoreo. All rights reserved.
 //
 
-import Foundation
+import CoreData
 import SwiftUI
 
-class AssessmentListViewModel: ObservableObject {
-    @Published var searchTerm : String = ""
-    @Published var currentSection = 0
-    var section = ["概览", "报告"]
-    @Published var adding = false
+class AssessmentListViewModel: NSObject, NSFetchedResultsControllerDelegate, ObservableObject {
+    var assessments: [Assessment] {
+        return assessmentController.fetchedObjects?.filter{$0.user == .currentUser} ?? []
+    }
+    @Published var showNewAssessmentModal = false
+    @Published var updating = false
+    private lazy var assessmentController: NSFetchedResultsController<Assessment> = {
+        let controller = Assessment.resultController
+        controller.delegate = self
+        return controller
+    }()
     
-    @Published var displayActionSheet = false
+    var assessmentToCreateOrEdit: Assessment? = nil
     
-    @Published var uiProperties = ALUIProperties(imgWidth: Device.width / 7,
-                                                 imgXOffset: Device.width / 8,
-                                                 imgYOffset: Device.width / 8)
+    func onAppear() {
+        print("** test create")
+        objectWillChange.send()
+        try? assessmentController.performFetch()
+    }
     
+    func update(_ assessment: Assessment) {
+        assessmentToCreateOrEdit = assessment
+        showNewAssessmentModal.toggle()
+    }
     
-    func readyForDisplay() {
-        DispatchQueue.main.async {
-            self.uiProperties.imgWidth = 20
-            self.uiProperties.imgXOffset = -13
-            self.uiProperties.imgYOffset = 0
-        }
-        
+    func createNewAssessment() {
+        self.assessmentToCreateOrEdit = .create(for: UserSession.currentUser, with: nil, remarks: "", address: nil)
+        showNewAssessmentModal.toggle()
+    }
+
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        objectWillChange.send()
     }
 }

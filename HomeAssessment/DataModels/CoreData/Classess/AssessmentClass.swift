@@ -12,12 +12,6 @@ import CoreLocation
 @objc(Assessment)
 public class Assessment: NSManagedObject, Identifiable {
     
-    public override var managedObjectContext: NSManagedObjectContext? {
-        let contx = CoreDataHelper.stack.context
-        contx.undoManager?.levelsOfUndo = 10
-        
-        return contx
-    }
     static var resultController = NSFetchedResultsController(fetchRequest: fetch(), managedObjectContext: CoreDataHelper.stack.context, sectionNameKeyPath: nil, cacheName: nil)
     
     class func create(for user: UserSession, with standard: Standard?, remarks: String, address: CLPlacemark?) -> Assessment {
@@ -31,7 +25,6 @@ public class Assessment: NSManagedObject, Identifiable {
         newAssessment.address = address
         newAssessment.standard = standard
         newAssessment.user = user
-        newAssessment.user.update(true)
         
         return newAssessment
     }
@@ -90,7 +83,6 @@ public class Assessment: NSManagedObject, Identifiable {
             self.dateUpdated = Date()
         }
         print("** updated assessment")
-        self.user.update(updated)
     }
     func delete() {
         print(self, "deleting")

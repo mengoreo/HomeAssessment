@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Assessment" representedClassName=".Assessment" syncable="YES">
-        <attribute name="addresss" optional="YES" attributeType="Transformable"/>
+        <attribute name="address" optional="YES" attributeType="Transformable" customClassName="NSSecureUnarchiveFromData"/>
         <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="dateUpdated" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="progress" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

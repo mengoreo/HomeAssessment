@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0810BEC4240900B700CA3833 /* CoreDataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 0810BEC3240900B700CA3833 /* CoreDataModel.xcdatamodel */; };
 		0810BEC6240900BF00CA3833 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0810BEC5240900BF00CA3833 /* CoreDataHelper.swift */; };
 		0810BEC8240900C600CA3833 /* CoreDataModelProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0810BEC7240900C600CA3833 /* CoreDataModelProperties.swift */; };
 		0810BECD2409086000CA3833 /* UserSessionClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0810BECC2409086000CA3833 /* UserSessionClass.swift */; };
@@ -19,6 +18,11 @@
 		0810BEDB240908F800CA3833 /* OptionClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0810BEDA240908F800CA3833 /* OptionClass.swift */; };
 		0810BEDD2409092400CA3833 /* UserSettingsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0810BEDC2409092400CA3833 /* UserSettingsClass.swift */; };
 		0810BEDF2409093800CA3833 /* AppStatusClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0810BEDE2409093800CA3833 /* AppStatusClass.swift */; };
+		0810BEE324090F7300CA3833 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0810BEE224090F7300CA3833 /* TextFields.swift */; };
+		0810BEE524090F9C00CA3833 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0810BEE424090F9C00CA3833 /* ActivityIndicator.swift */; };
+		0810BEE724090FBB00CA3833 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0810BEE624090FBB00CA3833 /* SearchController.swift */; };
+		0810BEE924090FDF00CA3833 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0810BEE824090FDF00CA3833 /* SearchBar.swift */; };
+		0810BEEB2409100600CA3833 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0810BEEA2409100600CA3833 /* Labels.swift */; };
 		08219A1523F0397F00D6CF07 /* TokenFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08219A1423F0397F00D6CF07 /* TokenFetcher.swift */; };
 		0832EA6A23F663A600D95605 /* NewAssessmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0832EA6923F663A600D95605 /* NewAssessmentView.swift */; };
 		0847F50623FC3D2400D5F3EE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847F50523FC3D2400D5F3EE /* Models.swift */; };
@@ -43,10 +47,10 @@
 		0894E4E923F0F2CF007D8CB7 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */; };
 		0894E51123F285FD007D8CB7 /* AssessmentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51023F285FD007D8CB7 /* AssessmentListView.swift */; };
 		0894E51323F28DEB007D8CB7 /* SignInUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51223F28DEB007D8CB7 /* SignInUpViewModel.swift */; };
+		08CB26D4240917FE00A81EA7 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26D1240917FE00A81EA7 /* CoreDataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0810BEC3240900B700CA3833 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		0810BEC5240900BF00CA3833 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		0810BEC7240900C600CA3833 /* CoreDataModelProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModelProperties.swift; sourceTree = "<group>"; };
 		0810BECC2409086000CA3833 /* UserSessionClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionClass.swift; sourceTree = "<group>"; };
@@ -58,6 +62,11 @@
 		0810BEDA240908F800CA3833 /* OptionClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionClass.swift; sourceTree = "<group>"; };
 		0810BEDC2409092400CA3833 /* UserSettingsClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsClass.swift; sourceTree = "<group>"; };
 		0810BEDE2409093800CA3833 /* AppStatusClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStatusClass.swift; sourceTree = "<group>"; };
+		0810BEE224090F7300CA3833 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
+		0810BEE424090F9C00CA3833 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		0810BEE624090FBB00CA3833 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		0810BEE824090FDF00CA3833 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		0810BEEA2409100600CA3833 /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		08219A1423F0397F00D6CF07 /* TokenFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFetcher.swift; sourceTree = "<group>"; };
 		0832EA6923F663A600D95605 /* NewAssessmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAssessmentView.swift; sourceTree = "<group>"; };
 		0847F50523FC3D2400D5F3EE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -84,6 +93,8 @@
 		0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		0894E51023F285FD007D8CB7 /* AssessmentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentListView.swift; sourceTree = "<group>"; };
 		0894E51223F28DEB007D8CB7 /* SignInUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUpViewModel.swift; sourceTree = "<group>"; };
+		08CB26D2240917FE00A81EA7 /* CoreDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		08CB26D3240917FE00A81EA7 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +111,6 @@
 		0810BECB240900D100CA3833 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				0810BEC3240900B700CA3833 /* CoreDataModel.xcdatamodel */,
 				0810BEC5240900BF00CA3833 /* CoreDataHelper.swift */,
 				0810BEC7240900C600CA3833 /* CoreDataModelProperties.swift */,
 				0810BEE024090A3100CA3833 /* Classess */,
@@ -124,6 +134,18 @@
 			path = Classess;
 			sourceTree = "<group>";
 		};
+		0810BEE124090F0C00CA3833 /* UIViewRepresentables */ = {
+			isa = PBXGroup;
+			children = (
+				0810BEE224090F7300CA3833 /* TextFields.swift */,
+				0810BEE424090F9C00CA3833 /* ActivityIndicator.swift */,
+				0810BEE624090FBB00CA3833 /* SearchController.swift */,
+				0810BEE824090FDF00CA3833 /* SearchBar.swift */,
+				0810BEEA2409100600CA3833 /* Labels.swift */,
+			);
+			path = UIViewRepresentables;
+			sourceTree = "<group>";
+		};
 		082165E023FCF6E100C5BB0A /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,13 +153,6 @@
 				0847F50523FC3D2400D5F3EE /* Models.swift */,
 			);
 			path = DataModels;
-			sourceTree = "<group>";
-		};
-		08219A1223F0395200D6CF07 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		08219A1323F0395C00D6CF07 /* DjangoAPI */ = {
@@ -151,6 +166,7 @@
 		085589F923EE8F370081C53D = {
 			isa = PBXGroup;
 			children = (
+				08CB26D1240917FE00A81EA7 /* CoreDataModel.xcdatamodeld */,
 				08558A0423EE8F370081C53D /* HomeAssessment */,
 				08558A0323EE8F370081C53D /* Products */,
 			);
@@ -172,10 +188,11 @@
 				088F50EE23F2F1FD0012B7E7 /* Errors.swift */,
 				082165E023FCF6E100C5BB0A /* DataModels */,
 				0894E4E723F0F2B7007D8CB7 /* Customisation */,
+				0810BEE124090F0C00CA3833 /* UIViewRepresentables */,
 				08219A1323F0395C00D6CF07 /* DjangoAPI */,
 				0875966E23F024CC00CF6C4E /* ViewModels */,
 				08558A2323EFCF1B0081C53D /* Views */,
-				08558A2223EFCF050081C53D /* elements */,
+				08558A2223EFCF050081C53D /* Useless */,
 				08558A0B23EE8F390081C53D /* Assets.xcassets */,
 				08558A1023EE8F390081C53D /* LaunchScreen.storyboard */,
 				08558A1323EE8F390081C53D /* Info.plist */,
@@ -192,14 +209,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		08558A2223EFCF050081C53D /* elements */ = {
+		08558A2223EFCF050081C53D /* Useless */ = {
 			isa = PBXGroup;
 			children = (
-				08219A1223F0395200D6CF07 /* New Group */,
 				08558A1923EE8F510081C53D /* UserInterfaces.swift */,
 				08558A1B23EE905F0081C53D /* States.swift */,
 			);
-			path = elements;
+			path = Useless;
 			sourceTree = "<group>";
 		};
 		08558A2323EFCF1B0081C53D /* Views */ = {
@@ -320,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0810BEE924090FDF00CA3833 /* SearchBar.swift in Sources */,
 				0810BEDF2409093800CA3833 /* AppStatusClass.swift in Sources */,
 				0869DAD623FBC5CF003EBF2C /* AssessmentListViewModel.swift in Sources */,
 				0810BED5240908D600CA3833 /* ContactClass.swift in Sources */,
@@ -327,10 +344,14 @@
 				0894E51123F285FD007D8CB7 /* AssessmentListView.swift in Sources */,
 				088F50EF23F2F1FD0012B7E7 /* Errors.swift in Sources */,
 				08558A1C23EE905F0081C53D /* States.swift in Sources */,
+				0810BEE724090FBB00CA3833 /* SearchController.swift in Sources */,
 				0810BED1240908C600CA3833 /* StandardClass.swift in Sources */,
 				08558A2723EFDADF0081C53D /* SignInUpView.swift in Sources */,
 				0810BECF240908BF00CA3833 /* AssessmentClass.swift in Sources */,
 				08558A0623EE8F370081C53D /* AppDelegate.swift in Sources */,
+				0810BEE524090F9C00CA3833 /* ActivityIndicator.swift in Sources */,
+				0810BEEB2409100600CA3833 /* Labels.swift in Sources */,
+				0810BEE324090F7300CA3833 /* TextFields.swift in Sources */,
 				0894E51323F28DEB007D8CB7 /* SignInUpViewModel.swift in Sources */,
 				0869DAD423FBBE79003EBF2C /* Extensions.swift in Sources */,
 				0810BEC8240900C600CA3833 /* CoreDataModelProperties.swift in Sources */,
@@ -343,11 +364,11 @@
 				0881319023F68E270088C4E4 /* TestList.swift in Sources */,
 				0810BEDD2409092400CA3833 /* UserSettingsClass.swift in Sources */,
 				0810BED3240908CF00CA3833 /* ElderClass.swift in Sources */,
+				08CB26D4240917FE00A81EA7 /* CoreDataModel.xcdatamodeld in Sources */,
 				0894E4E923F0F2CF007D8CB7 /* CustomViews.swift in Sources */,
 				0869DAD823FBD30C003EBF2C /* CustomStyles.swift in Sources */,
 				0884313523F8023E005B53A1 /* SearchStandardView.swift in Sources */,
 				0875967023F024E300CF6C4E /* OnboardingViewModel.swift in Sources */,
-				0810BEC4240900B700CA3833 /* CoreDataModel.xcdatamodel in Sources */,
 				0810BEDB240908F800CA3833 /* OptionClass.swift in Sources */,
 				0832EA6A23F663A600D95605 /* NewAssessmentView.swift in Sources */,
 				08558A0823EE8F370081C53D /* SceneDelegate.swift in Sources */,
@@ -546,6 +567,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		08CB26D1240917FE00A81EA7 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				08CB26D2240917FE00A81EA7 /* CoreDataModel 2.xcdatamodel */,
+				08CB26D3240917FE00A81EA7 /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 08CB26D2240917FE00A81EA7 /* CoreDataModel 2.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 085589FA23EE8F370081C53D /* Project object */;
 }

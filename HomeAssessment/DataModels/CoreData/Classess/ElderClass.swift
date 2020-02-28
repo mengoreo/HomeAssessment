@@ -21,7 +21,6 @@ public class Elder: NSManagedObject, Identifiable {
         newElder.heightInCM = heightInCM
         newElder.status = status
         newElder.assessment = assessment
-        newElder.assessment.update(true)
     }
     
     class func all() -> [Elder] {
@@ -68,8 +67,6 @@ public class Elder: NSManagedObject, Identifiable {
             updated = true
         }
         if updated {self.dateUpdated = Date()}
-        self.assessment.update(updated)
-//        CoreDataHelper.stack.save()
     }
     func delete() {
         print(self, "deleting")

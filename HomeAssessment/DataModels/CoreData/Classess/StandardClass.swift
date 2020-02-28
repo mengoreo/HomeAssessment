@@ -27,7 +27,6 @@ public class Standard: NSManagedObject, Identifiable {
         newStandard.dateCreated = Date()
         newStandard.dateUpdated = Date()
         newStandard.user = user
-        newStandard.user.update(true)
         return newStandard
     }
     
@@ -63,7 +62,6 @@ public class Standard: NSManagedObject, Identifiable {
             updated = true
         }
         if updated {self.dateUpdated = Date()}
-        self.user.update(updated)
     }
     func delete() {
         print(self, "deleting")

@@ -22,7 +22,7 @@ class CoreDataHelper: NSObject {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             } else {
                 let description = NSPersistentStoreDescription()
-                description.shouldMigrateStoreAutomatically = false
+                description.shouldMigrateStoreAutomatically = true
                 description.shouldInferMappingModelAutomatically = true
                 container.persistentStoreDescriptions = [description]
             }
@@ -64,7 +64,6 @@ class CoreDataHelper: NSObject {
             fatalError("Unresolved clear error \(nserror), \(nserror.userInfo)")
         }
         
-        save()
     }
     
     public func save() {

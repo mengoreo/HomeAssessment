@@ -32,7 +32,6 @@ public class Option: NSManagedObject, Identifiable {
         newOption.vote = vote
         newOption.suggestion = suggestion
         newOption.question = question
-        newOption.question.update(true)
         
     }
     
@@ -89,8 +88,6 @@ public class Option: NSManagedObject, Identifiable {
         if updated {
             self.dateUpdated = Date()
         }
-        self.question.update(updated)
-//        CoreDataHelper.stack.save()
     }
     func delete() {
         print(self, "deleting")

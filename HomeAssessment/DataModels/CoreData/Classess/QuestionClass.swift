@@ -33,7 +33,6 @@ public class Question: NSManagedObject, Identifiable {
         newQuestion.name = name
         newQuestion.measurable = measurable
         newQuestion.standard = standard
-        newQuestion.standard.update(true)
         return newQuestion
     }
     
@@ -73,8 +72,6 @@ public class Question: NSManagedObject, Identifiable {
         if updated {
             self.dateUpdated = Date()
         }
-        self.standard.update(updated)
-//        CoreDataHelper.stack.save()
     }
     func delete() {
         print(self, "deleting")

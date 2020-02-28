@@ -20,7 +20,6 @@ public class Contact: NSManagedObject, Identifiable {
         newContact.name = name
         newContact.phone = phone
         newContact.assessment = assessment
-        newContact.assessment.update(true)
         
         return newContact
     }
@@ -63,8 +62,6 @@ public class Contact: NSManagedObject, Identifiable {
             updated = true
         }
         if updated {self.dateUpdated = Date()}
-        self.assessment.update(updated)
-//        CoreDataHelper.stack.save()
     }
     func delete() {
         print(self, "deleting")
