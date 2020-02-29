@@ -87,31 +87,45 @@ struct CustomTextField: UIViewRepresentable {
         textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
         textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
-
+        textField.text = text
         textField.addTarget(context.coordinator, action: #selector(Coordinator.textFieldDidChange(_:)), for: .editingChanged)
 
+        if let showPassword = showPassword?.wrappedValue {
+            textField.isSecureTextEntry = !showPassword
+        }
+        if textField.window != nil, let isEditing = isEditing  {
+            if isEditing.wrappedValue {
+                textField.becomeFirstResponder()
+            }
+        }
+        
+        textField.isEnabled = !disabled
+        if disabled {
+            textField.resignFirstResponder()
+            textField.textColor = .tertiaryLabel
+        }
         
         return textField
     }
 
     func updateUIView(_ uiView: UITextField, context: Context) {
-        uiView.text = text
-        uiView.textColor = textColor
-        if let showPassword = showPassword?.wrappedValue {
-            uiView.isSecureTextEntry = !showPassword
-        }
-        if uiView.window != nil, let isEditing = isEditing  {
-            if isEditing.wrappedValue {
-                print("**** already \(uiView.isFirstResponder)")
-                uiView.becomeFirstResponder()
-            }
-        }
-        
-        uiView.isEnabled = !disabled
-        if disabled {
-            uiView.resignFirstResponder()
-            uiView.textColor = .tertiaryLabel
-        }
+//        uiView.text = text
+//        uiView.textColor = textColor
+//        if let showPassword = showPassword?.wrappedValue {
+//            uiView.isSecureTextEntry = !showPassword
+//        }
+//        if uiView.window != nil, let isEditing = isEditing  {
+//            if isEditing.wrappedValue {
+//                print("**** already \(uiView.isFirstResponder)")
+//                uiView.becomeFirstResponder()
+//            }
+//        }
+//
+//        uiView.isEnabled = !disabled
+//        if disabled {
+//            uiView.resignFirstResponder()
+//            uiView.textColor = .tertiaryLabel
+//        }
     }
 
     
