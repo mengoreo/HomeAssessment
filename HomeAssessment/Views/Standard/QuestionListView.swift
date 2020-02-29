@@ -17,12 +17,15 @@ struct QuestionListView: View {
         List {
             ForEach(questions) { question in
                 HStack {
-                    Text("\(question.index)")
-                    VStack(alignment: .leading) {
-                        Text(question.name).font(.headline)
-                        ForEach(question.getOptions()) { option in
-                            Spacer()
-                            Text(option.optionDescription)
+                    VStack(alignment: .leading, spacing: 7) {
+                        Text("\(question.index) " + question.name)
+                            .font(.headline)
+                        VStack(alignment: .leading, spacing: 3) {
+                            ForEach(question.getOptions()) { option in
+                                Text(option.optionDescription)
+                                .font(.footnote)
+                                .foregroundColor(Color(UIColor.secondaryLabel))
+                            }
                         }
                     }
                 }
