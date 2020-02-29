@@ -11,10 +11,14 @@ import SwiftUI
 
 class AssessmentListViewModel: NSObject, NSFetchedResultsControllerDelegate, ObservableObject {
     var assessments: [Assessment] {
-        return assessmentController.fetchedObjects?.filter{$0.user == .currentUser} ?? []
+        return assessmentController.fetchedObjects?.filter{$0.user == .currentUser}.filter{$0.isValid()} ?? []
     }
     @Published var showNewAssessmentModal = false
     @Published var newBarTitle = "新建评估"
+    
+    @Published var showWarning = false
+    @Published var warningMessage = ""
+    @Published var warningDestructiveAction: () -> Void = {}
     
     private lazy var assessmentController: NSFetchedResultsController<Assessment> = {
         let controller = Assessment.resultController
@@ -30,13 +34,20 @@ class AssessmentListViewModel: NSObject, NSFetchedResultsControllerDelegate, Obs
         try? assessmentController.performFetch()
     }
     
-    func update(_ assessment: Assessment) {
+    
+    func aboutToDelete(_ assessment: Assessment) {
+        warningMessage = "该操作无法撤销！\n确定删除「\(assessment.remarks)」吗？"
+        warningDestructiveAction = assessment.delete
+        showWarning = true
+    }
+    
+    func aboutToEdit(_ assessment: Assessment) {
         assessmentToCreateOrEdit = assessment
         newBarTitle = assessment.remarks
         showNewAssessmentModal.toggle()
     }
     
-    func createNewAssessment() {
+    func aboutCreateNewAssessment() {
         self.assessmentToCreateOrEdit = .create(for: UserSession.currentUser, with: nil, remarks: "", address: nil)
         newBarTitle = "新建评估"
         showNewAssessmentModal.toggle()
