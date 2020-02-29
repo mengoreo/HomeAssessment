@@ -26,11 +26,17 @@ struct CollapsableGradientBackgroundStyle: ButtonStyle {
 }
 
 struct ImageButtonStyle: ButtonStyle {
-    var width: CGFloat = Device.height / 7
-    var height: CGFloat = Device.height / 7
+    var width: CGFloat
+    var height: CGFloat
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(width: width, height: height, alignment: .center)
+            .aspectRatio(contentMode: .fill)
+            .frame(width: width, height: width, alignment: .center)
+            .clipped()
+            .overlay(
+                RoundedRectangle(cornerRadius: 3, style: .continuous)
+                    .stroke(Color(UIColor.systemBackground),lineWidth:1)
+            )
             .shadow(radius: configuration.isPressed ? 0 : 3.0)
             .padding(3)
             .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
