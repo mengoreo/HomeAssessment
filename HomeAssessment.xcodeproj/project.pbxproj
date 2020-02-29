@@ -41,7 +41,6 @@
 		0894E4E923F0F2CF007D8CB7 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */; };
 		0894E51123F285FD007D8CB7 /* AssessmentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51023F285FD007D8CB7 /* AssessmentListView.swift */; };
 		0894E51323F28DEB007D8CB7 /* SignInUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51223F28DEB007D8CB7 /* SignInUpViewModel.swift */; };
-		08CB26D4240917FE00A81EA7 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26D1240917FE00A81EA7 /* CoreDataModel.xcdatamodeld */; };
 		08CB26DA2409199A00A81EA7 /* ElderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26D52409199A00A81EA7 /* ElderSectionView.swift */; };
 		08CB26DB2409199A00A81EA7 /* ContactSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26D62409199A00A81EA7 /* ContactSectionView.swift */; };
 		08CB26DC2409199A00A81EA7 /* NewEditContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26D72409199A00A81EA7 /* NewEditContactView.swift */; };
@@ -55,6 +54,8 @@
 		08CB26ED24091A9300A81EA7 /* StandardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26EA24091A9300A81EA7 /* StandardListView.swift */; };
 		08CB26F024091B0600A81EA7 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26EF24091B0600A81EA7 /* DataFetcher.swift */; };
 		08CB26F32409323300A81EA7 /* TabsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26F22409323300A81EA7 /* TabsContainer.swift */; };
+		08CB26F82409849200A81EA7 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26F52409849200A81EA7 /* CoreDataModel.xcdatamodeld */; };
+		08CB26FA2409879D00A81EA7 /* AssessmentRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26F92409879D00A81EA7 /* AssessmentRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,8 +95,6 @@
 		0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		0894E51023F285FD007D8CB7 /* AssessmentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentListView.swift; sourceTree = "<group>"; };
 		0894E51223F28DEB007D8CB7 /* SignInUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUpViewModel.swift; sourceTree = "<group>"; };
-		08CB26D2240917FE00A81EA7 /* CoreDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
-		08CB26D3240917FE00A81EA7 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		08CB26D52409199A00A81EA7 /* ElderSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElderSectionView.swift; sourceTree = "<group>"; };
 		08CB26D62409199A00A81EA7 /* ContactSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSectionView.swift; sourceTree = "<group>"; };
 		08CB26D72409199A00A81EA7 /* NewEditContactView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewEditContactView.swift; sourceTree = "<group>"; };
@@ -110,6 +109,11 @@
 		08CB26EF24091B0600A81EA7 /* DataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
 		08CB26F12409218600A81EA7 /* shanghai.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = shanghai.gpx; sourceTree = "<group>"; };
 		08CB26F22409323300A81EA7 /* TabsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsContainer.swift; sourceTree = "<group>"; };
+		08CB26F62409849200A81EA7 /* CoreDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		08CB26F72409849200A81EA7 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		08CB26F92409879D00A81EA7 /* AssessmentRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentRowView.swift; sourceTree = "<group>"; };
+		08CB26FB240A0A4100A81EA7 /* CoreDataModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel 3.xcdatamodel"; sourceTree = "<group>"; };
+		08CB26FC240A40FC00A81EA7 /* CoreDataModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel 4.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +130,7 @@
 		0810BECB240900D100CA3833 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				08CB26D1240917FE00A81EA7 /* CoreDataModel.xcdatamodeld */,
+				08CB26F52409849200A81EA7 /* CoreDataModel.xcdatamodeld */,
 				0810BEC5240900BF00CA3833 /* CoreDataHelper.swift */,
 				0810BEC7240900C600CA3833 /* CoreDataModelProperties.swift */,
 				0810BEE024090A3100CA3833 /* Classess */,
@@ -239,12 +243,7 @@
 				0875967523F02BA600CF6C4E /* OnboardingViews */,
 				08CB26F22409323300A81EA7 /* TabsContainer.swift */,
 				08CB26EE24091A9F00A81EA7 /* Standard */,
-				0894E51023F285FD007D8CB7 /* AssessmentListView.swift */,
-				08CB26D82409199A00A81EA7 /* NewEditAssessmentView.swift */,
-				08CB26D62409199A00A81EA7 /* ContactSectionView.swift */,
-				08CB26D72409199A00A81EA7 /* NewEditContactView.swift */,
-				08CB26D52409199A00A81EA7 /* ElderSectionView.swift */,
-				08CB26D92409199A00A81EA7 /* NewElderView.swift */,
+				087D86C6240AA96A00AD8D80 /* Assessment */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,6 +266,36 @@
 				0881318F23F68E270088C4E4 /* TestList.swift */,
 			);
 			path = OnboardingViews;
+			sourceTree = "<group>";
+		};
+		087D86C6240AA96A00AD8D80 /* Assessment */ = {
+			isa = PBXGroup;
+			children = (
+				0894E51023F285FD007D8CB7 /* AssessmentListView.swift */,
+				08CB26F92409879D00A81EA7 /* AssessmentRowView.swift */,
+				08CB26D82409199A00A81EA7 /* NewEditAssessmentView.swift */,
+				087D86C7240AA97A00AD8D80 /* Contact */,
+				087D86C8240AA98200AD8D80 /* Elder */,
+			);
+			path = Assessment;
+			sourceTree = "<group>";
+		};
+		087D86C7240AA97A00AD8D80 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				08CB26D72409199A00A81EA7 /* NewEditContactView.swift */,
+				08CB26D62409199A00A81EA7 /* ContactSectionView.swift */,
+			);
+			path = Contact;
+			sourceTree = "<group>";
+		};
+		087D86C8240AA98200AD8D80 /* Elder */ = {
+			isa = PBXGroup;
+			children = (
+				08CB26D52409199A00A81EA7 /* ElderSectionView.swift */,
+				08CB26D92409199A00A81EA7 /* NewElderView.swift */,
+			);
+			path = Elder;
 			sourceTree = "<group>";
 		};
 		0894E4E723F0F2B7007D8CB7 /* Customisation */ = {
@@ -384,11 +413,13 @@
 				088F50EF23F2F1FD0012B7E7 /* Errors.swift in Sources */,
 				08CB26DB2409199A00A81EA7 /* ContactSectionView.swift in Sources */,
 				0810BEE724090FBB00CA3833 /* SearchController.swift in Sources */,
+				08CB26FA2409879D00A81EA7 /* AssessmentRowView.swift in Sources */,
 				0810BED1240908C600CA3833 /* StandardClass.swift in Sources */,
 				08558A2723EFDADF0081C53D /* SignInUpView.swift in Sources */,
 				08CB26E524091A4000A81EA7 /* CustomAnnotations.swift in Sources */,
 				08CB26DD2409199A00A81EA7 /* NewEditAssessmentView.swift in Sources */,
 				0810BECF240908BF00CA3833 /* AssessmentClass.swift in Sources */,
+				08CB26F82409849200A81EA7 /* CoreDataModel.xcdatamodeld in Sources */,
 				08CB26DA2409199A00A81EA7 /* ElderSectionView.swift in Sources */,
 				08558A0623EE8F370081C53D /* AppDelegate.swift in Sources */,
 				08CB26F32409323300A81EA7 /* TabsContainer.swift in Sources */,
@@ -411,7 +442,6 @@
 				0881319023F68E270088C4E4 /* TestList.swift in Sources */,
 				0810BEDD2409092400CA3833 /* UserSettingsClass.swift in Sources */,
 				0810BED3240908CF00CA3833 /* ElderClass.swift in Sources */,
-				08CB26D4240917FE00A81EA7 /* CoreDataModel.xcdatamodeld in Sources */,
 				0894E4E923F0F2CF007D8CB7 /* CustomViews.swift in Sources */,
 				0869DAD823FBD30C003EBF2C /* CustomStyles.swift in Sources */,
 				0875967023F024E300CF6C4E /* OnboardingViewModel.swift in Sources */,
@@ -615,13 +645,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		08CB26D1240917FE00A81EA7 /* CoreDataModel.xcdatamodeld */ = {
+		08CB26F52409849200A81EA7 /* CoreDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				08CB26D2240917FE00A81EA7 /* CoreDataModel 2.xcdatamodel */,
-				08CB26D3240917FE00A81EA7 /* CoreDataModel.xcdatamodel */,
+				08CB26FC240A40FC00A81EA7 /* CoreDataModel 4.xcdatamodel */,
+				08CB26FB240A0A4100A81EA7 /* CoreDataModel 3.xcdatamodel */,
+				08CB26F62409849200A81EA7 /* CoreDataModel 2.xcdatamodel */,
+				08CB26F72409849200A81EA7 /* CoreDataModel.xcdatamodel */,
 			);
-			currentVersion = 08CB26D2240917FE00A81EA7 /* CoreDataModel 2.xcdatamodel */;
+			currentVersion = 08CB26FC240A40FC00A81EA7 /* CoreDataModel 4.xcdatamodel */;
 			path = CoreDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
