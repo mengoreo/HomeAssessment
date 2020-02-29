@@ -20,7 +20,7 @@ struct NewEditAssessmentView: View {
         NavigationView {
             List {
                 Section(header: Text("备注")) {
-                    CustomTextField("请输入备注，留空则为住宅地址", text: $viewModel.remarks, isEditing: $viewModel.editingRemarks, showClearButton: true, returnKeyType: .done)
+                    CustomTextField("请输入备注，留空则为住宅地址", text: $viewModel.remarks, showClearButton: true, returnKeyType: .done, didBeginEditing: viewModel.didBeginEditingRemarks, didEndEditing: viewModel.didEndEditingRemarks )
                 }
                 
                 ContactSectionView(viewModel: .init(assessment: viewModel.assessment))
@@ -35,11 +35,11 @@ struct NewEditAssessmentView: View {
                     Button(action:{
                         self.viewModel.searchStandardModal.toggle()
                     }) {
-                        Text(self.viewModel.selectedStandard?.name ?? "点击选择")
+                        Text(self.viewModel.assessment.standard?.name ?? "点击选择")
                             .sheet(isPresented: $viewModel.searchStandardModal) {
                                 StandardListView(
                                     viewModel: .init(user: .currentUser),
-                                    selected: self.$viewModel.selectedStandard)
+                                    selected: self.$viewModel.assessment.standard)
                                     .accentColor(.accentColor)
                                 
                         }
@@ -52,7 +52,7 @@ struct NewEditAssessmentView: View {
                     Button(action:{
                         self.viewModel.presentingMap.toggle()
                     }) {
-                        Text("\((viewModel.locatedAt?.name ?? "点击搜索位置"))")
+                        Text("\((viewModel.locatedAt?.address() ?? "点击搜索位置"))")
                     }
                         .sheet(isPresented: $viewModel.presentingMap) {
                             SearchMapView(selectedPlace: self.$viewModel.locatedAt,
@@ -88,25 +88,25 @@ class NewEditAssessmentViewModel: ObservableObject {
     
     @Published var searchStandardModal: Bool = false
     @Published var selectedStandard: Standard? = nil {
-        didSet {
-            selectedStandardDidChange()
+       didSet {
+            if oldValue != selectedStandard {
+//                selectedStandardDidChange()
+            }
         }
     }
-    @Published var remarks: String {
-        didSet {
-            remarksDidChange()
-        }
-    }
+    @Published var remarks: String
     @Published var presentingMap = false
     @Published var locatedAt: MKPlacemark? {
         didSet {
-            locatedAtDidChange()
+            if oldValue != locatedAt {
+//                locatedAtDidChange()
+            }
         }
     }
     @Published var editingRemarks = false
     
 
-    let assessment: Assessment
+    var assessment: Assessment
     var contact: Contact? = nil
     
     init(assessment: Assessment) {
@@ -120,23 +120,31 @@ class NewEditAssessmentViewModel: ObservableObject {
         print("** done button", assessment)
         return assessment.getContacts().isEmpty
             || assessment.getElders().isEmpty
-            || assessment.standard == nil
-            || assessment.address == nil
-            || !assessment.hasChanges
+            || selectedStandard == nil
+            || locatedAt == nil
+//            || !assessment.hasChanges
     }
     
     
-    func remarksDidChange() {
-        assessment.update(remarks: remarks)
+//    func remarksDidChange() {
+//        assessment.update(remarks: remarks)
+//        remarks = assessment.remarks
+//    }
+    func didBeginEditingRemarks() {
+        self.editingRemarks = true
     }
-    func locatedAtDidChange() {
-        print("** locatedAtDidChange")
-        assessment.update(address: locatedAt)
+    func didEndEditingRemarks() {
+        self.editingRemarks = false
+//        remarksDidChange()
     }
-    func selectedStandardDidChange() {
-        print("** selectedStandardDidChange")
-        assessment.update(standard: selectedStandard)
-    }
+//    func locatedAtDidChange() {
+//        assessment.update(address: locatedAt)
+//    }
+//    func selectedStandardDidChange() {
+//        print("** selectedStandardDidChange")
+//        assessment.update(standard: selectedStandard)
+//        selectedStandard = assessment.standard
+//    }
     func didSelect(_ place: MKAnnotation) {
         CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)) {placemarks, error in
             guard error == nil else {
@@ -146,7 +154,6 @@ class NewEditAssessmentViewModel: ObservableObject {
             // Most geocoding requests contain only one result.
             if let firstPlacemark = placemarks?.first {
                 self.locatedAt = MKPlacemark(placemark: firstPlacemark)
-                self.assessment.update(address: self.locatedAt)
             }
         }
     }
@@ -159,11 +166,15 @@ class NewEditAssessmentViewModel: ObservableObject {
     }
     func save() {
         if remarks.isEmpty {
-            remarks = locatedAt?.address() ?? "无备注"
+            print("empty remakr")
+            remarks = locatedAt?.name ?? "无备注\(assessment.dateString)"
         }
         assessment.update(remarks: remarks, address: locatedAt, progress: assessment.progress, standard: selectedStandard)
         assessment.dateUpdated = Date()
-        CoreDataHelper.stack.save() // then disappear
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            // save after dismiss the modal
+            CoreDataHelper.stack.save() // then disappear
+//        }
     }
     
 }
