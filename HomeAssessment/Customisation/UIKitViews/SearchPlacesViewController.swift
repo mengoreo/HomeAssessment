@@ -35,7 +35,6 @@ class SearchPlacesViewController : UIViewController {
     private var mapView: MKMapView!
     private var searchController: UISearchController!
     private let locationManager = CLLocationManager()
-    private let mapSnapshotOptions = MKMapSnapshotter.Options()
     private let searchResultsController = SearchResultViewController()
     private struct SpanType {
         static let placeScale: CLLocationDegrees = 0.003
@@ -51,7 +50,6 @@ class SearchPlacesViewController : UIViewController {
         setupLocationManager()
         setupSearchController()
         setupNavigationBar()
-        
     }
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -79,6 +77,11 @@ class SearchPlacesViewController : UIViewController {
         mapView = MKMapView(frame: CGRect(x: 0, y: 0, width: displayWidth, height: displayHeight))
         mapView.delegate = self
         mapView.showsUserLocation = true
+        mapView.showsScale = true
+        mapView.showsCompass = true
+        mapView.showsTraffic = true
+        mapView.showsBuildings = true
+        
         view.addSubview(mapView)
         
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(CustomAnnotation.self))
@@ -117,7 +120,7 @@ class SearchPlacesViewController : UIViewController {
         
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
-        searchController.searchBar.tintColor = .darkGreen
+        searchController.searchBar.tintColor = .tintColor
         navigationItem.hidesSearchBarWhenScrolling = true
         
     }
@@ -139,9 +142,10 @@ class SearchPlacesViewController : UIViewController {
         
         navigationItem.setRightBarButtonItems([focusButton], animated: true)
         navigationItem.setLeftBarButton(closeButton, animated: true)
-        navigationController?.navigationBar.tintColor = .darkGreen
+        navigationController?.navigationBar.tintColor = .tintColor
         navigationController?.modalPresentationStyle = .fullScreen
     }
+    
     
     // MARK: - selectors
     @objc func showSearchBar() {
@@ -151,6 +155,8 @@ class SearchPlacesViewController : UIViewController {
         searchController.isActive = false
     }
     @objc func close() {
+        self.locationManager.stopUpdatingLocation()
+        self.mapView.removeFromSuperview()
         self.dismiss(animated: true, completion: nil)
     }
     @objc func focuseOnUserLocation() {
@@ -170,7 +176,7 @@ class SearchPlacesViewController : UIViewController {
         let rightButton = UIButton(type: .detailDisclosure)
         rightButton.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         rightButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .highlighted)        
-        rightButton.tintColor = .darkGreen
+        rightButton.tintColor = .tintColor
         view.rightCalloutAccessoryView = rightButton // rightcallout is nil
         
     }
@@ -179,7 +185,7 @@ class SearchPlacesViewController : UIViewController {
     private func setupCustomPinCallout(for annotation: MKAnnotation) -> MKAnnotationView {
         
         let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: String(describing: CustomAnnotation.self))
-        annotationView.markerTintColor = .darkGreen
+        annotationView.markerTintColor = .tintColor
         annotationView.canShowCallout = true
         
         let detailLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 23))
@@ -193,7 +199,7 @@ class SearchPlacesViewController : UIViewController {
         let rightButton = UIButton(type: .detailDisclosure)
         rightButton.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         rightButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .highlighted)
-        rightButton.tintColor = .darkGreen
+        rightButton.tintColor = .tintColor
 
         annotationView.rightCalloutAccessoryView = rightButton
         return annotationView
