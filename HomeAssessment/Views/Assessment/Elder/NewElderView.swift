@@ -53,7 +53,12 @@ class NewElderViewModel: NSObject, ObservableObject {
     
     init(assessment: Assessment, elder: Elder? = nil) {
         self.elder = elder
-        self.elderInfo = ElderInfo(name: elder?.name ?? "", height: elder == nil ? "" : "\(elder!.heightInCM)", category: categories.firstIndex(of: elder?.status ?? "慢病自理")!)
+        if elder == nil {
+            self.elderInfo = ElderInfo(name: "", height: "", category: 2)
+        } else {
+            self.elderInfo = ElderInfo(name: elder!.name, height: "\(elder!.heightInCM)", category: categories.firstIndex(of: elder!.status) ?? 2)
+        }
+        
         self.assessment = assessment
         super.init()
         barTitle = elderInfo.name.isEmpty ? "新建老人信息" : elderInfo.name

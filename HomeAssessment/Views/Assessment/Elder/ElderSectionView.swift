@@ -17,8 +17,8 @@ struct ElderSectionView: View {
             Section(header:Text("家中老人")) {
                 
                 ForEach(viewModel.elders) { elder in
-                    if !elder.isDeleted {
-                        NavigationLink(destination: NewElderView(viewModel: .init(assessment: self.viewModel.assessment, elder: elder))) {
+                    
+                    NavigationLink(destination: NewElderView(viewModel: .init(assessment: self.viewModel.assessment, elder: elder))) {
                         Text(elder.name)
                             .contextMenu {
                                 Button(action:{
@@ -31,7 +31,7 @@ struct ElderSectionView: View {
                                 }
                             }
                     }
-                    }
+                    
 
                 }.onDelete(perform: viewModel.delete(at:))
                 
