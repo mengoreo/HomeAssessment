@@ -74,9 +74,11 @@ public class Standard: NSManagedObject, Identifiable {
     }
     
     func getAssessments() -> [Assessment] {
-        let request = Assessment.fetch()
-        request.predicate = NSPredicate(format: "SELF IN %@", self.assessments!)
-        
-        return CoreDataHelper.stack.fetch(request)
+        print("*** geting Assessments")
+        return Assessment.all().filter{$0.standard == self}
+//        let request = Assessment.fetch()
+//        request.predicate = NSPredicate(format: "SELF IN %@", self.assessments!)
+//
+//        return CoreDataHelper.stack.fetch(request)
     }
 }
