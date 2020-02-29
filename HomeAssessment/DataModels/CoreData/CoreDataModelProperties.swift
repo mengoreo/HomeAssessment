@@ -46,6 +46,7 @@ extension Assessment {
     @NSManaged public var remarks: String
     @NSManaged public var address: CLPlacemark?
     @NSManaged public var mapPreview: UIImage?
+    @NSManaged public var mapPreviewNeedsUpdate: Bool
     @NSManaged public var user: UserSession // to one - nullify
     @NSManaged public var standard: Standard? // to one - nullify
     @NSManaged public var contacts: Contact? // to many - cascade
@@ -97,7 +98,7 @@ extension Standard {
 
     @nonobjc public class func fetch() -> NSFetchRequest<Standard> {
         let request = NSFetchRequest<Standard>(entityName: "Standard")
-        let sortDescriptor = NSSortDescriptor(key: "dateUpdated", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "index", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         return request
     }
@@ -119,7 +120,7 @@ extension Question {
 
     @nonobjc public class func fetch() -> NSFetchRequest<Question> {
         let request = NSFetchRequest<Question>(entityName: "Question")
-        let sortDescriptor = NSSortDescriptor(key: "dateUpdated", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "index", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         return request
     }
@@ -142,7 +143,7 @@ extension Option {
 
     @nonobjc public class func fetch() -> NSFetchRequest<Option> {
         let request = NSFetchRequest<Option>(entityName: "Option")
-        let sortDescriptor = NSSortDescriptor(key: "dateUpdated", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "index", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         return request
     }
