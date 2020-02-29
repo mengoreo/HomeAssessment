@@ -8,6 +8,7 @@
 
 import CoreData
 import CoreLocation
+import UIKit
 
 @objc(Assessment)
 public class Assessment: NSManagedObject, Identifiable {
@@ -23,6 +24,7 @@ public class Assessment: NSManagedObject, Identifiable {
         newAssessment.progress = 0
         newAssessment.remarks = remarks
         newAssessment.address = address
+        newAssessment.mapPreviewNeedsUpdate = address != nil
         newAssessment.standard = standard
         newAssessment.user = user
         
@@ -53,13 +55,19 @@ public class Assessment: NSManagedObject, Identifiable {
     
     var dateString: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return dateFormatter.string(from: self.dateUpdated)
+        dateFormatter.dateFormat = "yyyy"
+        if dateFormatter.string(from: Date()) != dateFormatter.string(from: self.dateUpdated) {
+            dateFormatter.dateFormat = "HH:mm yyyy-MM-dd"
+        } else {
+            dateFormatter.dateFormat = "HH:mm MM-dd"
+        }
+        return dateFormatter.string(from: dateUpdated)
     }
     
     func update(_ force: Bool = false,
                 remarks: String? = nil,                
                 address: CLPlacemark? = nil,
+                preview: UIImage? = nil,
                 progress: Double? = nil,
                 standard: Standard? = nil) {
         var updated = force
@@ -77,8 +85,14 @@ public class Assessment: NSManagedObject, Identifiable {
             if self.address == nil || !self.address!.isEqualTo(address){
                 print("** update address")
                 self.address = address
+                self.mapPreviewNeedsUpdate = true
                 updated = true
             }
+        }
+        if let image = preview, image != self.mapPreview {
+            self.mapPreview = image
+            self.mapPreviewNeedsUpdate = false
+            updated = true
         }
         if let standard = standard, standard != self.standard {
             print("** update standard")
@@ -95,15 +109,16 @@ public class Assessment: NSManagedObject, Identifiable {
     func delete() {
         print(self, "deleting")
         CoreDataHelper.stack.context.delete(self)
+        CoreDataHelper.stack.save()
     }
     func getElders() -> [Elder] {
-//        if self.elders != nil {
-//            let request = Elder.fetch()
-//            request.predicate = NSPredicate(format: "SELF IN %@", self.elders!)
-//            return CoreDataHelper.stack.fetch(request)
-//        }
-//        return []
-        return Elder.all().filter{$0.assessment == self}
+        if self.elders != nil {
+            let request = Elder.fetch()
+            request.predicate = NSPredicate(format: "SELF IN %@", self.elders!)
+            return CoreDataHelper.stack.fetch(request)
+        }
+        return []
+//        return Elder.all().filter{$0.assessment == self}
     }
     func getContacts() -> [Contact] {
         if self.contacts != nil {
@@ -122,6 +137,6 @@ public class Assessment: NSManagedObject, Identifiable {
                 &&
                 !self.getContacts().isEmpty
                 &&
-                self.standard != nil
+                self.address != nil
     }
 }
