@@ -52,6 +52,14 @@ extension UIApplication {
             .endEditing(force)
     }
 }
+extension UIImage {
+    static var mapPreview: UIImage {
+        return UIImage(named: "mapPreview") ?? UIImage()
+    }
+    static var placemark: UIImage {
+        return UIImage(named: "placemark") ?? UIImage()
+    }
+}
 extension UITextField{
 
     func addDoneButtonToKeyboard(myAction:Selector?){
