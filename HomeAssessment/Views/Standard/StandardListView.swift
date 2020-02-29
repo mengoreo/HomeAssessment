@@ -27,22 +27,35 @@ struct StandardListView: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
                         HStack {
-                            Text("\(standard.index)")
-                            VStack(alignment: .leading) {
-                                Text(standard.name).font(.title)
-                                Text(standard.uuid.uuidString)
-                                Text("updated at: \(standard.dateString)").font(.footnote)
-                                Text("\(standard.getQuestions().count)")
-                                Text("\(standard.getAssessments().count)")
+                            VStack(alignment: .leading, spacing: 7) {
+                                Text("\(standard.index) " + standard.name).font(.body)
+                                Text("于 \(standard.dateString) 更新")
+                                    .font(.footnote)
+                                    .foregroundColor(Color(UIColor.secondaryLabel))
+                            }
+                            
+                            Spacer()
+                            
+                            VStack(alignment: .leading, spacing: 7) {
+                                Text("共 \(standard.getQuestions().count) 个问题")
+                                    .font(.footnote)
+                                    .foregroundColor(Color(UIColor.secondaryLabel))
+                                Text("关联 \(standard.getAssessments().count) 个评估")
+                                    .font(.footnote)
+                                    .foregroundColor(Color(UIColor.secondaryLabel))
                             }
                             if self.selected.wrappedValue != nil && self.selected.wrappedValue == standard {
-                                Spacer()
+                                Spacer().frame(width: 3)
                                 Image(systemName: "checkmark").foregroundColor(.accentColor)
                             }
-                        }.contextMenu {
-                            NavigationLink(destination: QuestionListView(questions: standard.getQuestions())) {
-                                Text("查看问题")
-                                Image(systemName: "arrow.right.circle")
+                        }
+                        .padding(.vertical, 10)
+                        .contextMenu {
+                            if !standard.getQuestions().isEmpty {
+                                NavigationLink(destination: QuestionListView(questions: standard.getQuestions())) {
+                                    Text("查看问题")
+                                    Image(systemName: "arrow.right.circle")
+                                }
                             }
                             Button(action:{
                                 self.viewModel.aboutToDelete(standard)
@@ -53,11 +66,10 @@ struct StandardListView: View {
                         }
                     }
                 }
-                .onDelete(perform: self.viewModel.aboutToDelete(at:))
                 .actionSheet(isPresented: self.$viewModel.showActionSheet) {
                     ActionSheet(title: Text(self.viewModel.actionTitle),
-                                buttons: [.cancel({self.viewModel.cancelDelete()}),
-                                          .destructive(Text("Confirm"), action: {
+                                buttons: [.cancel(Text("取消"), action: {self.viewModel.cancelDelete()}),
+                                          .destructive(Text("确定"), action: {
                                             self.viewModel.destructiveAction()
                                           })]
                     )
@@ -140,56 +152,56 @@ class StandardListViewModel: NSObject, ObservableObject {
     func aboutToDelete(_ standard: Standard) {
         var message = standard.getAssessments().map {"「评估项目: \($0.remarks)」"}.joined(separator: "和")
         if !message.isEmpty {
-            message = message + "正在使用「\(standard.name)」"
+            message = message + "正在使用「\(standard.name)」。❗️删除之后，这些评估进度将会被重置❗️\n"
         }
-        message = "确定删除「\(standard.name)」吗?"
+        message += "确定删除「\(standard.name)」吗?"
         
         actionTitle = message
         showActionSheet = true
         destructiveAction = standard.delete
     }
     
-    func aboutToDelete(at offsets: IndexSet) {
-//        let offsets: IndexSet = [0, 1]
-        var message = offsets.map{
-                let assessmentRemarks = standards[$0].getAssessments().map {"「评估项目: \($0.remarks)」"}.joined(separator: "和")
-                if !assessmentRemarks.isEmpty {
-                    return assessmentRemarks + "正在使用「\(standards[$0].name)」"
-                }
-                return ""
-            }.joined(separator: ";\n")
-        if !message.isEmpty {
-            message = message + "\n❗️删除之后，对应评估将不能继续进行❗️" + "\n\n确定删除\(offsets.map{"「\(standards[$0].name)」"}.joined(separator: "和"))吗?"
-        } else {
-            message = "确定删除\(offsets.map{"「\(standards[$0].name)」"}.joined(separator: "和"))吗?"
-        }
-        
-            
-        
-        actionTitle = message
-        offsetsToDelete = offsets
-        showActionSheet = true
-        destructiveAction = deleteStandard
-        
-    }
-    func aboutToDeleteAll() {
-        actionTitle = "Delete all standards?"
-        showActionSheet = true
-        destructiveAction = clearStandards
-    }
+//    func aboutToDelete(at offsets: IndexSet) {
+////        let offsets: IndexSet = [0, 1]
+//        var message = offsets.map{
+//                let assessmentRemarks = standards[$0].getAssessments().map {"「评估项目: \($0.remarks)」"}.joined(separator: "和")
+//                if !assessmentRemarks.isEmpty {
+//                    return assessmentRemarks + "正在使用「\(standards[$0].name)」"
+//                }
+//                return ""
+//            }.joined(separator: ";\n")
+//        if !message.isEmpty {
+//            message = message + "\n❗️删除之后，对应评估将不能继续进行❗️" + "\n\n确定删除\(offsets.map{"「\(standards[$0].name)」"}.joined(separator: "和"))吗?"
+//        } else {
+//            message = "确定删除\(offsets.map{"「\(standards[$0].name)」"}.joined(separator: "和"))吗?"
+//        }
+//
+//
+//
+//        actionTitle = message
+//        offsetsToDelete = offsets
+//        showActionSheet = true
+//        destructiveAction = deleteStandard
+//
+//    }
+//    func aboutToDeleteAll() {
+//        actionTitle = "Delete all standards?"
+//        showActionSheet = true
+//        destructiveAction = clearStandards
+//    }
     func cancelDelete() {
         actionTitle = ""
         showActionSheet = false
         destructiveAction = {}
     }
-    func deleteStandard() {
-        for index in self.offsetsToDelete {
-            standards[index].delete()
-        }
-    }
-    func clearStandards() {
-        Standard.clear()
-    }
+//    func deleteStandard() {
+//        for index in self.offsetsToDelete {
+//            standards[index].delete()
+//        }
+//    }
+//    func clearStandards() {
+//        Standard.clear()
+//    }
     
     // MARK: - handle json data
     private func handle(data: Data, response: URLResponse, error: Error?, for parent: NSManagedObject) {
