@@ -45,6 +45,7 @@ extension Assessment {
     @NSManaged public var progress: Double
     @NSManaged public var remarks: String
     @NSManaged public var address: CLPlacemark?
+    @NSManaged public var mapPreview: UIImage?
     @NSManaged public var user: UserSession // to one - nullify
     @NSManaged public var standard: Standard? // to one - nullify
     @NSManaged public var contacts: Contact? // to many - cascade
