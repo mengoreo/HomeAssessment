@@ -45,6 +45,7 @@
 		083972D22417A339002F0464 /* AssessmentRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972D12417A339002F0464 /* AssessmentRowViewModel.swift */; };
 		083972D52417A3AA002F0464 /* NewEditAssessmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972D42417A3AA002F0464 /* NewEditAssessmentViewModel.swift */; };
 		083972D72417A3FA002F0464 /* NewEditContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972D62417A3FA002F0464 /* NewEditContactViewModel.swift */; };
+		083972D92417A460002F0464 /* ContactSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972D82417A460002F0464 /* ContactSectionViewModel.swift */; };
 		0847F50623FC3D2400D5F3EE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847F50523FC3D2400D5F3EE /* Models.swift */; };
 		08558A0623EE8F370081C53D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0523EE8F370081C53D /* AppDelegate.swift */; };
 		08558A0823EE8F370081C53D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0723EE8F370081C53D /* SceneDelegate.swift */; };
@@ -122,6 +123,7 @@
 		083972D12417A339002F0464 /* AssessmentRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentRowViewModel.swift; sourceTree = "<group>"; };
 		083972D42417A3AA002F0464 /* NewEditAssessmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditAssessmentViewModel.swift; sourceTree = "<group>"; };
 		083972D62417A3FA002F0464 /* NewEditContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditContactViewModel.swift; sourceTree = "<group>"; };
+		083972D82417A460002F0464 /* ContactSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSectionViewModel.swift; sourceTree = "<group>"; };
 		0847F50523FC3D2400D5F3EE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		08558A0223EE8F370081C53D /* HomeAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08558A0523EE8F370081C53D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				08CB26D72409199A00A81EA7 /* NewEditContactView.swift */,
 				083972D62417A3FA002F0464 /* NewEditContactViewModel.swift */,
 				08CB26D62409199A00A81EA7 /* ContactSectionView.swift */,
+				083972D82417A460002F0464 /* ContactSectionViewModel.swift */,
 			);
 			path = Contact;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				082D0DB22413D5F2007C59F7 /* EvaluatingView.swift in Sources */,
 				08CB26DA2409199A00A81EA7 /* ElderSectionView.swift in Sources */,
 				080384CC2414B87E006446BE /* TakePhotos.swift in Sources */,
+				083972D92417A460002F0464 /* ContactSectionViewModel.swift in Sources */,
 				08558A0623EE8F370081C53D /* AppDelegate.swift in Sources */,
 				08CB26F32409323300A81EA7 /* TabsContainer.swift in Sources */,
 				08CB26ED24091A9300A81EA7 /* StandardListView.swift in Sources */,
