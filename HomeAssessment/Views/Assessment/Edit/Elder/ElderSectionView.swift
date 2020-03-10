@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct ElderSectionView: View {
     @ObservedObject var viewModel: ElderSectionViewModel
@@ -50,35 +49,3 @@ struct ElderSectionView: View {
     }
 }
 
-class ElderSectionViewModel: NSObject, NSFetchedResultsControllerDelegate, ObservableObject {
-    
-    let assessment: Assessment
-    
-    // manually publish changes
-    var elders: [Elder] {
-        return assessment.getElders()
-    }
-    
-    init(assessment: Assessment) {
-        self.assessment = assessment
-    }
-    
-    func onAppear() {
-//        try? elderController.performFetch()
-        
-        print("objectWillChange in eldersection")
-        objectWillChange.send()
-    }
-    func delete(at offsets: IndexSet) {
-        
-        print("objectWillChange in delete elder")
-        objectWillChange.send()
-        for index in offsets {
-            elders[index].delete()
-        }
-    }
-//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        print("elder will change")
-////        objectWillChange.send()
-//    }
-}
