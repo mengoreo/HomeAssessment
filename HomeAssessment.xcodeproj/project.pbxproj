@@ -40,6 +40,7 @@
 		082D0DB6241407B6007C59F7 /* TabBarControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082D0DB5241407B6007C59F7 /* TabBarControllerView.swift */; };
 		083972C72415DC70002F0464 /* ARMeasureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972C62415DC6F002F0464 /* ARMeasureView.swift */; };
 		083972CC2416CA0F002F0464 /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972CB2416CA0F002F0464 /* Threading.swift */; };
+		083972CE2417A252002F0464 /* StandardListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972CD2417A252002F0464 /* StandardListViewModel.swift */; };
 		0847F50623FC3D2400D5F3EE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847F50523FC3D2400D5F3EE /* Models.swift */; };
 		08558A0623EE8F370081C53D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0523EE8F370081C53D /* AppDelegate.swift */; };
 		08558A0823EE8F370081C53D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0723EE8F370081C53D /* SceneDelegate.swift */; };
@@ -112,6 +113,7 @@
 		083972C62415DC6F002F0464 /* ARMeasureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARMeasureView.swift; sourceTree = "<group>"; };
 		083972CA2416ACA7002F0464 /* CoreDataModel 11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel 11.xcdatamodel"; sourceTree = "<group>"; };
 		083972CB2416CA0F002F0464 /* Threading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Threading.swift; sourceTree = "<group>"; };
+		083972CD2417A252002F0464 /* StandardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardListViewModel.swift; sourceTree = "<group>"; };
 		0847F50523FC3D2400D5F3EE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		08558A0223EE8F370081C53D /* HomeAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08558A0523EE8F370081C53D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -404,6 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				08CB26EA24091A9300A81EA7 /* StandardListView.swift */,
+				083972CD2417A252002F0464 /* StandardListViewModel.swift */,
 				08CB26EB24091A9300A81EA7 /* QuestionListView.swift */,
 			);
 			path = Standard;
@@ -519,6 +522,7 @@
 				08CB26FA2409879D00A81EA7 /* AssessmentRowView.swift in Sources */,
 				080385292415292B006446BE /* Standard+CoreDataProperties.swift in Sources */,
 				08558A2723EFDADF0081C53D /* SignInUpView.swift in Sources */,
+				083972CE2417A252002F0464 /* StandardListViewModel.swift in Sources */,
 				0803854224152A41006446BE /* Elder+CoreDataClass.swift in Sources */,
 				0803854524152A41006446BE /* Standard+CoreDataClass.swift in Sources */,
 				0803854624152A41006446BE /* Assessment+CoreDataClass.swift in Sources */,
