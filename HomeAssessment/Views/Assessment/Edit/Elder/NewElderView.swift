@@ -54,7 +54,7 @@ class NewElderViewModel: NSObject, ObservableObject {
     init(assessment: Assessment, elder: Elder? = nil) {
         self.elder = elder
         if elder == nil {
-            self.elderInfo = ElderInfo(name: "", height: "", category: 2)
+            self.elderInfo = ElderInfo(name: "fake", height: "100", category: 2)
         } else {
             self.elderInfo = ElderInfo(name: elder!.name, height: "\(elder!.heightInCM)", category: categories.firstIndex(of: elder!.status) ?? 2)
         }
@@ -73,7 +73,8 @@ class NewElderViewModel: NSObject, ObservableObject {
         if elder != nil {
             elder!.update(name: elderInfo.name, heightInCM: elderInfo.height.intValue, status: categories[elderInfo.category])
         } else {
-            Elder.create(for: assessment, name: elderInfo.name, heightInCM: elderInfo.height.intValue, status: categories[elderInfo.category])
+            let e = Elder.create(name: elderInfo.name, heightInCM: elderInfo.height.intValue, status: categories[elderInfo.category])
+            e.setPrimitiveValue(assessment, forKey: "assessment")
         }
         
     }

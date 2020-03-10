@@ -15,6 +15,8 @@ struct StandardListView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var selected: Binding<Standard?>
     
+    @State var showQuestions = false
+    
     var body: some View {
         NavigationView {
             
@@ -23,36 +25,50 @@ struct StandardListView: View {
                 ForEach(self.viewModel.standards) { standard in
                     
                     Button(action:{
-                        self.selected.wrappedValue = standard
-                        self.presentationMode.wrappedValue.dismiss()
+                        if AppStatus.currentStatus.lastOpenedTab == 0 {
+                            self.selected.wrappedValue = standard
+                            self.presentationMode.wrappedValue.dismiss()
+                        } else {
+                            self.showQuestions = true
+                            
+                        }
                     }) {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 7) {
-                                Text("\(standard.index) " + standard.name).font(.body)
-                                Text("于 \(standard.dateString) 更新")
-                                    .font(.footnote)
-                                    .foregroundColor(Color(UIColor.secondaryLabel))
-                            }
+                        ZStack {
+                            NavigationLink(destination: QuestionListView(questions: standard.getQuestions()), isActive: self.$showQuestions) {
+                                Text("")
+                            }.hidden()
                             
-                            Spacer()
-                            
-                            VStack(alignment: .leading, spacing: 7) {
-                                Text("共 \(standard.getQuestions().count) 个问题")
-                                    .font(.footnote)
-                                    .foregroundColor(Color(UIColor.secondaryLabel))
-                                Text("关联 \(standard.getAssessments().count) 个评估")
-                                    .font(.footnote)
-                                    .foregroundColor(Color(UIColor.secondaryLabel))
-                            }
-                            if self.selected.wrappedValue != nil && self.selected.wrappedValue == standard {
-                                Spacer().frame(width: 3)
-                                Image(systemName: "checkmark").foregroundColor(.accentColor)
+                            HStack {
+                                VStack(alignment: .leading, spacing: 7) {
+                                    Text("\(standard.index) " + standard.name).font(.body)
+                                    Text("于 \(standard.dateString) 更新")
+                                        .font(.footnote)
+                                        .foregroundColor(Color(UIColor.secondaryLabel))
+                                }
+                                
+                                Spacer()
+                                
+                                VStack(alignment: .leading, spacing: 7) {
+                                    Text("共 \(standard.getQuestions().count) 个问题")
+                                        .font(.footnote)
+                                        .foregroundColor(Color(UIColor.secondaryLabel))
+                                    Text("关联 \(standard.getAssessments().count) 个评估")
+                                        .font(.footnote)
+                                        .foregroundColor(Color(UIColor.secondaryLabel))
+                                }
+                                if self.selected.wrappedValue != nil && self.selected.wrappedValue == standard {
+                                    Spacer().frame(width: 3)
+                                    Image(systemName: "checkmark").foregroundColor(.accentColor)
+                                }
+                                
                             }
                         }
                         .padding(.vertical, 10)
                         .contextMenu {
                             if !standard.getQuestions().isEmpty {
-                                NavigationLink(destination: QuestionListView(questions: standard.getQuestions())) {
+                                Button(action: {
+                                    self.showQuestions = true
+                                }) {
                                     Text("查看问题")
                                     Image(systemName: "arrow.right.circle")
                                 }
@@ -95,7 +111,6 @@ struct StandardListView: View {
 
                     }) {
                         Text("Fake")
-                        Image(systemName: "trash.circle")
                     }
                 }
                 
@@ -133,16 +148,38 @@ class StandardListViewModel: NSObject, ObservableObject {
     }
     
     func onAppear() {
+        
+        print("objectWillChange in standardlist")
         objectWillChange.send()
         try? standardController.performFetch()
     }
     
     func fakeCreate() {
-        _ = Standard.create(for: user, name: "fake", index: 0, uuidString: UUID().uuidString)
+        let fstandard = Standard.create(for: user, name: "居家适老化评估标准", index: 0, uuidString: UUID().uuidString)
+        let q1 = Question.create(for: fstandard, index: 1, name: "照光够明亮，方便老人可以看清屋内物品及家具、通道等位置", measurable: false, uuidString: UUID().uuidString)
+        let q2 = Question.create(for: fstandard, index: 2, name: "屋内的电灯开关都有明显的特殊设计（例如：有开关外环显示灯或萤黄贴条）", measurable: false, uuidString: UUID().uuidString)
+        let q3 = Question.create(for: fstandard, index: 3, name: "光线强度不会让老年人感到眩晕或看不清物品位置", measurable: false, uuidString: UUID().uuidString)
+        let q4 = Question.create(for: fstandard, index: 4, name: "门距够宽，可让老年人容易进出", measurable: true, uuidString: UUID().uuidString)
+        
+        Option.create(for: q1, index: 1, optionDescription: "白天需要开灯才够明亮", from_val: 0, to_val: 0, vote: 1, suggestion: "适当增加室内亮度", uuidString: UUID().uuidString)
+        Option.create(for: q1, index: 2, optionDescription: "白天需要开灯才够明亮，但通常不开灯", from_val: 0, to_val: 0, vote: 2, suggestion: "适当增加室内亮度", uuidString: UUID().uuidString)
+        Option.create(for: q1, index: 3, optionDescription: "白天不需要开灯，照光就足够明亮", from_val: 0, to_val: 0, vote: 3, suggestion: "", uuidString: UUID().uuidString)
+        
+        Option.create(for: q2, index: 1, optionDescription: "无明显特殊设计", from_val: 0, to_val: 0, vote: 1, suggestion: "在开关处增加标记", uuidString: UUID().uuidString)
+        Option.create(for: q2, index: 2, optionDescription: "有明显特殊设计", from_val: 0, to_val: 0, vote: 2, suggestion: "", uuidString: UUID().uuidString)
+        
+        Option.create(for: q3, index: 1, optionDescription: "光线较弱，看不清物品", from_val: 0, to_val: 0, vote: 1, suggestion: "适当增加室内的进光量", uuidString: UUID().uuidString)
+        Option.create(for: q3, index: 2, optionDescription: "光线较强，使人感到眩晕", from_val: 0, to_val: 0, vote: 2, suggestion: "适当减弱室内的进光量", uuidString: UUID().uuidString)
+        Option.create(for: q3, index: 3, optionDescription: "光线强度适中，使人眼睛舒适且能看清物品", from_val: 0, to_val: 0, vote: 3, suggestion: "", uuidString: UUID().uuidString)
+        
+        Option.create(for: q4, index: 1, optionDescription: "", from_val: 0, to_val: 90, vote: 1, suggestion: "门距太窄", uuidString: UUID().uuidString)
+        Option.create(for: q4, index: 2, optionDescription: "", from_val: 90, to_val: 100, vote: 2, suggestion: "门距适当加宽距离", uuidString: UUID().uuidString)
+        Option.create(for: q4, index: 3, optionDescription: "", from_val: 100, to_val: 99999, vote: 3, suggestion: "", uuidString: UUID().uuidString)
+        
     }
     func refresh() {
         loading = true
-        DataFetcher.fetchTask(.standard, with: user.token, completionHandler: handle(data:response:error:for:), for: user)
+        APIDataManager.fetchTask(.standard, with: user.token, completionHandler: handle(data:response:error:for:), for: user)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             // in case no response
             self.loading = false
@@ -221,7 +258,7 @@ class StandardListViewModel: NSObject, ObservableObject {
         for standardJ in standardsJSON {
             let standard = Standard.create(for: curUser, name: standardJ.name, index: standardJ.index, uuidString: standardJ.id)            
             
-            DataFetcher.fetchTask(.question(standard: standardJ.index), with: curUser.token, completionHandler: handleQuestion(data:response:error:for:), for: standard)
+            APIDataManager.fetchTask(.question(standard: standardJ.index), with: curUser.token, completionHandler: handleQuestion(data:response:error:for:), for: standard)
         }
     }
     private func handleQuestion(data: Data, response: URLResponse, error: Error?, for parent: NSManagedObject) {
@@ -235,7 +272,7 @@ class StandardListViewModel: NSObject, ObservableObject {
         for questionJ in questionsJSON {
              let question = Question.create(for: standard, index: Int32(questionJ.index), name: questionJ.title, measurable: questionJ.isMeasurable, uuidString: questionJ.id)
             
-            DataFetcher.fetchTask(.option(standard: Int(standard.index), question: questionJ.index), with: standard.user.token, completionHandler: handleOption(data:response:error:for:), for: question)
+            APIDataManager.fetchTask(.option(standard: Int(standard.index), question: questionJ.index), with: standard.user.token, completionHandler: handleOption(data:response:error:for:), for: question)
         }
     }
     

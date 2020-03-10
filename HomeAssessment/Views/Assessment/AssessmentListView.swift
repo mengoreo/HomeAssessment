@@ -17,54 +17,71 @@ struct AssessmentListView: View {
             ZStack {
                 List {
                     ForEach(viewModel.assessments) {assessment in
-                        AssessmentRowView(viewModel: .init(assessment: assessment))
-                            .contextMenu {
-                                Button(action: {
-                                    self.viewModel.aboutToEdit(assessment)
-                                }) {
-                                    Text("编辑")
-                                    Image(systemName: "chevron.right.circle")
-                                }
-                                Button(action: {
-                                    self.viewModel.aboutToDelete(assessment)
-                                }) {
-                                    Text("删除❗️")
-                                    Image(systemName: "trash.circle")
-                                }
+//                        if !assessment.isDeleted {
+                            NavigationLink(destination:
+                                EvaluatingView(assessment: assessment)
+                                    .accentColor(.accentColor)
+                                    .animation(.myease)
+                            ) {
+                                AssessmentRowView(viewModel: .init(assessment: assessment))
+                                .animation(.myease)
+                                
                             }
-                    }
+                            .disabled(self.viewModel.updating || assessment.standard == nil)
+//                        }
+                    }.onReceive(viewModel.objectWillChange, perform: {_ in
+                        print("recieved")
+                    })
+                
                 }
                 .onAppear(perform: viewModel.onAppear)
 
                 Text("").hidden().sheet(isPresented: $viewModel.showNewAssessmentModal, onDismiss: viewModel.newAssessmentModalDismissed) {
-                    NewEditAssessmentView(viewModel: .init(assessment: self.viewModel.assessmentToCreateOrEdit!), barTitle: "新建评估")
+                    NewEditAssessmentView(viewModel: .init(assessment: self.viewModel.assessmentToCreate!))
                         .accentColor(.accentColor)
-                }
-                .actionSheet(isPresented: $viewModel.showWarning) {
-                    ActionSheet(title: Text("\(self.viewModel.warningMessage)"), message: nil, buttons: [.cancel(Text("取消")), .destructive(Text("确定"), action: self.viewModel.warningDestructiveAction)])
                 }
             }
             .accentColor(.accentColor)
             .navigationBarTitle("我的评估")
             .navigationBarItems(
                 leading:
-                    Image.icon.resizable()
-                        .frame(width: 20, height: 20, alignment: .center)
+                    ZStack {
+                        Image.icon.renderingMode(.original)
+                            .resizable()
+                            .frame(width: 23, height: 23, alignment: .center)
+                            .opacity(self.viewModel.updating ? 0 : 1)
+                        
+                        HStack {
+                            Spacer()
+                            ActivityIndicator(isAnimating: .constant(true), style: .medium)
+                            Spacer()
+                        }.opacity(self.viewModel.updating ? 1 : 0)
+                        
+                    }
                 ,trailing:
                     HStack {
                         Button(action:{}){
                             Image.ellipsisCircleFill.scaleEffect(1.3)
                         }
+                        .disabled(viewModel.updating)
                         Spacer().frame(width: 20)
                         Button(action:{
                             self.viewModel.aboutCreateNewAssessment()
                         }){
-                            Image.plusCircleFill.scaleEffect(1.3)
+//                            Image.plusCircleFill.scaleEffect(1.3)
+                            Image(uiImage: UIImage(systemName: "plus.circle.fill", withConfiguration: UIImage.SymbolConfiguration(font: .boldSystemFont(ofSize: 17), scale: .large))!)
                         }
-                    }
+                        .disabled(viewModel.updating)
+                        .contextMenu {
+                            Button("fake") {
+                                self.viewModel.fakeCreate()
+                            }
+                        }
+                    }.padding(.trailing, 10)
                 )
         }
         .accentColor(.accentColor)
     }
 }
+
 

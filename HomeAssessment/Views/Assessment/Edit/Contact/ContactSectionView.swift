@@ -18,7 +18,7 @@ struct ContactSectionView: View {
                 
                 ForEach(viewModel.contacts) { contact in
                     NavigationLink(
-                        destination: NewEditContactView(viewModel: .init(assessment: self.viewModel.assessment, contact: contact))) {
+                    destination: NewEditContactView(viewModel: .init(assessment: self.viewModel.assessment, contact: contact))) {
                             Text(contact.name)
                                 .contextMenu {
                                     Button(action:{
@@ -52,11 +52,13 @@ struct ContactSectionView: View {
 class ContactSectionViewModel: NSObject, NSFetchedResultsControllerDelegate, ObservableObject {
     
     let assessment: Assessment
-    
+//    let context: NSManagedObjectContext
     // manually publish changes
     var contacts: [Contact] {
-//        return contactController.fetchedObjects?.filter{$0.assessment == assessment} ?? []
-        return assessment.getContacts()
+        assessment.getContacts()
+//        Contact.all()
+//        return Contact.all()
+        
     }
     
     init(assessment: Assessment) {
@@ -77,7 +79,8 @@ class ContactSectionViewModel: NSObject, NSFetchedResultsControllerDelegate, Obs
     func delete(at offsets: IndexSet) {
         objectWillChange.send()
         for index in offsets {
-            contacts[index].delete()
+//            contacts[index].delete()
+            assessment.managedObjectContext?.delete(contacts[index])
         }
     }
 //    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

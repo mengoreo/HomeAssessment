@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct NewEditContactView: View {
     @ObservedObject var viewModel: NewEditContactViewModel
@@ -49,8 +50,8 @@ class NewEditContactViewModel: ObservableObject {
     init(assessment: Assessment, contact: Contact? = nil) {
         self.assessment = assessment
         self.contact = contact
-        contactName = contact?.name ?? ""
-        contactPhone = contact?.phone ?? ""
+        contactName = contact?.name ?? "fake"
+        contactPhone = contact?.phone ?? "177"
     }
     
     var doneButtonDisabled: Bool {
@@ -64,7 +65,12 @@ class NewEditContactViewModel: ObservableObject {
         if let contact = contact {
             contact.update(name: contactName, phone: contactPhone)
         }else {
-           _ = Contact.create(for: assessment, name: contactName, phone: contactPhone)
+            print("add to contacts")
+//            Contact.create(for: assessment, name: contactName, phone: contactPhone)
+            let c = Contact.create(for: assessment, name: contactName, phone: contactPhone, in: assessment.managedObjectContext)
+//            try? context.save()
+//           let c = Contact.create(name: contactName, phone: contactPhone)
+//            c.setPrimitiveValue(assessment, forKey: "assessment")// MARK: - important!!! for not notify changes
         }
     }
 }

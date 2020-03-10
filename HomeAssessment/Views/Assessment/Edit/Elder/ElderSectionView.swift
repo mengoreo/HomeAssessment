@@ -65,9 +65,13 @@ class ElderSectionViewModel: NSObject, NSFetchedResultsControllerDelegate, Obser
     
     func onAppear() {
 //        try? elderController.performFetch()
+        
+        print("objectWillChange in eldersection")
         objectWillChange.send()
     }
     func delete(at offsets: IndexSet) {
+        
+        print("objectWillChange in delete elder")
         objectWillChange.send()
         for index in offsets {
             elders[index].delete()
