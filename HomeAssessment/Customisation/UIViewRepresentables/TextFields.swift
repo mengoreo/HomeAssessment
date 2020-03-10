@@ -35,12 +35,12 @@ struct CustomTextField: UIViewRepresentable {
          text: Binding<String>,
          isEditing: (Binding<Bool>)? = nil,
          showPassword: (Binding<Bool>)? = nil,
-         showClearButton: Bool = false,
-         disabled: Bool = false,
-         tintColor: UIColor = .lightGreen,
-         textColor: UIColor = .label,
-         keyboardType: UIKeyboardType = .default,
-         returnKeyType: UIReturnKeyType = .default,
+         showClearButton: Bool? = nil,
+         disabled: Bool? = nil,
+         tintColor: UIColor? = nil,
+         textColor: UIColor? = nil,
+         keyboardType: UIKeyboardType? = nil,
+         returnKeyType: UIReturnKeyType? = nil,
          didBeginEditing: @escaping () -> Void = { },
          didChange: @escaping () -> Void = { },
          didEndEditing: @escaping () -> Void = { })
@@ -48,16 +48,16 @@ struct CustomTextField: UIViewRepresentable {
         self.placeholder = placeholder
         self._text = text
         self.isEditing = isEditing
-        self.showClearButton = showClearButton
-        self.disabled = disabled
+        self.showPassword = showPassword
+        self.showClearButton = showClearButton ?? false
+        self.disabled = disabled ?? false
+        self.tintColor = tintColor ?? .lightGreen
+        self.textColor = textColor ?? .label
         self.didBeginEditing = didBeginEditing
+        self.keyboardType = keyboardType ?? .default
+        self.returnKeyType = returnKeyType ?? .default
         self.didChange = didChange
         self.didEndEditing = didEndEditing
-        self.showPassword = showPassword
-        self.tintColor = tintColor
-        self.textColor = textColor
-        self.keyboardType = keyboardType
-        self.returnKeyType = returnKeyType
     }
 
     func makeUIView(context: Context) -> UITextField {
@@ -90,20 +90,15 @@ struct CustomTextField: UIViewRepresentable {
         textField.text = text
         textField.addTarget(context.coordinator, action: #selector(Coordinator.textFieldDidChange(_:)), for: .editingChanged)
 
-        if let showPassword = showPassword?.wrappedValue {
-            textField.isSecureTextEntry = !showPassword
-        }
-        if textField.window != nil, let isEditing = isEditing  {
-            if isEditing.wrappedValue {
-                textField.becomeFirstResponder()
-            }
-        }
+//        if let showPassword = showPassword?.wrappedValue {
+//            textField.isSecureTextEntry = !showPassword
+//        }
+//        if textField.window != nil, let isEditing = isEditing  {
+//            if isEditing.wrappedValue {
+//                textField.becomeFirstResponder()
+//            }
+//        }
         
-        textField.isEnabled = !disabled
-        if disabled {
-            textField.resignFirstResponder()
-            textField.textColor = .tertiaryLabel
-        }
         
         return textField
     }
@@ -111,15 +106,22 @@ struct CustomTextField: UIViewRepresentable {
     func updateUIView(_ uiView: UITextField, context: Context) {
 //        uiView.text = text
 //        uiView.textColor = textColor
-//        if let showPassword = showPassword?.wrappedValue {
-//            uiView.isSecureTextEntry = !showPassword
-//        }
-//        if uiView.window != nil, let isEditing = isEditing  {
-//            if isEditing.wrappedValue {
-//                print("**** already \(uiView.isFirstResponder)")
-//                uiView.becomeFirstResponder()
-//            }
-//        }
+        if let showPassword = showPassword?.wrappedValue {
+            uiView.isSecureTextEntry = !showPassword
+        }
+        if uiView.window != nil, let isEditing = isEditing  {
+            if isEditing.wrappedValue {
+                print("**** already \(uiView.isFirstResponder)")
+                uiView.becomeFirstResponder()
+            }
+        }
+        
+        uiView.isEnabled = !disabled
+        if disabled {
+            uiView.resignFirstResponder()
+            uiView.textColor = .tertiaryLabel
+        }
+        
 //
 //        uiView.isEnabled = !disabled
 //        if disabled {
@@ -153,6 +155,7 @@ struct CustomTextField: UIViewRepresentable {
             }
         }
         func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+            print("*** textFieldShouldEndEditing")
             self.parent.isEditing?.wrappedValue = false
             return true
         }
@@ -162,6 +165,7 @@ struct CustomTextField: UIViewRepresentable {
         }
         
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            print("*** textFieldShouldReturn")
             textField.resignFirstResponder()
             if parent.showPassword != nil {
                 parent.showPassword?.wrappedValue = false
