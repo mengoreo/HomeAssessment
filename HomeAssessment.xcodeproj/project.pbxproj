@@ -41,6 +41,7 @@
 		083972C72415DC70002F0464 /* ARMeasureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972C62415DC6F002F0464 /* ARMeasureView.swift */; };
 		083972CC2416CA0F002F0464 /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972CB2416CA0F002F0464 /* Threading.swift */; };
 		083972CE2417A252002F0464 /* StandardListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972CD2417A252002F0464 /* StandardListViewModel.swift */; };
+		083972D02417A2E2002F0464 /* CurrentLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972CF2417A2E2002F0464 /* CurrentLocationView.swift */; };
 		0847F50623FC3D2400D5F3EE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847F50523FC3D2400D5F3EE /* Models.swift */; };
 		08558A0623EE8F370081C53D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0523EE8F370081C53D /* AppDelegate.swift */; };
 		08558A0823EE8F370081C53D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0723EE8F370081C53D /* SceneDelegate.swift */; };
@@ -114,6 +115,7 @@
 		083972CA2416ACA7002F0464 /* CoreDataModel 11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel 11.xcdatamodel"; sourceTree = "<group>"; };
 		083972CB2416CA0F002F0464 /* Threading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Threading.swift; sourceTree = "<group>"; };
 		083972CD2417A252002F0464 /* StandardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardListViewModel.swift; sourceTree = "<group>"; };
+		083972CF2417A2E2002F0464 /* CurrentLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationView.swift; sourceTree = "<group>"; };
 		0847F50523FC3D2400D5F3EE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		08558A0223EE8F370081C53D /* HomeAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08558A0523EE8F370081C53D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				08CB26DF24091A1F00A81EA7 /* UIKitViews */,
 				0810BEE124090F0C00CA3833 /* UIViewRepresentables */,
 				0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */,
+				083972CF2417A2E2002F0464 /* CurrentLocationView.swift */,
 				0869DAD723FBD30C003EBF2C /* CustomStyles.swift */,
 				0869DAD323FBBE79003EBF2C /* Extensions.swift */,
 			);
@@ -551,6 +554,7 @@
 				083972CC2416CA0F002F0464 /* Threading.swift in Sources */,
 				0803854124152A41006446BE /* Contact+CoreDataClass.swift in Sources */,
 				0869DAD423FBBE79003EBF2C /* Extensions.swift in Sources */,
+				083972D02417A2E2002F0464 /* CurrentLocationView.swift in Sources */,
 				0803851D2415292B006446BE /* Elder+CoreDataProperties.swift in Sources */,
 				080385212415292B006446BE /* Contact+CoreDataProperties.swift in Sources */,
 				082D0DB6241407B6007C59F7 /* TabBarControllerView.swift in Sources */,
