@@ -37,13 +37,14 @@ struct UIProperties {
     var iconBottomPadding: CGFloat = 0
     var iconTrailingPadding: CGFloat = 0
     var iconOpacity: Double = 1
+    var iconScale: Double = 1
     var iconFrame = CGSize(width: Device.width / 2, height: Device.width / 2)
-    var buttonBottomPadding: CGFloat = 0
-    
+//    var buttonBottomPadding: CGFloat = 0
+    var mainViewOpacity: Double = 1
 }
 
 // MARK: - Sign In/Up
-enum ErrorType {
+enum SignInErrorType: Error {
     case nameField
     case passwordField
 }
@@ -51,4 +52,10 @@ enum ErrorType {
 struct ErrorMessage {
     var body: String
     var type: ErrorType
+}
+
+enum ErrorType: Error {
+    case signInError(SignInErrorType)
+    case uploadError
+    case serverError
 }
