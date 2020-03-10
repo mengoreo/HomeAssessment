@@ -43,6 +43,7 @@
 		083972CE2417A252002F0464 /* StandardListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972CD2417A252002F0464 /* StandardListViewModel.swift */; };
 		083972D02417A2E2002F0464 /* CurrentLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972CF2417A2E2002F0464 /* CurrentLocationView.swift */; };
 		083972D22417A339002F0464 /* AssessmentRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972D12417A339002F0464 /* AssessmentRowViewModel.swift */; };
+		083972D52417A3AA002F0464 /* NewEditAssessmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972D42417A3AA002F0464 /* NewEditAssessmentViewModel.swift */; };
 		0847F50623FC3D2400D5F3EE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847F50523FC3D2400D5F3EE /* Models.swift */; };
 		08558A0623EE8F370081C53D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0523EE8F370081C53D /* AppDelegate.swift */; };
 		08558A0823EE8F370081C53D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0723EE8F370081C53D /* SceneDelegate.swift */; };
@@ -118,6 +119,7 @@
 		083972CD2417A252002F0464 /* StandardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardListViewModel.swift; sourceTree = "<group>"; };
 		083972CF2417A2E2002F0464 /* CurrentLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationView.swift; sourceTree = "<group>"; };
 		083972D12417A339002F0464 /* AssessmentRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentRowViewModel.swift; sourceTree = "<group>"; };
+		083972D42417A3AA002F0464 /* NewEditAssessmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditAssessmentViewModel.swift; sourceTree = "<group>"; };
 		0847F50523FC3D2400D5F3EE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		08558A0223EE8F370081C53D /* HomeAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08558A0523EE8F370081C53D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 		082D0DB32413D653007C59F7 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
+				083972D42417A3AA002F0464 /* NewEditAssessmentViewModel.swift */,
 				08CB26D82409199A00A81EA7 /* NewEditAssessmentView.swift */,
 				087D86C7240AA97A00AD8D80 /* Contact */,
 				087D86C8240AA98200AD8D80 /* Elder */,
@@ -558,6 +561,7 @@
 				0803854124152A41006446BE /* Contact+CoreDataClass.swift in Sources */,
 				0869DAD423FBBE79003EBF2C /* Extensions.swift in Sources */,
 				083972D02417A2E2002F0464 /* CurrentLocationView.swift in Sources */,
+				083972D52417A3AA002F0464 /* NewEditAssessmentViewModel.swift in Sources */,
 				0803851D2415292B006446BE /* Elder+CoreDataProperties.swift in Sources */,
 				080385212415292B006446BE /* Contact+CoreDataProperties.swift in Sources */,
 				082D0DB6241407B6007C59F7 /* TabBarControllerView.swift in Sources */,
