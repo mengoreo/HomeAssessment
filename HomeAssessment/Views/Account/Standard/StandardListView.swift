@@ -198,47 +198,11 @@ class StandardListViewModel: NSObject, ObservableObject {
         destructiveAction = standard.delete
     }
     
-//    func aboutToDelete(at offsets: IndexSet) {
-////        let offsets: IndexSet = [0, 1]
-//        var message = offsets.map{
-//                let assessmentRemarks = standards[$0].getAssessments().map {"「评估项目: \($0.remarks)」"}.joined(separator: "和")
-//                if !assessmentRemarks.isEmpty {
-//                    return assessmentRemarks + "正在使用「\(standards[$0].name)」"
-//                }
-//                return ""
-//            }.joined(separator: ";\n")
-//        if !message.isEmpty {
-//            message = message + "\n❗️删除之后，对应评估将不能继续进行❗️" + "\n\n确定删除\(offsets.map{"「\(standards[$0].name)」"}.joined(separator: "和"))吗?"
-//        } else {
-//            message = "确定删除\(offsets.map{"「\(standards[$0].name)」"}.joined(separator: "和"))吗?"
-//        }
-//
-//
-//
-//        actionTitle = message
-//        offsetsToDelete = offsets
-//        showActionSheet = true
-//        destructiveAction = deleteStandard
-//
-//    }
-//    func aboutToDeleteAll() {
-//        actionTitle = "Delete all standards?"
-//        showActionSheet = true
-//        destructiveAction = clearStandards
-//    }
     func cancelDelete() {
         actionTitle = ""
         showActionSheet = false
         destructiveAction = {}
     }
-//    func deleteStandard() {
-//        for index in self.offsetsToDelete {
-//            standards[index].delete()
-//        }
-//    }
-//    func clearStandards() {
-//        Standard.clear()
-//    }
     
     // MARK: - handle json data
     private func handle(data: Data, response: URLResponse, error: Error?, for parent: NSManagedObject) {
