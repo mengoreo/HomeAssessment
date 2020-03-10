@@ -23,13 +23,10 @@ struct ARView: UIViewRepresentable {
     let statusLabel = UILabel(frame: .zero)
     let statusView = UIVisualEffectView(frame: .zero)
     let flashButtonView = UIVisualEffectView(frame: .zero)
-//    let addButtonView = UIVisualEffectView(frame: .zero)
-//    let clearButtonView = UIVisualEffectView(frame: .zero)
     let undoButtonView = UIVisualEffectView(frame: .zero)
     
     let flashButton = UIButton(type: .detailDisclosure)
     let addButton = UIButton(type: .system)
-//    let clearButton = UIButton(type: .detailDisclosure)
     let undoButton = UIButton(type: .detailDisclosure)
     let doneButton = UIButton(type: .detailDisclosure)
     
@@ -63,7 +60,6 @@ struct ARView: UIViewRepresentable {
         addButton.addTarget(context.coordinator, action: #selector(context.coordinator.addPoint), for: .touchUpInside)
         flashButton.addTarget(context.coordinator, action: #selector(context.coordinator.flashButtonTapped(_:)), for: .touchUpInside)
         undoButton.addTarget(context.coordinator, action: #selector(context.coordinator.undoButtonTapped(_:)), for: .touchUpInside)
-//        clearButton.addTarget(context.coordinator, action: #selector(context.coordinator.clearButtonTapped(_:)), for: .touchUpInside)
         doneButton.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         doneButton.tintColor = .tintColor
         doneButton.addTarget(context.coordinator, action: #selector(context.coordinator.doneButtonTapped(_:)), for: .touchUpInside)
@@ -98,15 +94,6 @@ struct ARView: UIViewRepresentable {
         addButton.tintColor = .white
         addButton.translatesAutoresizingMaskIntoConstraints = false
         
-//
-//        clearButtonView.effect = UIBlurEffect(style: .dark)
-//        clearButton.setImage(UIImage(systemName: "trash", withConfiguration: UIImage.SymbolConfiguration(font: .boldSystemFont(ofSize: 13), scale: .medium)), for: .normal)
-//        clearButton.tintColor = .white
-//        clearButtonView.contentView.addSubview(clearButton)
-//        clearButtonView.layer.cornerRadius = 17
-//        clearButtonView.clipsToBounds = true
-//        clearButton.translatesAutoresizingMaskIntoConstraints = false
-//        clearButtonView.translatesAutoresizingMaskIntoConstraints = false
         
         
         undoButtonView.effect = UIBlurEffect(style: .dark)
@@ -162,13 +149,6 @@ struct ARView: UIViewRepresentable {
             undoButtonView.heightAnchor.constraint(equalToConstant: 40),
             undoButton.centerXAnchor.constraint(equalTo: undoButtonView.centerXAnchor),
             undoButton.centerYAnchor.constraint(equalTo: undoButtonView.centerYAnchor),
-            
-//            clearButtonView.trailingAnchor.constraint(equalTo: sceneView.trailingAnchor, constant: -20),
-//            clearButtonView.bottomAnchor.constraint(equalTo: sceneView.bottomAnchor, constant: -40),
-//            clearButtonView.widthAnchor.constraint(equalToConstant: 50),
-//            clearButtonView.heightAnchor.constraint(equalToConstant: 40),
-//            clearButton.centerXAnchor.constraint(equalTo: clearButtonView.centerXAnchor),
-//            clearButton.centerYAnchor.constraint(equalTo: clearButtonView.centerYAnchor),
             
             
             addButton.centerXAnchor.constraint(equalTo: sceneView.centerXAnchor),
