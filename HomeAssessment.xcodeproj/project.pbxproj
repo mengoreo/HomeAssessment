@@ -48,6 +48,9 @@
 		083972D92417A460002F0464 /* ContactSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972D82417A460002F0464 /* ContactSectionViewModel.swift */; };
 		083972DB2417A4A2002F0464 /* ElderSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972DA2417A4A2002F0464 /* ElderSectionViewModel.swift */; };
 		083972DD2417A4E4002F0464 /* NewElderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972DC2417A4E4002F0464 /* NewElderViewModel.swift */; };
+		083972DF2417A59D002F0464 /* QuestionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972DE2417A59D002F0464 /* QuestionRowView.swift */; };
+		083972E12417A5AA002F0464 /* QuestionRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972E02417A5AA002F0464 /* QuestionRowViewModel.swift */; };
+		083972E32417A5B2002F0464 /* OptionTextRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972E22417A5B2002F0464 /* OptionTextRowView.swift */; };
 		0847F50623FC3D2400D5F3EE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847F50523FC3D2400D5F3EE /* Models.swift */; };
 		08558A0623EE8F370081C53D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0523EE8F370081C53D /* AppDelegate.swift */; };
 		08558A0823EE8F370081C53D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0723EE8F370081C53D /* SceneDelegate.swift */; };
@@ -128,6 +131,9 @@
 		083972D82417A460002F0464 /* ContactSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSectionViewModel.swift; sourceTree = "<group>"; };
 		083972DA2417A4A2002F0464 /* ElderSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElderSectionViewModel.swift; sourceTree = "<group>"; };
 		083972DC2417A4E4002F0464 /* NewElderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewElderViewModel.swift; sourceTree = "<group>"; };
+		083972DE2417A59D002F0464 /* QuestionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionRowView.swift; sourceTree = "<group>"; };
+		083972E02417A5AA002F0464 /* QuestionRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionRowViewModel.swift; sourceTree = "<group>"; };
+		083972E22417A5B2002F0464 /* OptionTextRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionTextRowView.swift; sourceTree = "<group>"; };
 		0847F50523FC3D2400D5F3EE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		08558A0223EE8F370081C53D /* HomeAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08558A0523EE8F370081C53D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -276,6 +282,9 @@
 			isa = PBXGroup;
 			children = (
 				082D0DB12413D5F2007C59F7 /* EvaluatingView.swift */,
+				083972DE2417A59D002F0464 /* QuestionRowView.swift */,
+				083972E02417A5AA002F0464 /* QuestionRowViewModel.swift */,
+				083972E22417A5B2002F0464 /* OptionTextRowView.swift */,
 				080384CF2414FC83006446BE /* QuestionImageRow.swift */,
 				083972C62415DC6F002F0464 /* ARMeasureView.swift */,
 			);
@@ -546,7 +555,9 @@
 				08558A2723EFDADF0081C53D /* SignInUpView.swift in Sources */,
 				083972CE2417A252002F0464 /* StandardListViewModel.swift in Sources */,
 				0803854224152A41006446BE /* Elder+CoreDataClass.swift in Sources */,
+				083972E12417A5AA002F0464 /* QuestionRowViewModel.swift in Sources */,
 				0803854524152A41006446BE /* Standard+CoreDataClass.swift in Sources */,
+				083972E32417A5B2002F0464 /* OptionTextRowView.swift in Sources */,
 				0803854624152A41006446BE /* Assessment+CoreDataClass.swift in Sources */,
 				08CB26E524091A4000A81EA7 /* CustomAnnotations.swift in Sources */,
 				0803853E24152A41006446BE /* UserSession+CoreDataClass.swift in Sources */,
@@ -566,6 +577,7 @@
 				0803854324152A41006446BE /* Option+CoreDataClass.swift in Sources */,
 				08CB26DE2409199A00A81EA7 /* NewElderView.swift in Sources */,
 				0810BEE324090F7300CA3833 /* TextFields.swift in Sources */,
+				083972DF2417A59D002F0464 /* QuestionRowView.swift in Sources */,
 				08CB26E724091A5D00A81EA7 /* Map.swift in Sources */,
 				083972DD2417A4E4002F0464 /* NewElderViewModel.swift in Sources */,
 				0803853F24152A41006446BE /* AppStatus+CoreDataClass.swift in Sources */,
