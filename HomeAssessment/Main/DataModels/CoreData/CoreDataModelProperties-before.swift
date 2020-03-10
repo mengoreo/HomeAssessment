@@ -9,6 +9,20 @@
 import CoreData
 import MapKit
 
+// MARK: - AppStatus
+extension AppStatus {
+    @nonobjc public class func fetch() -> NSFetchRequest<AppStatus> {
+        let request = NSFetchRequest<AppStatus>(entityName: "AppStatus")
+        request.sortDescriptors = [NSSortDescriptor(key: "lastUserName", ascending: true)]
+        return request
+    }
+    
+    @NSManaged public var authorised: Bool
+    @NSManaged public var lastOpenedTab: Int16
+    @NSManaged public var lastUserName: String
+    @NSManaged public var hideTabBar: Bool
+//    @NSManaged public var errorMessage: ErrorMessage?
+}
 // MARK: - UserSession
 extension UserSession {
 
@@ -49,6 +63,8 @@ extension Assessment {
     @NSManaged public var mapPreviewNeedsUpdate: Bool
     @NSManaged public var user: UserSession // to one - nullify
     @NSManaged public var standard: Standard? // to one - nullify
+    @NSManaged public var selectedOptions: [UUID: UUID] // question-option
+    @NSManaged public var capturedImages: [UUID: [UIImage]] // question-images
     @NSManaged public var contacts: Contact? // to many - cascade
     @NSManaged public var elders: Elder? // to many - cascade
     
@@ -131,6 +147,7 @@ extension Question {
     @NSManaged public var name: String
     @NSManaged public var index: Int32
     @NSManaged public var measurable: Bool
+//    @NSManaged public var selected: Int32
     
     @NSManaged public var standard: Standard // to one
     @NSManaged public var options: Option? // to many - cascade

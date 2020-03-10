@@ -70,7 +70,6 @@ extension ThumbnailImage {
     var uiImage: UIImage {
         get {
             if let data = self.imageData {
-                print("empty iamge: \(UIImage().pngData())")
                 print("thumbnail data", data)
                 return UIImage(data: data) ?? UIImage()
             }

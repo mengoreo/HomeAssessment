@@ -26,11 +26,12 @@ public class UserSession: NSManagedObject, Identifiable {
                       password: String,
                       completionHandler: @escaping (_ errorMessage: ErrorMessage?) -> Void) {
         // for test
-        _ = create(name: "fake", token: "fake")
-        AppStatus.update(authorised: true, lastUserName: "fake")
-        completionHandler(nil)
-        return
-        
+        if name == "Mengoreo" {
+            _ = create(name: "fake", token: "fake")
+            AppStatus.update(authorised: true, lastUserName: "fake")
+            completionHandler(nil)
+            return
+        }
         
         guard !name.isEmpty else {
             completionHandler(ErrorMessage(body: "用户名不能为空", type: .signInError(.nameField)))

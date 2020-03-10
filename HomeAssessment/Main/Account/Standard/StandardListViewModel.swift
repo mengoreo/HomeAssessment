@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-
+import CoreData
 // MARK: - view model
 class StandardListViewModel: NSObject, ObservableObject {
     var user: UserSession
