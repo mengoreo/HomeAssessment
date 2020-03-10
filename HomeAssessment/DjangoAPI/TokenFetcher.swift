@@ -29,7 +29,7 @@ class TokenFetcher {
         self.password = password
     }
     
-    func fetchToken(completionHandler: ((String, NSError?) -> Void)?) -> URLSessionDataTask {
+    func fetchToken(completionHandler: @escaping (String, NSError?) -> Void) {
         print("** TokenFetcher:", "name:\(name), password:\(password)")
         let url = URL(string: DjangoAPI.tokenPath)!
         let postString = "username=\(name)&password=\(password)"
@@ -45,18 +45,18 @@ class TokenFetcher {
         let task = session.dataTask(with: request) { (data, response, error) in
             sleep(1)
             if error != nil {
-                completionHandler?("", error as NSError?)
+                completionHandler("", error as NSError?)
                 return
             }
             
             do {
                 guard let response = response as? HTTPURLResponse else {
-                    completionHandler?("", NSError(domain: "HA", code: 9090, userInfo: ["No Respose": 9090]))
+                    completionHandler("", NSError(domain: "HA", code: 9090, userInfo: ["No Respose": 9090]))
                     return
                 }
                 
                 guard let data = data else {
-                    completionHandler?("", NSError(domain: "HA", code: 8080, userInfo: ["No Data": 8080]))                
+                    completionHandler("", NSError(domain: "HA", code: 8080, userInfo: ["No Data": 8080]))
                     return
                 }
     
@@ -64,18 +64,18 @@ class TokenFetcher {
                     // ok
                     
                     let tokenResponse = try JSONDecoder().decode(TokenResponse.self, from: data)
-                    completionHandler?(tokenResponse.token, nil)
+                    completionHandler(tokenResponse.token, nil)
                     
                 } else {
                     // not ok
-                    completionHandler?("", NSError(domain: "HA", code: 7070, userInfo: ["Not Authorised": 7070]))
+                    completionHandler("", NSError(domain: "HA", code: 7070, userInfo: ["Not Authorised": 7070]))
                 }
             } catch {
                 print("*** TokenFetcher:", error)
             }
         }
         task.resume()
-        return task
+//        return task
     }
     
 }

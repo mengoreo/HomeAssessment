@@ -9,9 +9,12 @@
 import Foundation
 import CoreData
 
-class DataFetcher: NSObject {
+class APIDataManager: NSObject {
     
-    static func fetchTask(_ pathType: DjangoAPI.PathType, with token: String, completionHandler: @escaping (Data, URLResponse, Error?) -> Void) {
+    static func post(_ pathType: DjangoAPI.PathType, with token: String, completionHandler: @escaping (Data, URLResponse, Error?) -> Void) {
+        
+    }
+    static func fetch(_ pathType: DjangoAPI.PathType, with token: String, completionHandler: @escaping (Data, URLResponse, Error?) -> Void) {
         let url = URL(string: DjangoAPI.pathFor(pathType))!
         var request = URLRequest(url: url)
         
@@ -170,6 +173,7 @@ typealias OptionsJSON = [OptionJSON]
 struct DjangoAPI {
     enum PathType {
         case standard
+        case assessments
         case question(standard: Int)
         case option(standard: Int, question: Int)
     }
@@ -182,6 +186,8 @@ struct DjangoAPI {
             return pathFor(.standard) + "\(standard)/" + "questions/"
         case .option(let standard, let question):
             return pathFor(.question(standard: standard)) + "\(question)/" + "options/"
+        case .assessments:
+            return ""
         }
     }
     static let tokenPath = "http://localhost:8000/api/token_auth/"
