@@ -8,7 +8,9 @@
 
 import SwiftUI
 import CoreLocation
+import ARKit
 
+// MARK: - CoreLocation
 extension CLPlacemark {
     func address() -> String {
         var line1 = self.administrativeArea ?? ""
@@ -32,7 +34,24 @@ extension CLPlacemark {
         return true // both not valide
     }
 }
-
+// MARK: - ARKit
+extension ARSCNView {
+    func hitResult(forPoint point: CGPoint) -> SCNVector3? {
+        let hitTestResults = hitTest(point, types: .featurePoint)
+        if let result = hitTestResults.first {
+            let vector = result.worldTransform.columns.3
+            return SCNVector3(vector.x, vector.y, vector.z)
+        } else {
+            return nil
+        }
+    }
+    func distance(betweenPoints point1: SCNVector3, point2: SCNVector3) -> CGFloat {
+        let dx = point2.x - point1.x
+        let dy = point2.y - point1.y
+        let dz = point2.z - point1.z
+        return CGFloat(sqrt(dx*dx + dy*dy + dz*dz))
+    }
+}
 // MARK: - Foundation
 extension String {
     var floatValue: Float {
@@ -40,6 +59,18 @@ extension String {
     }
     var intValue: Int32 {
         return (self as NSString).intValue
+    }
+}
+extension Date {
+    var dateString: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy"
+        if dateFormatter.string(from: Date()) != dateFormatter.string(from: self) {
+            dateFormatter.dateFormat = "HH:mm yyyy-MM-dd"
+        } else {
+            dateFormatter.dateFormat = "HH:mm MM-dd"
+        }
+        return dateFormatter.string(from: self)
     }
 }
 
@@ -58,6 +89,18 @@ extension UIImage {
     }
     static var placemark: UIImage {
         return UIImage(named: "placemark") ?? UIImage()
+    }
+}
+extension UIView {
+    func show() {
+        Self.animate(withDuration: 0.3) {
+            self.layer.opacity = 1
+        }
+    }
+    func hide() {
+        Self.animate(withDuration: 0.3) {
+            self.layer.opacity = 0
+        }
     }
 }
 extension UITextField{
