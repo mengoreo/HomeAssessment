@@ -29,8 +29,33 @@ extension Standard {
     @NSManaged public var questions: Set<Question>?
     @NSManaged public var user: UserSession
 
+    enum CodingKeys:String, CodingKey {
+        case dateCreated,
+        dateUpdated,
+        index,
+        name,
+        uuid,
+        assessments,
+        questions,
+        user
+        
+    }
 }
 
+// MARK: - NSSecureCoding
+extension Standard {
+    public func encode(with encoder: NSCoder) {
+        print("** ecoding Standard")
+        encoder.encode(dateCreated, forKey: CodingKeys.dateCreated.rawValue)
+        encoder.encode(dateUpdated, forKey: CodingKeys.dateUpdated.rawValue)
+        encoder.encode(index, forKey: CodingKeys.index.rawValue)
+        encoder.encode(name, forKey: CodingKeys.name.rawValue)
+        encoder.encode(uuid, forKey: CodingKeys.uuid.rawValue)
+        encoder.encode(assessments, forKey: CodingKeys.assessments.rawValue)
+        encoder.encode(questions, forKey: CodingKeys.questions.rawValue)
+        encoder.encode(user, forKey: CodingKeys.user.rawValue)
+    }
+}
 // MARK: Generated accessors for assessments
 extension Standard {
 

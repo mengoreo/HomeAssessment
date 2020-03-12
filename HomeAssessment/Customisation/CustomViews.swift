@@ -107,10 +107,10 @@ struct ProgressBar: View {
 struct UIKitTabView: View {
     var viewControllers: [UIHostingController<AnyView>]
 //    @State var selectedIndex: Int = 0
-    @Binding var selectedIndex: Int16
+    @Binding var selectedIndex: Int32
     @Binding var hideTabBar: Bool
     init(_ views: [Tab],
-         selectedIndex: Binding<Int16> = .constant(0),
+         selectedIndex: Binding<Int32> = .constant(0),
          hideTabBar: Binding<Bool> = .constant(false)
     ) {
         self.viewControllers = views.map {
@@ -148,3 +148,25 @@ struct UIKitTabView: View {
 }
 
 
+struct AirDropShareView: UIViewControllerRepresentable {
+    
+    var items: [AirDropData]
+    func makeUIViewController(context: UIViewControllerRepresentableContext<AirDropShareView>) -> UIActivityViewController {
+        let description = "Share it with your co-worker!"
+        
+        let activityController = UIActivityViewController(activityItems: [items.first!], applicationActivities: nil)
+        
+        activityController.excludedActivityTypes = [
+            .postToVimeo, .postToTwitter, .postToFacebook, .init("com.tencent.xin.sharetimeline"),
+            .postToWeibo,  .postToFlickr, .postToTencentWeibo,
+            .message, .mail, .print,
+            .copyToPasteboard, .assignToContact, .saveToCameraRoll,
+            .addToReadingList,
+        ]
+        activityController.modalPresentationStyle = .fullScreen
+        return activityController
+    }
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<AirDropShareView>) {
+        //
+    }
+}

@@ -30,7 +30,14 @@ struct WelcomeView: View {
                     }
                 }
             }
-        }
+            
+        }.overlay(
+
+            CombiningView(viewModel: .init(onDevice: viewModel.onDevice, combinedStandard: viewModel.combinedStandard))
+                .offset(y: viewModel.showCombineView ? 0 : Device.height)
+                .animation(.default)
+
+        )
         .onAppear(perform: viewModel.onAppear)
     }
 }

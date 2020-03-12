@@ -29,6 +29,30 @@ extension Question {
     @NSManaged public var options: Set<Option>?
     @NSManaged public var standard: Standard
 
+    enum CodingKeys: String, CodingKey {
+        case dateCreated,
+        dateUpdated,
+        index,
+        measurable,
+        name,
+        uuid,
+        options,
+        standard
+    }
+}
+// MARK: - NSSecureCoding
+extension Question {
+    public func encode(with encoder: NSCoder) {
+        print("** encoding questions")
+        encoder.encode(dateCreated, forKey: CodingKeys.dateCreated.rawValue)
+        encoder.encode(dateUpdated, forKey: CodingKeys.dateUpdated.rawValue)
+        encoder.encode(index, forKey: CodingKeys.index.rawValue)
+        encoder.encode(measurable, forKey: CodingKeys.measurable.rawValue)
+        encoder.encode(name, forKey: CodingKeys.name.rawValue)
+        encoder.encode(uuid, forKey: CodingKeys.uuid.rawValue)
+        encoder.encode(options, forKey: CodingKeys.options.rawValue)
+        encoder.encode(standard, forKey: CodingKeys.standard.rawValue)
+    }
 }
 
 // MARK: Generated accessors for options

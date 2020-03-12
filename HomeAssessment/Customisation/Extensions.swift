@@ -53,6 +53,13 @@ extension ARSCNView {
     }
 }
 // MARK: - Foundation
+extension Notification.Name {
+    static let WillCombineAssessments = NSNotification.Name("WillCombineAssessments")
+    static let DoneCombineAssessments = NSNotification.Name("DoneCombineAssessments")
+    static let QuestionReadyToSave = NSNotification.Name("QuestionReadyToSave")
+    static let QuestionUnableToSave = NSNotification.Name("QuestionUnableToSave")
+    static let SceneDidEnterBackground = NSNotification.Name("SceneDidEnterBackground")
+}
 extension String {
     var floatValue: Float {
         return (self as NSString).floatValue

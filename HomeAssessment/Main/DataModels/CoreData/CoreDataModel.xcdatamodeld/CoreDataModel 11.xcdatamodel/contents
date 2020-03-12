@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AppStatus" representedClassName="AppStatus" syncable="YES">
+        <attribute name="authorised" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="hideTabBar" attributeType="Boolean" usesScalarValueType="YES" customClassName="NSSecureUnarchiveFromData"/>
+        <attribute name="lastOpenedTab" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastUserInterface" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastUserName" attributeType="String"/>
+    </entity>
+    <entity name="Assessment" representedClassName=".Assessment" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="Transformable" customClassName="NSSecureUnarchiveFromData"/>
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="mapPreviewNeedsUpdate" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="progress" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="remarks" attributeType="String"/>
+        <attribute name="selectedOptions" attributeType="Transformable" customClassName="NSSecureUnarchiveFromData"/>
+        <attribute name="uuid" attributeType="UUID" defaultValueString="5095BC9D-9595-4702-9A8D-0896C75025A9" usesScalarValueType="NO" elementID="uuid"/>
+        <relationship name="capturedImages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ThumbnailImage" inverseName="assessment" inverseEntity="ThumbnailImage"/>
+        <relationship name="contacts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Contact" inverseName="assessment" inverseEntity="Contact"/>
+        <relationship name="elders" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Elder" inverseName="assessment" inverseEntity="Elder"/>
+        <relationship name="mapPreview" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ThumbnailImage"/>
+        <relationship name="standard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Standard" inverseName="assessments" inverseEntity="Standard"/>
+        <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="UserSession" inverseName="assessments" inverseEntity="UserSession"/>
+    </entity>
+    <entity name="Contact" representedClassName=".Contact" syncable="YES">
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateUpdated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="phone" attributeType="String"/>
+        <attribute name="uuid" attributeType="UUID" defaultValueString="5095BC9D-9595-4702-9A8D-0896C75025A9" usesScalarValueType="NO"/>
+        <relationship name="assessment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Assessment" inverseName="contacts" inverseEntity="Assessment"/>
+    </entity>
+    <entity name="Elder" representedClassName=".Elder" syncable="YES">
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateUpdated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="heightInCM" attributeType="Integer 32" valueTransformerName="NSSecureUnarchiveFromData" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="status" attributeType="String"/>
+        <attribute name="uuid" attributeType="UUID" defaultValueString="5095BC9D-9595-4702-9A8D-0896C75025A9" usesScalarValueType="NO"/>
+        <relationship name="assessment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Assessment" inverseName="elders" inverseEntity="Assessment"/>
+    </entity>
+    <entity name="Option" representedClassName=".Option" syncable="YES">
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateUpdated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="from_val" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="index" attributeType="Integer 32" valueTransformerName="NSSecureUnarchiveFromData" usesScalarValueType="YES"/>
+        <attribute name="optionDescription" attributeType="String"/>
+        <attribute name="suggestion" attributeType="String"/>
+        <attribute name="to_val" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="uuid" attributeType="UUID" defaultValueString="5095BC9D-9595-4702-9A8D-0896C75025A9" usesScalarValueType="NO"/>
+        <attribute name="vote" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="question" maxCount="1" deletionRule="Nullify" destinationEntity="Question" inverseName="options" inverseEntity="Question"/>
+    </entity>
+    <entity name="OriginalImage" representedClassName="OriginalImage" syncable="YES">
+        <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <relationship name="thumbnail" maxCount="1" deletionRule="Nullify" destinationEntity="ThumbnailImage" inverseName="originalImage" inverseEntity="ThumbnailImage"/>
+    </entity>
+    <entity name="Question" representedClassName=".Question" syncable="YES">
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateUpdated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="index" attributeType="Integer 32" valueTransformerName="NSSecureUnarchiveFromData" usesScalarValueType="YES"/>
+        <attribute name="measurable" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="uuid" attributeType="UUID" defaultValueString="5095BC9D-9595-4702-9A8D-0896C75025A9" usesScalarValueType="NO"/>
+        <relationship name="options" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Option" inverseName="question" inverseEntity="Option"/>
+        <relationship name="standard" maxCount="1" deletionRule="Nullify" destinationEntity="Standard" inverseName="questions" inverseEntity="Standard"/>
+    </entity>
+    <entity name="Standard" representedClassName=".Standard" syncable="YES">
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateUpdated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="index" attributeType="Integer 32" valueTransformerName="NSSecureUnarchiveFromData" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="uuid" attributeType="UUID" defaultValueString="5095BC9D-9595-4702-9A8D-0896C75025A9" usesScalarValueType="NO"/>
+        <relationship name="assessments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Assessment" inverseName="standard" inverseEntity="Assessment"/>
+        <relationship name="questions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Question" inverseName="standard" inverseEntity="Question"/>
+        <relationship name="user" maxCount="1" deletionRule="Nullify" destinationEntity="UserSession" inverseName="standards" inverseEntity="UserSession"/>
+    </entity>
+    <entity name="ThumbnailImage" representedClassName="ThumbnailImage" syncable="YES">
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="questionID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="assessment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Assessment" inverseName="capturedImages" inverseEntity="Assessment"/>
+        <relationship name="originalImage" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="OriginalImage" inverseName="thumbnail" inverseEntity="OriginalImage"/>
+    </entity>
+    <entity name="UserSession" representedClassName=".UserSession" syncable="YES">
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateUpdated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="token" attributeType="String"/>
+        <attribute name="uuid" attributeType="UUID" defaultValueString="5095BC9D-9595-4702-9A8D-0896C75025A9" usesScalarValueType="NO"/>
+        <relationship name="assessments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Assessment" inverseName="user" inverseEntity="Assessment"/>
+        <relationship name="standards" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Standard" inverseName="user" inverseEntity="Standard"/>
+    </entity>
+    <elements>
+        <element name="AppStatus" positionX="-9" positionY="90" width="128" height="118"/>
+        <element name="Assessment" positionX="-36" positionY="9" width="128" height="253"/>
+        <element name="Contact" positionX="0" positionY="45" width="128" height="133"/>
+        <element name="Elder" positionX="-18" positionY="27" width="128" height="148"/>
+        <element name="Option" positionX="-63" positionY="-18" width="128" height="193"/>
+        <element name="OriginalImage" positionX="9" positionY="117" width="128" height="73"/>
+        <element name="Question" positionX="-54" positionY="-9" width="128" height="163"/>
+        <element name="Standard" positionX="18" positionY="63" width="128" height="163"/>
+        <element name="ThumbnailImage" positionX="18" positionY="126" width="128" height="133"/>
+        <element name="UserSession" positionX="36" positionY="81" width="128" height="148"/>
+    </elements>
+</model>

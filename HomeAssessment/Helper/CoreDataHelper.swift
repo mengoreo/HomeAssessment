@@ -16,7 +16,7 @@ class CoreDataHelper: NSObject {
 //    let modelName = "CoreDataModel"
     private lazy var persistentContainer: NSPersistentContainer = {
 
-        let container = NSPersistentContainer(name: "CoreDataModel2")
+        let container = NSPersistentContainer(name: "CoreDataModel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let nserror = error as NSError? {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")

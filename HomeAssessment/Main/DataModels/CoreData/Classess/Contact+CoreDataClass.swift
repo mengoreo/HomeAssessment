@@ -9,7 +9,21 @@
 import CoreData
 
 @objc(Contact)
-public class Contact: NSManagedObject, Identifiable {
+public class Contact: NSManagedObject, Identifiable, NSSecureCoding {
+    required convenience public init?(coder: NSCoder) {
+        print("** decoding Contact")
+        self.init(context: CoreDataHelper.stack.context)
+        dateCreated = coder.decodeObject(forKey: CodingKeys.dateCreated.rawValue) as! Date
+        dateUpdated = coder.decodeObject(forKey: CodingKeys.dateUpdated.rawValue) as! Date
+        name = coder.decodeObject(forKey: CodingKeys.name.rawValue) as! String
+        phone = coder.decodeObject(forKey: CodingKeys.phone.rawValue) as! String
+        uuid = coder.decodeObject(forKey: CodingKeys.uuid.rawValue) as! UUID
+//        assessment = coder.decodeObject(forKey: CodingKeys.assessment.rawValue) as! Assessment
+    }
+    
+    public static var supportsSecureCoding: Bool {
+        return true
+    }
     
     static var resultController = NSFetchedResultsController(fetchRequest: fetch(), managedObjectContext: CoreDataHelper.stack.context, sectionNameKeyPath: nil, cacheName: nil)
     class func create(for assessment: Assessment, name: String, phone: String, in context: NSManagedObjectContext? = nil) -> Contact{

@@ -29,7 +29,13 @@ struct ALUIProperties {
     var imgYOffset: CGFloat
 }
 
+// MARK: - Notification UserInfo
 
+struct UserInfoKey {
+    static let onDeviceAssessment = "onDeviceAssessment"
+    static let inComingAssessment = "inComingAssessment"
+    static let combinedStandard = "combinedStandard"
+}
 
 
 struct UIProperties {

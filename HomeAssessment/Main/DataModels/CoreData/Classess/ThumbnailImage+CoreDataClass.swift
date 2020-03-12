@@ -11,7 +11,21 @@ import UIKit
 import CoreData
 
 @objc(ThumbnailImage)
-public class ThumbnailImage: NSManagedObject {
+public class ThumbnailImage: NSManagedObject, Identifiable, NSSecureCoding {
+    required convenience public init?(coder: NSCoder) {
+        print("** decoding ThumbnailImage")
+        self.init(context: CoreDataHelper.stack.context)
+        uuid = coder.decodeObject(forKey: CodingKeys.uuid.rawValue) as? UUID
+        imageData = coder.decodeObject(forKey: CodingKeys.imageData.rawValue) as? Data
+        dateCreated = coder.decodeObject(forKey: CodingKeys.dateCreated.rawValue) as? Date
+        questionID = coder.decodeObject(forKey: CodingKeys.questionID.rawValue) as? UUID
+        originalImage = coder.decodeObject(forKey: CodingKeys.originalImage.rawValue) as? OriginalImage
+//        assessment = coder.decodeObject(forKey: CodingKeys.assessment.rawValue) as? Assessment
+    }
+    
+    public static var supportsSecureCoding: Bool {
+        return true
+    }
     
     static var resultController = NSFetchedResultsController(fetchRequest: fetch(), managedObjectContext: CoreDataHelper.stack.context, sectionNameKeyPath: nil, cacheName: nil)
     

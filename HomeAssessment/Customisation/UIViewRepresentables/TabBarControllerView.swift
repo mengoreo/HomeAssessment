@@ -11,7 +11,7 @@ import UIKit
 struct TabBarController: UIViewControllerRepresentable {
     var controllers: [UIViewController]
 //    var selectedIndex: Binding<Int16>
-    @Binding var selectedIndex: Int16
+    @Binding var selectedIndex: Int32
     @Binding var hideTabBar: Bool
     func makeUIViewController(context: Context) -> UITabBarController {
         let tabBarController = UITabBarController()
@@ -42,7 +42,7 @@ struct TabBarController: UIViewControllerRepresentable {
         }
         
         func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-            parent.selectedIndex = Int16(tabBarController.selectedIndex)
+            parent.selectedIndex = Int32(tabBarController.selectedIndex)
         }
     }
 }

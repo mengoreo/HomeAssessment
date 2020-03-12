@@ -10,7 +10,7 @@ import SwiftUI
 import CoreData
 
 struct TabsContainer: View {
-    @Binding var selected: Int16
+    @Binding var selected: Int32
     @Binding var hide: Bool
     var body: some View {
         ZStack {

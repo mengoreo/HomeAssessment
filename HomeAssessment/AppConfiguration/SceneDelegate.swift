@@ -12,14 +12,13 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    @State var newElderModal: Int16 = 1
+    private var combinedStandard: Standard?
     
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-
+//        UserSession.clear()
+//        AppStatus.currentStatus.authorised = false
+        
         // Create the SwiftUI view that provides the window contents.
         let welcomeView = WelcomeView(viewModel: .init())
 //        let welcomeView = TabsContainer(selection: $newElderModal)
@@ -30,8 +29,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(willCombine(_:)), name: .WillCombineAssessments, object: nil)
     }
 
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        
+        if let url = URLContexts.first?.url {
+            ShareDataManager.manager.handle(url)
+        }
+    }
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
@@ -44,7 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         print("sceneDidBecomeActive")
-        let currentStyle = Int16(UIScreen.main.traitCollection.userInterfaceStyle.rawValue)
+        let currentStyle = Int32(UIScreen.main.traitCollection.userInterfaceStyle.rawValue)
         if AppStatus.currentStatus.lastUserInterface != currentStyle {
             AppStatus.currentStatus.lastUserInterface = currentStyle
 //            CoreDataHelper.stack.save()
@@ -53,6 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 ass.mapPreviewNeedsUpdate = true
             }
         }
+        
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -70,9 +77,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        combinedStandard?.delete()
+        NotificationCenter.default.post(name: .SceneDidEnterBackground, object: nil)
         CoreDataHelper.stack.saveForSceneDelegate()
     }
 
-
+    @objc private func willCombine(_ notification: Notification) {
+        combinedStandard = notification.userInfo![UserInfoKey.combinedStandard] as? Standard
+    }
 }
 

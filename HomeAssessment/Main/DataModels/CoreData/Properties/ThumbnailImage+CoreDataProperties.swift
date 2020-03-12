@@ -27,4 +27,26 @@ extension ThumbnailImage {
     @NSManaged public var originalImage: OriginalImage?
     @NSManaged public var assessment: Assessment?
 
+    enum CodingKeys:String, CodingKey {
+        case uuid,
+        imageData,
+        dateCreated,
+        questionID,
+        originalImage,
+        assessment
+        
+    }
+}
+
+// MARK: - NSSecureCoding
+extension ThumbnailImage {
+    public func encode(with encoder: NSCoder) {
+        print("** encoding thumbnail")
+        encoder.encode(uuid, forKey: CodingKeys.uuid.rawValue)
+        encoder.encode(imageData, forKey: CodingKeys.imageData.rawValue)
+        encoder.encode(dateCreated, forKey: CodingKeys.dateCreated.rawValue)
+        encoder.encode(questionID, forKey: CodingKeys.questionID.rawValue)
+        encoder.encode(originalImage, forKey: CodingKeys.originalImage.rawValue)
+        encoder.encode(assessment, forKey: CodingKeys.assessment.rawValue)
+    }
 }

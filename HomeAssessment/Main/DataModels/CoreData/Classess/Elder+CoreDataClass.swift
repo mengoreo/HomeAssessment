@@ -9,8 +9,22 @@
 import CoreData
 
 @objc(Elder)
-public class Elder: NSManagedObject, Identifiable {
+public class Elder: NSManagedObject, Identifiable, NSSecureCoding  {
+    required convenience public init?(coder: NSCoder) {
+        print("** decoding Elder")
+        self.init(context: CoreDataHelper.stack.context)
+        dateCreated = coder.decodeObject(forKey: CodingKeys.dateCreated.rawValue) as! Date
+        dateUpdated = coder.decodeObject(forKey: CodingKeys.dateUpdated.rawValue) as! Date
+        heightInCM = coder.decodeObject(forKey: CodingKeys.heightInCM.rawValue) as? Int32 ?? 0
+        status = coder.decodeObject(forKey: CodingKeys.status.rawValue) as! String
+        name = coder.decodeObject(forKey: CodingKeys.name.rawValue) as! String
+        uuid = coder.decodeObject(forKey: CodingKeys.uuid.rawValue) as! UUID
+//        assessment = coder.decodeObject(forKey: CodingKeys.assessment.rawValue) as! Assessment
+    }
     
+    public static var supportsSecureCoding: Bool {
+        return true
+    }
     static var resultController = NSFetchedResultsController(fetchRequest: fetch(), managedObjectContext: CoreDataHelper.stack.context, sectionNameKeyPath: nil, cacheName: nil)
     class func create(for assessment: Assessment, name: String, heightInCM: Int32, status: String) {
         let newElder = Elder(context: CoreDataHelper.stack.context)

@@ -26,5 +26,26 @@ extension Contact {
     @NSManaged public var phone: String
     @NSManaged public var uuid: UUID
     @NSManaged public var assessment: Assessment
-
+    
+    enum CodingKeys: String, CodingKey {
+        case dateCreated,
+        dateUpdated,
+        name,
+        phone,
+        uuid,
+        assessment
+    }
+}
+// MARK: - NSSecureCoding
+extension Contact {
+    public func encode(with encoder: NSCoder) {
+        print("** ecoding Contact")
+        encoder.encode(dateCreated, forKey: CodingKeys.dateCreated.rawValue)
+        encoder.encode(dateUpdated, forKey: CodingKeys.dateUpdated.rawValue)
+        encoder.encode(name, forKey: CodingKeys.name.rawValue)
+        encoder.encode(phone, forKey: CodingKeys.phone.rawValue)
+        encoder.encode(uuid, forKey: CodingKeys.uuid.rawValue)
+        encoder.encode(assessment, forKey: CodingKeys.assessment.rawValue)
+        
+    }
 }

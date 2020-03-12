@@ -10,12 +10,25 @@ import CoreData
 import UIKit
 
 @objc(AppStatus)
-public class AppStatus: NSManagedObject {
+public class AppStatus: NSManagedObject, Identifiable, NSSecureCoding {
+    required convenience public init?(coder: NSCoder) {
+        print("** decoding AppStatus")
+        self.init(context: CoreDataHelper.stack.context)
+        authorised = coder.decodeObject(forKey: CodingKeys.authorised.rawValue) as! Bool
+        hideTabBar = coder.decodeObject(forKey: CodingKeys.hideTabBar.rawValue) as! Bool
+        lastOpenedTab = coder.decodeInt32(forKey: CodingKeys.lastOpenedTab.rawValue)
+        lastUserName = coder.decodeObject(forKey: CodingKeys.lastUserName.rawValue) as! String
+        lastUserInterface = coder.decodeInt32(forKey: CodingKeys.lastUserInterface.rawValue)
+    }
     
+    public static var supportsSecureCoding: Bool {
+        return true
+    }
+
     static var resultController = NSFetchedResultsController(fetchRequest: fetch(), managedObjectContext: CoreDataHelper.stack.context, sectionNameKeyPath: nil, cacheName: nil)
     
     class func update(authorised: Bool? = nil,
-                      lastOpenedTab: Int16? = nil,
+                      lastOpenedTab: Int32? = nil,
                       lastUserName: String? = nil,
                       hideTabBar: Bool? = nil) {
         if let au = authorised { currentStatus.authorised = au}
@@ -53,7 +66,7 @@ public class AppStatus: NSManagedObject {
         newStatus.lastOpenedTab = 0 // first tab
         newStatus.lastUserName = ""
         newStatus.hideTabBar = false
-        newStatus.lastUserInterface = Int16(UIScreen.main.traitCollection.userInterfaceStyle.rawValue)
+        newStatus.lastUserInterface = Int32(UIScreen.main.traitCollection.userInterfaceStyle.rawValue)
 //        CoreDataHelper.stack.save()
         return newStatus
     }

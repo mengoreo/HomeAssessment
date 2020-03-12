@@ -9,7 +9,22 @@
 import CoreData
 
 @objc(UserSession)
-public class UserSession: NSManagedObject, Identifiable {
+public class UserSession: NSManagedObject, Identifiable, NSSecureCoding {
+    required convenience public init?(coder: NSCoder) {
+        print("** decoding UserSession")
+        self.init(context: CoreDataHelper.stack.context)
+        dateCreated = coder.decodeObject(forKey: CodingKeys.dateCreated.rawValue) as! Date
+        dateUpdated = coder.decodeObject(forKey: CodingKeys.dateUpdated.rawValue) as! Date
+        name = coder.decodeObject(forKey: CodingKeys.name.rawValue) as! String
+        token = coder.decodeObject(forKey: CodingKeys.token.rawValue) as! String
+        uuid = coder.decodeObject(forKey: CodingKeys.uuid.rawValue) as! UUID
+//        assessments = coder.decodeObject(forKey: CodingKeys.assessments.rawValue) as? Set<Assessment>
+//        standards = coder.decodeObject(forKey: CodingKeys.standards.rawValue) as? Set<Standard>
+    }
+    
+    public static var supportsSecureCoding: Bool {
+        return true
+    }
     
     static var resultController = NSFetchedResultsController(fetchRequest: fetch(), managedObjectContext: CoreDataHelper.stack.context, sectionNameKeyPath: nil, cacheName: nil)
     class func create(name: String, token: String) -> UserSession {
@@ -27,8 +42,8 @@ public class UserSession: NSManagedObject, Identifiable {
                       completionHandler: @escaping (_ errorMessage: ErrorMessage?) -> Void) {
         // for test
         if name == "Mengoreo" {
-            _ = create(name: "fake", token: "fake")
-            AppStatus.update(authorised: true, lastUserName: "fake")
+            _ = create(name: "Mengoreo", token: "fake")
+            AppStatus.update(authorised: true, lastUserName: "Mengoreo")
             completionHandler(nil)
             return
         }

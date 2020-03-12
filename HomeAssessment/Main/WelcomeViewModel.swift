@@ -15,8 +15,19 @@ class WelcomeViewModel: NSObject, NSFetchedResultsControllerDelegate, Observable
     @Published var hide = AppStatus.currentStatus.hideTabBar
     @Published var signedIn = false
     @Published var needToSignIn = false
+
+    @Published var showCombineView = false
+    @Published var onDevice: Assessment? = nil
+    @Published var combinedStandard: Standard? = nil
+    
     private var authorisedBefore = AppStatus.authorised()
     
+    override init() {
+        super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(willCombine(_:)), name: .WillCombineAssessments, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(doneCombine), name: .DoneCombineAssessments, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(resetCombine), name: .SceneDidEnterBackground, object: nil)
+    }
     private lazy var appStatusController: NSFetchedResultsController<AppStatus> = {
         let controller = AppStatus.resultController
         controller.delegate = self
@@ -28,6 +39,25 @@ class WelcomeViewModel: NSObject, NSFetchedResultsControllerDelegate, Observable
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
             self.updateUIProperties()
         }
+    }
+    
+    @objc func willCombine(_ notification: Notification) {
+        if let onDevice =
+            notification.userInfo![UserInfoKey.onDeviceAssessment] as? Assessment,
+            let combinedStandard =
+            notification.userInfo![UserInfoKey.combinedStandard] as? Standard {
+            self.combinedStandard?.delete() // incase multiple transfer
+            self.onDevice = onDevice
+            self.combinedStandard = combinedStandard
+            self.showCombineView = true
+        }
+    }
+    @objc func doneCombine() {
+        showCombineView = false
+        combinedStandard?.delete()
+    }
+    @objc func resetCombine() {
+        showCombineView = false
     }
     private func updateUIProperties() {
         AppStatus.authorised() ?
@@ -71,7 +101,7 @@ class WelcomeViewModel: NSObject, NSFetchedResultsControllerDelegate, Observable
     }
     
     
-    private func updateUIPropertiesBeforeDisplaying(_ tab: Int16) {
+    private func updateUIPropertiesBeforeDisplaying(_ tab: Int32) {
         print("updateUIForDisplayingTab \(tab)")
         if tab == 0 { // list view
             uiProperties.iconTopPadding = 13

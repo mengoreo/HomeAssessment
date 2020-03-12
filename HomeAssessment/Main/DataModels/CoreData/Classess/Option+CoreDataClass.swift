@@ -9,8 +9,25 @@
 import CoreData
 
 @objc(Option)
-public class Option: NSManagedObject, Identifiable {
+public class Option: NSManagedObject, Identifiable, NSSecureCoding {
+    required convenience public init?(coder: NSCoder) {
+        print("** decoding Option")
+        self.init(context: CoreDataHelper.stack.context)
+        dateCreated = coder.decodeObject(forKey: CodingKeys.dateCreated.rawValue) as! Date
+        dateUpdated = coder.decodeObject(forKey: CodingKeys.dateUpdated.rawValue) as! Date
+        from_val = coder.decodeDouble(forKey: CodingKeys.from_val.rawValue)
+        index = coder.decodeInt32(forKey: CodingKeys.index.rawValue)
+        optionDescription = coder.decodeObject(forKey: CodingKeys.optionDescription.rawValue) as! String
+        suggestion = coder.decodeObject(forKey: CodingKeys.suggestion.rawValue) as! String
+        to_val = coder.decodeDouble(forKey: CodingKeys.to_val.rawValue)
+        uuid = coder.decodeObject(forKey: CodingKeys.uuid.rawValue) as! UUID
+        vote = coder.decodeDouble(forKey: CodingKeys.vote.rawValue)
+//        question = coder.decodeObject(forKey: CodingKeys.question.rawValue) as! Question
+    }
     
+    public static var supportsSecureCoding: Bool {
+        return true
+    }
     static var resultController = NSFetchedResultsController(fetchRequest: fetch(), managedObjectContext: CoreDataHelper.stack.context, sectionNameKeyPath: nil, cacheName: nil)
     
     class func create(for question: Question, index: Int32, optionDescription: String, from_val: Double, to_val: Double, vote: Double, suggestion: String, uuidString: String) {
@@ -58,6 +75,17 @@ public class Option: NSManagedObject, Identifiable {
         return dateFormatter.string(from: self.dateUpdated)
     }
     
+    override public var description: String {
+        if question.measurable {
+            if to_val > 1000 {
+                return "\(from_val) 以上"
+            } else {
+                return "\(from_val)cm ～ \(to_val)cm"
+            }
+        } else {
+            return optionDescription
+        }
+    }
     func update(_ force: Bool = false,
                 optionDescription: String? = nil,
                 from_val: Double? = nil,

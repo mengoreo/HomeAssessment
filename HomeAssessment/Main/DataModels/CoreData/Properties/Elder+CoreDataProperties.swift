@@ -27,5 +27,27 @@ extension Elder {
     @NSManaged public var status: String
     @NSManaged public var uuid: UUID
     @NSManaged public var assessment: Assessment
-
+    
+    enum CodingKeys: String, CodingKey {
+        case dateCreated,
+        dateUpdated,
+        heightInCM,
+        name,
+        status,
+        uuid,
+        assessment
+    }
+}
+// MARK: - NSSecureCoding
+extension Elder {
+    public func encode(with encoder: NSCoder) {
+        print("** ecoding Elder")
+        encoder.encode(dateCreated, forKey: CodingKeys.dateCreated.rawValue)
+        encoder.encode(dateUpdated, forKey: CodingKeys.dateUpdated.rawValue)
+        encoder.encode(heightInCM, forKey: CodingKeys.heightInCM.rawValue)
+        encoder.encode(status, forKey: CodingKeys.status.rawValue)
+        encoder.encode(name, forKey: CodingKeys.name.rawValue)
+        encoder.encode(uuid, forKey: CodingKeys.uuid.rawValue)
+        encoder.encode(assessment, forKey: CodingKeys.assessment.rawValue)
+    }
 }

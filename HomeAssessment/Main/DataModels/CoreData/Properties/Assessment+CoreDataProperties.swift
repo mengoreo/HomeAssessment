@@ -33,7 +33,45 @@ extension Assessment {
     @NSManaged public var user: UserSession // required
     @NSManaged public var capturedImages: ThumbnailImage?
     @NSManaged public var mapPreview: ThumbnailImage?
+    enum CodingKeys: String, CodingKey {
+        case address,
+        dateCreated,
+        dateUpdated,
+        mapPreviewNeedsUpdate,
+        progress,
+        remarks,
+        selectedOptions,
+        uuid,
+        contacts,
+        elders,
+        standard,
+        user,
+        capturedImages,
+        mapPreview
+    }
 
+    
+}
+// MARK: - NSSecureCoding
+extension Assessment {
+    
+    public func encode(with encoder: NSCoder) {
+        print("** ecoding Assessment")
+        encoder.encode(address, forKey: CodingKeys.address.rawValue)
+        encoder.encode(dateCreated, forKey: CodingKeys.dateCreated.rawValue)
+        encoder.encode(dateUpdated, forKey: CodingKeys.dateUpdated.rawValue)
+        encoder.encode(mapPreviewNeedsUpdate, forKey: CodingKeys.mapPreviewNeedsUpdate.rawValue)
+        encoder.encode(progress, forKey: CodingKeys.progress.rawValue)
+        encoder.encode(remarks, forKey: CodingKeys.remarks.rawValue)
+        encoder.encode(selectedOptions, forKey: CodingKeys.selectedOptions.rawValue)
+        encoder.encode(uuid, forKey: CodingKeys.uuid.rawValue)
+        encoder.encode(contacts, forKey: CodingKeys.contacts.rawValue)
+        encoder.encode(elders, forKey: CodingKeys.elders.rawValue)
+        encoder.encode(standard, forKey: CodingKeys.standard.rawValue)
+        encoder.encode(user, forKey: CodingKeys.user.rawValue)
+        encoder.encode(capturedImages, forKey: CodingKeys.capturedImages.rawValue)
+        encoder.encode(mapPreview, forKey: CodingKeys.mapPreview.rawValue)
+    }
 }
 
 // MARK: Generated accessors for contacts

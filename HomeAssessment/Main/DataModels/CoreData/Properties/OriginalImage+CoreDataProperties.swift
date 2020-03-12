@@ -19,5 +19,15 @@ extension OriginalImage {
 
     @NSManaged public var imageData: Data?
     @NSManaged public var thumbnail: ThumbnailImage
-
+    enum CodingKeys: String, CodingKey {
+        case imageData, thumbnail
+    }
+}
+// MARK: - NSSecureCoding
+extension OriginalImage {
+    public func encode(with encoder: NSCoder) {
+        print("** ecoding OriginalImage")
+        encoder.encode(imageData , forKey: CodingKeys.imageData.rawValue)
+        encoder.encode(thumbnail, forKey: CodingKeys.thumbnail.rawValue)
+    }
 }

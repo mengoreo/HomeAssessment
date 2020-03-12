@@ -9,7 +9,24 @@
 import CoreData
 
 @objc(Standard)
-public class Standard: NSManagedObject, Identifiable {
+public class Standard: NSManagedObject, Identifiable, NSSecureCoding {
+    
+    required convenience public init?(coder: NSCoder) {
+        print("** decoding Standard")
+        self.init(context: CoreDataHelper.stack.context)
+        dateCreated = coder.decodeObject(forKey: CodingKeys.dateCreated.rawValue) as! Date
+        dateUpdated = coder.decodeObject(forKey: CodingKeys.dateUpdated.rawValue) as! Date
+        index = coder.decodeInt32(forKey: CodingKeys.index.rawValue)
+        name = coder.decodeObject(forKey: CodingKeys.name.rawValue) as! String
+        uuid = coder.decodeObject(forKey: CodingKeys.uuid.rawValue) as! UUID
+//        assessments = coder.decodeObject(forKey: CodingKeys.assessments.rawValue) as? Set<Assessment>
+        questions = coder.decodeObject(forKey: CodingKeys.questions.rawValue) as? Set<Question>
+//        user = coder.decodeObject(forKey: CodingKeys.user.rawValue) as! UserSession
+    }
+    
+    public static var supportsSecureCoding: Bool {
+        return true
+    }
     
     static var resultController = NSFetchedResultsController(fetchRequest: fetch(), managedObjectContext: CoreDataHelper.stack.context, sectionNameKeyPath: nil, cacheName: nil)
     

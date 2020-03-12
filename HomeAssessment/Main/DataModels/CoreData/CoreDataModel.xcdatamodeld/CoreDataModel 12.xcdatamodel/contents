@@ -3,9 +3,10 @@
     <entity name="AppStatus" representedClassName="AppStatus" syncable="YES">
         <attribute name="authorised" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="hideTabBar" attributeType="Boolean" usesScalarValueType="YES" customClassName="NSSecureUnarchiveFromData"/>
-        <attribute name="lastOpenedTab" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="lastUserInterface" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastOpenedTab" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastUserInterface" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="lastUserName" attributeType="String"/>
+        <attribute name="readyToSaveCombined" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
     </entity>
     <entity name="Assessment" representedClassName=".Assessment" syncable="YES">
         <attribute name="address" optional="YES" attributeType="Transformable" customClassName="NSSecureUnarchiveFromData"/>
@@ -94,7 +95,7 @@
         <relationship name="standards" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Standard" inverseName="user" inverseEntity="Standard"/>
     </entity>
     <elements>
-        <element name="AppStatus" positionX="-9" positionY="90" width="128" height="118"/>
+        <element name="AppStatus" positionX="-9" positionY="90" width="128" height="133"/>
         <element name="Assessment" positionX="-36" positionY="9" width="128" height="253"/>
         <element name="Contact" positionX="0" positionY="45" width="128" height="133"/>
         <element name="Elder" positionX="-18" positionY="27" width="128" height="148"/>

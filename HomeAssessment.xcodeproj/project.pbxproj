@@ -52,6 +52,8 @@
 		083972FB2417AA55002F0464 /* OriginalImage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972F12417AA55002F0464 /* OriginalImage+CoreDataClass.swift */; };
 		083972FC2417AA55002F0464 /* Assessment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972F22417AA55002F0464 /* Assessment+CoreDataClass.swift */; };
 		0839730A2417B53C002F0464 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08558A0B23EE8F390081C53D /* Assets.xcassets */; };
+		0839730C2417C96E002F0464 /* AirDropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0839730B2417C96E002F0464 /* AirDropData.swift */; };
+		083973102417CF7E002F0464 /* ShareDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0839730F2417CF7E002F0464 /* ShareDataManager.swift */; };
 		0847F50623FC3D2400D5F3EE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847F50523FC3D2400D5F3EE /* Models.swift */; };
 		08558A0623EE8F370081C53D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0523EE8F370081C53D /* AppDelegate.swift */; };
 		08558A0823EE8F370081C53D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08558A0723EE8F370081C53D /* SceneDelegate.swift */; };
@@ -66,6 +68,7 @@
 		0894E4E923F0F2CF007D8CB7 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */; };
 		0894E51123F285FD007D8CB7 /* AssessmentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51023F285FD007D8CB7 /* AssessmentListView.swift */; };
 		0894E51323F28DEB007D8CB7 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51223F28DEB007D8CB7 /* SignInViewModel.swift */; };
+		0898743E2418ED8F00E86B37 /* CombiningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0898743D2418ED8F00E86B37 /* CombiningView.swift */; };
 		08CB26DA2409199A00A81EA7 /* ElderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26D52409199A00A81EA7 /* ElderSectionView.swift */; };
 		08CB26DB2409199A00A81EA7 /* ContactSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26D62409199A00A81EA7 /* ContactSectionView.swift */; };
 		08CB26DC2409199A00A81EA7 /* NewEditContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26D72409199A00A81EA7 /* NewEditContactView.swift */; };
@@ -80,7 +83,7 @@
 		08CB26F024091B0600A81EA7 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26EF24091B0600A81EA7 /* DataFetcher.swift */; };
 		08CB26F32409323300A81EA7 /* TabsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26F22409323300A81EA7 /* TabsContainer.swift */; };
 		08CB26FA2409879D00A81EA7 /* AssessmentRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB26F92409879D00A81EA7 /* AssessmentRowView.swift */; };
-		08DA3CBA24148E0A009D526E /* CoreDataModel2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08DA3CB224148E0A009D526E /* CoreDataModel2.xcdatamodeld */; };
+		08DA3CBA24148E0A009D526E /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08DA3CB224148E0A009D526E /* CoreDataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,11 +136,13 @@
 		083972F12417AA55002F0464 /* OriginalImage+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OriginalImage+CoreDataClass.swift"; sourceTree = "<group>"; };
 		083972F22417AA55002F0464 /* Assessment+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assessment+CoreDataClass.swift"; sourceTree = "<group>"; };
 		083973082417B4C7002F0464 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0839730B2417C96E002F0464 /* AirDropData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirDropData.swift; sourceTree = "<group>"; };
+		0839730F2417CF7E002F0464 /* ShareDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDataManager.swift; sourceTree = "<group>"; };
 		0847F50523FC3D2400D5F3EE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		08558A0223EE8F370081C53D /* HomeAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08558A0523EE8F370081C53D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08558A0723EE8F370081C53D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		08558A0B23EE8F390081C53D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		08558A0B23EE8F390081C53D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = HomeAssessment/AppConfiguration/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		08558A0E23EE8F390081C53D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		08558A1123EE8F390081C53D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08558A2423EFCF2D0081C53D /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -151,6 +156,9 @@
 		0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		0894E51023F285FD007D8CB7 /* AssessmentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentListView.swift; sourceTree = "<group>"; };
 		0894E51223F28DEB007D8CB7 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		0898743D2418ED8F00E86B37 /* CombiningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombiningView.swift; sourceTree = "<group>"; };
+		0898743F2419421D00E86B37 /* CoreDataModel 12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel 12.xcdatamodel"; sourceTree = "<group>"; };
+		089874402419F4AC00E86B37 /* CoreDataModel 13.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel 13.xcdatamodel"; sourceTree = "<group>"; };
 		08CB26D52409199A00A81EA7 /* ElderSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElderSectionView.swift; sourceTree = "<group>"; };
 		08CB26D62409199A00A81EA7 /* ContactSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactSectionView.swift; sourceTree = "<group>"; };
 		08CB26D72409199A00A81EA7 /* NewEditContactView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewEditContactView.swift; sourceTree = "<group>"; };
@@ -206,8 +214,7 @@
 		0810BECB240900D100CA3833 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				08DA3CB224148E0A009D526E /* CoreDataModel2.xcdatamodeld */,
-				0810BEC5240900BF00CA3833 /* CoreDataHelper.swift */,
+				08DA3CB224148E0A009D526E /* CoreDataModel.xcdatamodeld */,
 				083972E82417AA55002F0464 /* Classess */,
 				0803853024152951006446BE /* Properties */,
 			);
@@ -241,10 +248,12 @@
 		08219A1323F0395C00D6CF07 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				0810BEC5240900BF00CA3833 /* CoreDataHelper.swift */,
 				08219A1423F0397F00D6CF07 /* TokenFetcher.swift */,
 				08CB26EF24091B0600A81EA7 /* DataFetcher.swift */,
 				088F50EE23F2F1FD0012B7E7 /* Errors.swift */,
 				083972CB2416CA0F002F0464 /* Threading.swift */,
+				0839730F2417CF7E002F0464 /* ShareDataManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -299,16 +308,16 @@
 		083972E82417AA55002F0464 /* Classess */ = {
 			isa = PBXGroup;
 			children = (
-				083972E92417AA55002F0464 /* Standard+CoreDataClass.swift */,
-				083972EA2417AA55002F0464 /* ThumbnailImage+CoreDataClass.swift */,
+				083972EE2417AA55002F0464 /* AppStatus+CoreDataClass.swift */,
+				083972F22417AA55002F0464 /* Assessment+CoreDataClass.swift */,
+				083972EF2417AA55002F0464 /* Contact+CoreDataClass.swift */,
 				083972EB2417AA55002F0464 /* Elder+CoreDataClass.swift */,
 				083972EC2417AA55002F0464 /* Option+CoreDataClass.swift */,
-				083972ED2417AA55002F0464 /* Question+CoreDataClass.swift */,
-				083972EE2417AA55002F0464 /* AppStatus+CoreDataClass.swift */,
-				083972EF2417AA55002F0464 /* Contact+CoreDataClass.swift */,
-				083972F02417AA55002F0464 /* UserSession+CoreDataClass.swift */,
 				083972F12417AA55002F0464 /* OriginalImage+CoreDataClass.swift */,
-				083972F22417AA55002F0464 /* Assessment+CoreDataClass.swift */,
+				083972ED2417AA55002F0464 /* Question+CoreDataClass.swift */,
+				083972E92417AA55002F0464 /* Standard+CoreDataClass.swift */,
+				083972EA2417AA55002F0464 /* ThumbnailImage+CoreDataClass.swift */,
+				083972F02417AA55002F0464 /* UserSession+CoreDataClass.swift */,
 			);
 			path = Classess;
 			sourceTree = "<group>";
@@ -377,6 +386,7 @@
 		087D86C6240AA96A00AD8D80 /* Assessment */ = {
 			isa = PBXGroup;
 			children = (
+				0898743C2418ED7F00E86B37 /* Combining */,
 				083972E52417A909002F0464 /* List */,
 				082D0DB32413D653007C59F7 /* Edit */,
 				082D0DB42413D666007C59F7 /* Ongoing */,
@@ -415,8 +425,17 @@
 				083972CF2417A2E2002F0464 /* CurrentLocationView.swift */,
 				0869DAD723FBD30C003EBF2C /* CustomStyles.swift */,
 				0869DAD323FBBE79003EBF2C /* Extensions.swift */,
+				0839730B2417C96E002F0464 /* AirDropData.swift */,
 			);
 			path = Customisation;
+			sourceTree = "<group>";
+		};
+		0898743C2418ED7F00E86B37 /* Combining */ = {
+			isa = PBXGroup;
+			children = (
+				0898743D2418ED8F00E86B37 /* CombiningView.swift */,
+			);
+			path = Combining;
 			sourceTree = "<group>";
 		};
 		08CB26DF24091A1F00A81EA7 /* UIKitViews */ = {
@@ -540,6 +559,7 @@
 				080385232415292B006446BE /* AppStatus+CoreDataProperties.swift in Sources */,
 				0810BEE924090FDF00CA3833 /* SearchBar.swift in Sources */,
 				083972C72415DC70002F0464 /* ARMeasureView.swift in Sources */,
+				0839730C2417C96E002F0464 /* AirDropData.swift in Sources */,
 				0869DAD623FBC5CF003EBF2C /* AssessmentListViewModel.swift in Sources */,
 				0810BEC6240900BF00CA3833 /* CoreDataHelper.swift in Sources */,
 				0894E51123F285FD007D8CB7 /* AssessmentListView.swift in Sources */,
@@ -571,6 +591,7 @@
 				0810BEEB2409100600CA3833 /* Labels.swift in Sources */,
 				08CB26DE2409199A00A81EA7 /* NewElderView.swift in Sources */,
 				0810BEE324090F7300CA3833 /* TextFields.swift in Sources */,
+				0898743E2418ED8F00E86B37 /* CombiningView.swift in Sources */,
 				083972FA2417AA55002F0464 /* UserSession+CoreDataClass.swift in Sources */,
 				083972DF2417A59D002F0464 /* QuestionRowView.swift in Sources */,
 				08CB26E724091A5D00A81EA7 /* Map.swift in Sources */,
@@ -586,7 +607,7 @@
 				0803851D2415292B006446BE /* Elder+CoreDataProperties.swift in Sources */,
 				080385212415292B006446BE /* Contact+CoreDataProperties.swift in Sources */,
 				082D0DB6241407B6007C59F7 /* TabBarControllerView.swift in Sources */,
-				08DA3CBA24148E0A009D526E /* CoreDataModel2.xcdatamodeld in Sources */,
+				08DA3CBA24148E0A009D526E /* CoreDataModel.xcdatamodeld in Sources */,
 				0803852D2415292B006446BE /* Assessment+CoreDataProperties.swift in Sources */,
 				08219A1523F0397F00D6CF07 /* TokenFetcher.swift in Sources */,
 				083972F42417AA55002F0464 /* ThumbnailImage+CoreDataClass.swift in Sources */,
@@ -599,6 +620,7 @@
 				08558A0823EE8F370081C53D /* SceneDelegate.swift in Sources */,
 				08CB26DC2409199A00A81EA7 /* NewEditContactView.swift in Sources */,
 				083972FB2417AA55002F0464 /* OriginalImage+CoreDataClass.swift in Sources */,
+				083973102417CF7E002F0464 /* ShareDataManager.swift in Sources */,
 				0803851F2415292B006446BE /* OriginalImage+CoreDataProperties.swift in Sources */,
 				083972F92417AA55002F0464 /* Contact+CoreDataClass.swift in Sources */,
 				08CB26E324091A4000A81EA7 /* SearchResultViewController.swift in Sources */,
@@ -740,6 +762,7 @@
 		08558A1723EE8F390081C53D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"HomeAssessment/Preview Content\"";
 				DEVELOPMENT_TEAM = 8X96K7Q543;
@@ -759,6 +782,7 @@
 		08558A1823EE8F390081C53D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"HomeAssessment/Preview Content\"";
 				DEVELOPMENT_TEAM = 8X96K7Q543;
@@ -799,9 +823,11 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		08DA3CB224148E0A009D526E /* CoreDataModel2.xcdatamodeld */ = {
+		08DA3CB224148E0A009D526E /* CoreDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				089874402419F4AC00E86B37 /* CoreDataModel 13.xcdatamodel */,
+				0898743F2419421D00E86B37 /* CoreDataModel 12.xcdatamodel */,
 				083972CA2416ACA7002F0464 /* CoreDataModel 11.xcdatamodel */,
 				080384D12415254F006446BE /* CoreDataModel 10.xcdatamodel */,
 				080384CD2414C51B006446BE /* CoreDataModel 9.xcdatamodel */,
@@ -814,8 +840,8 @@
 				08DA3CB824148E0A009D526E /* CoreDataModel 6.xcdatamodel */,
 				08DA3CB924148E0A009D526E /* CoreDataModel 5.xcdatamodel */,
 			);
-			currentVersion = 083972CA2416ACA7002F0464 /* CoreDataModel 11.xcdatamodel */;
-			path = CoreDataModel2.xcdatamodeld;
+			currentVersion = 089874402419F4AC00E86B37 /* CoreDataModel 13.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

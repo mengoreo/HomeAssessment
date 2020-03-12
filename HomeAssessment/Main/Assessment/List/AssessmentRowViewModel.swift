@@ -19,6 +19,8 @@ class AssessmentRowViewModel: NSObject, ObservableObject {
     @Published var showMapModal = false
     
     @Published var showEditModel = false
+    @Published var shareModal = false
+    @Published var sharedItems = [AirDropData]()
     @Published var showWarning = false
     @Published var warningMessage = ""
     @Published var warningDestructiveAction: () -> Void = {}
@@ -60,6 +62,14 @@ class AssessmentRowViewModel: NSObject, ObservableObject {
     func updateMapPreview() {
         setupSnapshotOptions()
         takeSnapshot()
+    }
+    func aboutToShare() {
+        do {
+            try sharedItems.append(ShareDataManager.manager.compressAndShare(assessment))
+            shareModal = true
+        } catch {
+            fatalError("** share failed: \(error)")
+        }
     }
     func aboutToDelete() {
         warningMessage = "该操作无法撤销！\n确定删除「\(assessment.remarks)」吗？"

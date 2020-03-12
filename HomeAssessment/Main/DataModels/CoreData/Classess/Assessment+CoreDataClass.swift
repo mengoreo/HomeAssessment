@@ -11,7 +11,30 @@ import CoreLocation
 import UIKit
 
 @objc(Assessment)
-public class Assessment: NSManagedObject, Identifiable {
+public class Assessment: NSManagedObject, Identifiable, NSSecureCoding {
+    
+    required convenience public init?(coder: NSCoder) {
+        print("** decoding Assessment")
+        self.init(context: CoreDataHelper.stack.context)
+        address = coder.decodeObject(forKey: CodingKeys.address.rawValue) as? CLPlacemark
+        dateCreated = coder.decodeObject(forKey: CodingKeys.dateCreated.rawValue) as! Date
+        dateUpdated = coder.decodeObject(forKey: CodingKeys.dateUpdated.rawValue) as? Date
+        mapPreviewNeedsUpdate = coder.decodeBool(forKey: CodingKeys.mapPreviewNeedsUpdate.rawValue)
+        progress = coder.decodeDouble(forKey: CodingKeys.progress.rawValue)
+        remarks = coder.decodeObject(forKey: CodingKeys.remarks.rawValue) as! String
+        selectedOptions = coder.decodeObject(forKey: CodingKeys.selectedOptions.rawValue) as! [UUID: UUID]
+        uuid = coder.decodeObject(forKey: CodingKeys.uuid.rawValue) as! UUID
+        contacts = coder.decodeObject(forKey: CodingKeys.contacts.rawValue) as? Set<Contact>
+        elders = coder.decodeObject(forKey: CodingKeys.elders.rawValue) as? Set<Elder>
+        standard = coder.decodeObject(forKey: CodingKeys.standard.rawValue) as? Standard
+        user = coder.decodeObject(forKey: CodingKeys.user.rawValue) as! UserSession
+        capturedImages = coder.decodeObject(forKey: CodingKeys.capturedImages.rawValue) as? ThumbnailImage
+        mapPreview = coder.decodeObject(forKey: CodingKeys.mapPreview.rawValue) as? ThumbnailImage
+    }
+    
+    public static var supportsSecureCoding: Bool {
+        return true
+    }
     
     static var resultController = NSFetchedResultsController(fetchRequest: fetch(), managedObjectContext: CoreDataHelper.stack.context, sectionNameKeyPath: nil, cacheName: nil)
     
@@ -71,7 +94,14 @@ public class Assessment: NSManagedObject, Identifiable {
         let result = CoreDataHelper.stack.fetch(request)
         return result.first
     }
-    
+    class func findByID(with value: UUID) -> Assessment? {
+        let request = fetch()
+        let predicate = NSPredicate(format: "uuid == %@", value as CVarArg)
+        request.predicate = predicate
+        
+        let result = CoreDataHelper.stack.fetch(request)
+        return result.first
+    }
     func update(preview: UIImage?, completionHandler: @escaping (_ saved: Bool) -> Void = {_ in}) {
         if let image = preview {
             ThumbnailImage.performCreate(with: image) { (error, thumbnail) in
