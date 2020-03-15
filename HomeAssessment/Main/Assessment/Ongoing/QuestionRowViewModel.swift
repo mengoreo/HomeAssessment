@@ -101,7 +101,7 @@ class QuestionRowViewModel: ObservableObject {
     
     
     func willDelete(_ thumbnail: ThumbnailImage) {
-        warningMessage = "确定删除在 \(thumbnail.dateCreated!.dateString) 为 \(question.name) 拍摄的照片吗"
+        warningMessage = "确定删除在 \(thumbnail.dateCreated!.relevantString) 为 \(question.name) 拍摄的照片吗"
         warningAction =  {
             self.objectWillChange.send()
             thumbnail.delete()

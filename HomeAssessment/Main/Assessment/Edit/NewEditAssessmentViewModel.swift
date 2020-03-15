@@ -13,7 +13,7 @@ import MapKit
 class NewEditAssessmentViewModel: ObservableObject {
     
     @Published var searchStandardModal: Bool = false
-    @Published var selectedStandard: Standard?
+    @Published var selectedStandardIndex = 0
     @Published var remarks: String!
     @Published var presentingMap = false
     @Published var locatedAt: MKPlacemark?
@@ -30,7 +30,7 @@ class NewEditAssessmentViewModel: ObservableObject {
 //        super.init()
         // MARK: - important?
         remarks = assessment.remarks
-        selectedStandard = assessment.standard
+        selectedStandardIndex = Int(assessment.standard?.index ?? 0)
         locatedAt = assessment.address == nil ? nil : MKPlacemark(placemark: assessment.address!)
     }
     
@@ -47,12 +47,13 @@ class NewEditAssessmentViewModel: ObservableObject {
         print("** done button", assessment)
         return assessment.getContacts().isEmpty // xie!!!!!!
             || assessment.getElders().isEmpty
-            || selectedStandard == nil
             || locatedAt == nil
             || editingRemarks
     }
     
-    
+    var standards: [Standard] {
+        assessment.user.standards?.sorted(by: {$0.index > $1.index}) ?? []
+    }
     func didBeginEditingRemarks() {
         self.editingRemarks = true
     }
@@ -82,7 +83,7 @@ class NewEditAssessmentViewModel: ObservableObject {
             print("empty remakr")
             remarks = locatedAt?.name ?? "无备注"
         }
-        assessment.update(remarks: remarks, address: locatedAt, progress: assessment.progress, standard: selectedStandard)
+        assessment.update(remarks: remarks, address: locatedAt, progress: assessment.progress, standard: standards[selectedStandardIndex])
         
         saving = true
         CoreDataHelper.stack.save()

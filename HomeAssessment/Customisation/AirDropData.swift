@@ -10,35 +10,45 @@ import UIKit
 
 class AirDropData: NSObject, UIActivityItemSource {
     
-    var data: Data
-    var placeholder: String
-    
-    init(with data: Data, placeholder: String) {
+    let data: Data
+    let placeholder: String
+    enum FileType: CodingKey {
+        case haassessment
+        case pdf
+    }
+    let shareType: FileType
+    init(with data: Data, placeholder: String, type: FileType = .haassessment) {
         self.data = data
-        self.placeholder = placeholder + ".haassessment"
+        self.placeholder = placeholder + "\n.\(type.stringValue)"
+        shareType = type
         super.init()
     }
     
+    // MARK: - 接收方的展示
     func activityViewController(_ activityViewController: UIActivityViewController,
                                 thumbnailImageForActivityType activityType: UIActivity.ActivityType?,
                                 suggestedSize size: CGSize) -> UIImage? {
-            return UIImage(named: "AppIcon")
+        switch shareType {
+        case .haassessment:
+            return UIImage(named: "icon")
+        case .pdf:
+            return UIImage(systemName: "doc")
+        }
     }
     
     func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        // MARK: - For showing while shareing
         return URL(fileURLWithPath: placeholder)
     }
     
     func activityViewController(_ activityViewController: UIActivityViewController,
                                 itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
-        if activityType == .airDrop {
-            return data
-        }
-        return nil
+        return data
     }
     
     func activityViewController(_ activityViewController: UIActivityViewController, dataTypeIdentifierForActivityType activityType: UIActivity.ActivityType?) -> String {
-        return "com.mengoreo.HA.assessment"
+        print("dataTypeIdentifierForActivityType")
+        return "com.mengoreo.HA.\(shareType.stringValue)"
     }
     
 }

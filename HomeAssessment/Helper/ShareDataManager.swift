@@ -97,7 +97,7 @@ class ShareDataManager {
         removedOptions.removeAll()
     }
     func compressAndShare(_ assessment: Assessment) throws -> AirDropData {
-        let placeholder = "分享「\(assessment.remarks)」给同事\n"
+        let placeholder = "分享「\(assessment.remarks)」给同事\n" + ".haassessment"
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: assessment, requiringSecureCoding: true)
             debugPrint("data:", data)

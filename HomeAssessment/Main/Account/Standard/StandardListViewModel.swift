@@ -10,12 +10,7 @@ import SwiftUI
 import CoreData
 // MARK: - view model
 class StandardListViewModel: NSObject, ObservableObject {
-    var user: UserSession
-    private lazy var standardController: NSFetchedResultsController<Standard> = {
-        let controller = Standard.resultController
-        controller.delegate = self
-        return controller
-    }()
+    let user: UserSession
     
     init(user: UserSession) {
         self.user = user
@@ -27,22 +22,19 @@ class StandardListViewModel: NSObject, ObservableObject {
     @Published var searchText = ""
     
     @Published var loading: Bool = false
-    private var offsetsToDelete = IndexSet()
-    
     var standards: [Standard] {
-        return standardController.fetchedObjects?.filter{$0.user == user}.filter{searchText.isEmpty ? true : ($0 as Standard).name.localizedStandardContains(self.searchText)
-        } ?? []
+        user.standards?.sorted(by: {$0.index > $1.index}) ?? []
     }
-    
     func onAppear() {
         
         print("objectWillChange in standardlist")
         objectWillChange.send()
-        try? standardController.performFetch()
+        Standard.resultController.delegate = self
+        try? Standard.resultController.performFetch()
     }
     
     func fakeCreate() {
-        let fstandard = Standard.create(for: user, name: "居家适老化评估标准", index: 0, uuidString: UUID().uuidString)
+        let fstandard = Standard.create(for: user, name: "居家适老化评估标准", index: standards.count, uuidString: UUID().uuidString)
         let q1 = Question.create(for: fstandard, index: 1, name: "照光够明亮，方便老人可以看清屋内物品及家具、通道等位置", measurable: false, uuidString: UUID().uuidString)
         let q2 = Question.create(for: fstandard, index: 2, name: "屋内的电灯开关都有明显的特殊设计（例如：有开关外环显示灯或萤黄贴条）", measurable: false, uuidString: UUID().uuidString)
         let q3 = Question.create(for: fstandard, index: 3, name: "光线强度不会让老年人感到眩晕或看不清物品位置", measurable: false, uuidString: UUID().uuidString)
@@ -73,16 +65,19 @@ class StandardListViewModel: NSObject, ObservableObject {
         }
     }
     
-    func aboutToDelete(_ standard: Standard) {
-        var message = standard.getAssessments().map {"「评估项目: \($0.remarks)」"}.joined(separator: "和")
-        if !message.isEmpty {
-            message = message + "正在使用「\(standard.name)」。❗️删除之后，这些评估进度将会被重置❗️\n"
+    func aboutToDelete(_ indexSet: IndexSet) {
+        if let index = indexSet.first {
+            let standard = standards[index]
+            var message = standard.getAssessments().map {"「\($0.remarks)」"}.joined(separator: "和")
+            if !message.isEmpty {
+                message = message + "正在使用「\(standard.name)」。\n❗️删除之后，这些评估进度将会被重置❗️\n"
+            }
+            message += "确定删除「\(standard.name)」吗?"
+            
+            actionTitle = message
+            showActionSheet = true
+            destructiveAction = standard.delete
         }
-        message += "确定删除「\(standard.name)」吗?"
-        
-        actionTitle = message
-        showActionSheet = true
-        destructiveAction = standard.delete
     }
     
     func cancelDelete() {

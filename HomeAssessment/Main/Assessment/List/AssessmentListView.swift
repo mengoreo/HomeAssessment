@@ -17,7 +17,6 @@ struct AssessmentListView: View {
             ZStack {
                 List {
                     ForEach(viewModel.assessments) {assessment in
-//                        if !assessment.isDeleted {
                             NavigationLink(destination:
                                 EvaluatingView(assessment: assessment)
                                     .accentColor(.accentColor)
@@ -28,13 +27,12 @@ struct AssessmentListView: View {
                                 
                             }
                             .disabled(self.viewModel.updating || assessment.standard == nil)
-//                        }
-                    }.onReceive(viewModel.objectWillChange, perform: {_ in
-                        print("recieved")
-                    })
-                
-                }
+                    }                
+                }.listStyle(PlainListStyle())
                 .onAppear(perform: viewModel.onAppear)
+                .onDisappear {
+                    AppStatus.update(hideTabBar: AppStatus.currentStatus.lastOpenedTab == 0)
+                }
 
                 Text("").hidden().sheet(isPresented: $viewModel.showNewAssessmentModal, onDismiss: viewModel.newAssessmentModalDismissed) {
                     NewEditAssessmentView(viewModel: .init(assessment: self.viewModel.assessmentToCreate!))

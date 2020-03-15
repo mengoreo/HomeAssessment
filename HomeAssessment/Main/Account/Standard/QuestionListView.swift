@@ -22,7 +22,7 @@ struct QuestionListView: View {
                             .font(.headline)
                         VStack(alignment: .leading, spacing: 3) {
                             ForEach(question.getOptions()) { option in
-                                Text(option.optionDescription)
+                                Text(option.description)
                                 .font(.footnote)
                                 .foregroundColor(Color(UIColor.secondaryLabel))
                             }
@@ -30,6 +30,8 @@ struct QuestionListView: View {
                     }
                 }
             }
-        }.navigationBarTitle("问题及其选项", displayMode: .inline)
+        }
+        .listStyle(PlainListStyle())
+        .navigationBarTitle("问题及其选项")
     }
 }

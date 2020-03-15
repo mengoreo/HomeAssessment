@@ -51,7 +51,6 @@
 		083972FA2417AA55002F0464 /* UserSession+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972F02417AA55002F0464 /* UserSession+CoreDataClass.swift */; };
 		083972FB2417AA55002F0464 /* OriginalImage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972F12417AA55002F0464 /* OriginalImage+CoreDataClass.swift */; };
 		083972FC2417AA55002F0464 /* Assessment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083972F22417AA55002F0464 /* Assessment+CoreDataClass.swift */; };
-		0839730A2417B53C002F0464 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08558A0B23EE8F390081C53D /* Assets.xcassets */; };
 		0839730C2417C96E002F0464 /* AirDropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0839730B2417C96E002F0464 /* AirDropData.swift */; };
 		083973102417CF7E002F0464 /* ShareDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0839730F2417CF7E002F0464 /* ShareDataManager.swift */; };
 		0847F50623FC3D2400D5F3EE /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847F50523FC3D2400D5F3EE /* Models.swift */; };
@@ -64,6 +63,12 @@
 		0869DAD623FBC5CF003EBF2C /* AssessmentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0869DAD523FBC5CE003EBF2C /* AssessmentListViewModel.swift */; };
 		0869DAD823FBD30C003EBF2C /* CustomStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0869DAD723FBD30C003EBF2C /* CustomStyles.swift */; };
 		0875967023F024E300CF6C4E /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0875966F23F024E300CF6C4E /* WelcomeViewModel.swift */; };
+		0876A48C241B5580003BD980 /* PDFCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876A48B241B5580003BD980 /* PDFCreator.swift */; };
+		0885730B241B5D2700B9DCE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0885730A241B5D2700B9DCE5 /* Assets.xcassets */; };
+		0885730D241B5D6600B9DCE5 /* ReportEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0885730C241B5D6600B9DCE5 /* ReportEditView.swift */; };
+		08857310241B91D100B9DCE5 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0885730F241B91D100B9DCE5 /* ReportView.swift */; };
+		0885733F241CD71100B9DCE5 /* CapturedPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0885733E241CD71000B9DCE5 /* CapturedPhotosView.swift */; };
+		08857341241CD73900B9DCE5 /* ReportCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08857340241CD73900B9DCE5 /* ReportCollectionView.swift */; };
 		088F50EF23F2F1FD0012B7E7 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088F50EE23F2F1FD0012B7E7 /* Errors.swift */; };
 		0894E4E923F0F2CF007D8CB7 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */; };
 		0894E51123F285FD007D8CB7 /* AssessmentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0894E51023F285FD007D8CB7 /* AssessmentListView.swift */; };
@@ -142,7 +147,6 @@
 		08558A0223EE8F370081C53D /* HomeAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08558A0523EE8F370081C53D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08558A0723EE8F370081C53D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		08558A0B23EE8F390081C53D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = HomeAssessment/AppConfiguration/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		08558A0E23EE8F390081C53D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		08558A1123EE8F390081C53D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08558A2423EFCF2D0081C53D /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -152,6 +156,13 @@
 		0869DAD523FBC5CE003EBF2C /* AssessmentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentListViewModel.swift; sourceTree = "<group>"; };
 		0869DAD723FBD30C003EBF2C /* CustomStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStyles.swift; sourceTree = "<group>"; };
 		0875966F23F024E300CF6C4E /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
+		0876A48B241B5580003BD980 /* PDFCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFCreator.swift; sourceTree = "<group>"; };
+		0885730A241B5D2700B9DCE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0885730C241B5D6600B9DCE5 /* ReportEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportEditView.swift; sourceTree = "<group>"; };
+		0885730F241B91D100B9DCE5 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
+		0885733E241CD71000B9DCE5 /* CapturedPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedPhotosView.swift; sourceTree = "<group>"; };
+		08857340241CD73900B9DCE5 /* ReportCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCollectionView.swift; sourceTree = "<group>"; };
+		08857342241D140100B9DCE5 /* CoreDataModel 14.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel 14.xcdatamodel"; sourceTree = "<group>"; };
 		088F50EE23F2F1FD0012B7E7 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		0894E4E823F0F2CE007D8CB7 /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		0894E51023F285FD007D8CB7 /* AssessmentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentListView.swift; sourceTree = "<group>"; };
@@ -254,6 +265,7 @@
 				088F50EE23F2F1FD0012B7E7 /* Errors.swift */,
 				083972CB2416CA0F002F0464 /* Threading.swift */,
 				0839730F2417CF7E002F0464 /* ShareDataManager.swift */,
+				0876A48B241B5580003BD980 /* PDFCreator.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -273,6 +285,8 @@
 			isa = PBXGroup;
 			children = (
 				082D0DB12413D5F2007C59F7 /* EvaluatingView.swift */,
+				0885730C241B5D6600B9DCE5 /* ReportEditView.swift */,
+				0885730F241B91D100B9DCE5 /* ReportView.swift */,
 				083972DE2417A59D002F0464 /* QuestionRowView.swift */,
 				083972E02417A5AA002F0464 /* QuestionRowViewModel.swift */,
 				083972E22417A5B2002F0464 /* OptionTextRowView.swift */,
@@ -282,16 +296,16 @@
 			path = Ongoing;
 			sourceTree = "<group>";
 		};
-		083972E42417A878002F0464 /* AppConfiguration */ = {
+		083972E42417A878002F0464 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
 				08558A0523EE8F370081C53D /* AppDelegate.swift */,
 				08558A0723EE8F370081C53D /* SceneDelegate.swift */,
-				08558A0B23EE8F390081C53D /* Assets.xcassets */,
+				0885730A241B5D2700B9DCE5 /* Assets.xcassets */,
 				083973082417B4C7002F0464 /* Info.plist */,
 				08558A1023EE8F390081C53D /* LaunchScreen.storyboard */,
 			);
-			path = AppConfiguration;
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		083972E52417A909002F0464 /* List */ = {
@@ -343,7 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				08558A2323EFCF1B0081C53D /* Main */,
-				083972E42417A878002F0464 /* AppConfiguration */,
+				083972E42417A878002F0464 /* SupportingFiles */,
 				0894E4E723F0F2B7007D8CB7 /* Customisation */,
 				08219A1323F0395C00D6CF07 /* Helper */,
 				08558A0D23EE8F390081C53D /* Preview Content */,
@@ -376,6 +390,8 @@
 			isa = PBXGroup;
 			children = (
 				08674BB42410FE90009BCC32 /* AccountView.swift */,
+				08857340241CD73900B9DCE5 /* ReportCollectionView.swift */,
+				0885733E241CD71000B9DCE5 /* CapturedPhotosView.swift */,
 				08558A2623EFDADF0081C53D /* SignInUpView.swift */,
 				0894E51223F28DEB007D8CB7 /* SignInViewModel.swift */,
 				08CB26EE24091A9F00A81EA7 /* Standard */,
@@ -521,7 +537,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0839730A2417B53C002F0464 /* Assets.xcassets in Resources */,
+				0885730B241B5D2700B9DCE5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,6 +587,7 @@
 				083972F32417AA55002F0464 /* Standard+CoreDataClass.swift in Sources */,
 				080385292415292B006446BE /* Standard+CoreDataProperties.swift in Sources */,
 				08558A2723EFDADF0081C53D /* SignInUpView.swift in Sources */,
+				0885733F241CD71100B9DCE5 /* CapturedPhotosView.swift in Sources */,
 				083972CE2417A252002F0464 /* StandardListViewModel.swift in Sources */,
 				083972E12417A5AA002F0464 /* QuestionRowViewModel.swift in Sources */,
 				083972E32417A5B2002F0464 /* OptionTextRowView.swift in Sources */,
@@ -586,6 +603,7 @@
 				08CB26ED24091A9300A81EA7 /* StandardListView.swift in Sources */,
 				08CB26EC24091A9300A81EA7 /* QuestionListView.swift in Sources */,
 				0803852B2415292B006446BE /* Option+CoreDataProperties.swift in Sources */,
+				0885730D241B5D6600B9DCE5 /* ReportEditView.swift in Sources */,
 				08674BB52410FE90009BCC32 /* AccountView.swift in Sources */,
 				0810BEE524090F9C00CA3833 /* ActivityIndicator.swift in Sources */,
 				0810BEEB2409100600CA3833 /* Labels.swift in Sources */,
@@ -604,6 +622,7 @@
 				083972D02417A2E2002F0464 /* CurrentLocationView.swift in Sources */,
 				083972D52417A3AA002F0464 /* NewEditAssessmentViewModel.swift in Sources */,
 				083972DB2417A4A2002F0464 /* ElderSectionViewModel.swift in Sources */,
+				0876A48C241B5580003BD980 /* PDFCreator.swift in Sources */,
 				0803851D2415292B006446BE /* Elder+CoreDataProperties.swift in Sources */,
 				080385212415292B006446BE /* Contact+CoreDataProperties.swift in Sources */,
 				082D0DB6241407B6007C59F7 /* TabBarControllerView.swift in Sources */,
@@ -615,6 +634,7 @@
 				0847F50623FC3D2400D5F3EE /* Models.swift in Sources */,
 				0894E4E923F0F2CF007D8CB7 /* CustomViews.swift in Sources */,
 				0869DAD823FBD30C003EBF2C /* CustomStyles.swift in Sources */,
+				08857310241B91D100B9DCE5 /* ReportView.swift in Sources */,
 				0875967023F024E300CF6C4E /* WelcomeViewModel.swift in Sources */,
 				083972F72417AA55002F0464 /* Question+CoreDataClass.swift in Sources */,
 				08558A0823EE8F370081C53D /* SceneDelegate.swift in Sources */,
@@ -625,6 +645,7 @@
 				083972F92417AA55002F0464 /* Contact+CoreDataClass.swift in Sources */,
 				08CB26E324091A4000A81EA7 /* SearchResultViewController.swift in Sources */,
 				080384D02414FC83006446BE /* QuestionImageRow.swift in Sources */,
+				08857341241CD73900B9DCE5 /* ReportCollectionView.swift in Sources */,
 				083972D22417A339002F0464 /* AssessmentRowViewModel.swift in Sources */,
 				080385252415292B006446BE /* Question+CoreDataProperties.swift in Sources */,
 				08558A2523EFCF2D0081C53D /* WelcomeView.swift in Sources */,
@@ -695,6 +716,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = HomeAssessment/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -749,6 +771,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = HomeAssessment/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -767,7 +790,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"HomeAssessment/Preview Content\"";
 				DEVELOPMENT_TEAM = 8X96K7Q543;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = HomeAssessment/AppConfiguration/Info.plist;
+				INFOPLIST_FILE = HomeAssessment/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -787,7 +810,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"HomeAssessment/Preview Content\"";
 				DEVELOPMENT_TEAM = 8X96K7Q543;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = HomeAssessment/AppConfiguration/Info.plist;
+				INFOPLIST_FILE = HomeAssessment/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -826,6 +849,7 @@
 		08DA3CB224148E0A009D526E /* CoreDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				08857342241D140100B9DCE5 /* CoreDataModel 14.xcdatamodel */,
 				089874402419F4AC00E86B37 /* CoreDataModel 13.xcdatamodel */,
 				0898743F2419421D00E86B37 /* CoreDataModel 12.xcdatamodel */,
 				083972CA2416ACA7002F0464 /* CoreDataModel 11.xcdatamodel */,
@@ -840,7 +864,7 @@
 				08DA3CB824148E0A009D526E /* CoreDataModel 6.xcdatamodel */,
 				08DA3CB924148E0A009D526E /* CoreDataModel 5.xcdatamodel */,
 			);
-			currentVersion = 089874402419F4AC00E86B37 /* CoreDataModel 13.xcdatamodel */;
+			currentVersion = 08857342241D140100B9DCE5 /* CoreDataModel 14.xcdatamodel */;
 			path = CoreDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

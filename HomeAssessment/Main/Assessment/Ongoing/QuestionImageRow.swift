@@ -13,7 +13,7 @@ struct QuestionImageRow: View {
     var title: String?
     var thumbnails: [ThumbnailImage]
     var deleteAction: (_ thumbnail: ThumbnailImage)->Void
-    
+    var sepcified = true
     @State var editing = false
     @State var deleteButtonTapped = false
     var body: some View {
@@ -21,7 +21,7 @@ struct QuestionImageRow: View {
             HStack {
                 if title != nil {
                     Text(title!)
-                        .font(.headline)
+                        .font(.title)
                 }
                 
                 Spacer()
@@ -59,14 +59,19 @@ struct QuestionImageRow: View {
     func itemView(of thumbnail: ThumbnailImage) -> some View {
         ZStack {
             NavigationLink(destination:
-                Image(uiImage: thumbnail.uiImage)
-                    .resizable()
-                    .scaledToFit()
+                VStack {
+                    Image(uiImage: thumbnail.uiImage)
+                        .resizable()
+                        .scaledToFit()
+                    Text(caption(of: thumbnail))
+                        .multilineTextAlignment(.leading)
+                }
             ) {
                 ZStack {
                     ActivityIndicator(isAnimating: .constant(true), style: .medium)
                     if !thumbnail.isDeleted {
-                        CategoryItem(image: thumbnail.uiImage, caption: (thumbnail.dateCreated ?? Date()).dateString)
+                        CategoryItem(image: thumbnail.uiImage,
+                                     caption: caption(of: thumbnail))
                     }
                 }
                 
@@ -91,6 +96,18 @@ struct QuestionImageRow: View {
             .opacity(self.editing ? 1 : 0)
             .animation(.myease)
         }
+        
+    }
+    
+    func caption(of thumbnail: ThumbnailImage) -> String {
+        if !sepcified {
+            if let question = Question.findById(with: thumbnail.questionID ?? UUID()) {
+                return question.name
+            }
+            return ""
+        } else {
+            return (thumbnail.dateCreated ?? Date()).relevantString
+        }
     }
     
 }
@@ -106,6 +123,8 @@ struct CategoryItem: View {
                 .frame(width: 155, height: 155)
                 .cornerRadius(5)
             Text(caption)
+                .frame(width: 155)
+                .lineLimit(1)
                 .foregroundColor(.primary)
                 .font(.caption)
         }

@@ -31,8 +31,9 @@ extension Assessment {
     @NSManaged public var elders: Set<Elder>?
     @NSManaged public var standard: Standard?
     @NSManaged public var user: UserSession // required
-    @NSManaged public var capturedImages: ThumbnailImage?
+    @NSManaged public var capturedImages: Set<ThumbnailImage>?
     @NSManaged public var mapPreview: ThumbnailImage?
+    @NSManaged public var reportData: Data?
     enum CodingKeys: String, CodingKey {
         case address,
         dateCreated,
@@ -47,7 +48,8 @@ extension Assessment {
         standard,
         user,
         capturedImages,
-        mapPreview
+        mapPreview,
+        reportData
     }
 
     

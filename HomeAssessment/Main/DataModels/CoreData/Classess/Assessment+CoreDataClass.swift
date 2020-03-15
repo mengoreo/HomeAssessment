@@ -28,7 +28,7 @@ public class Assessment: NSManagedObject, Identifiable, NSSecureCoding {
         elders = coder.decodeObject(forKey: CodingKeys.elders.rawValue) as? Set<Elder>
         standard = coder.decodeObject(forKey: CodingKeys.standard.rawValue) as? Standard
         user = coder.decodeObject(forKey: CodingKeys.user.rawValue) as! UserSession
-        capturedImages = coder.decodeObject(forKey: CodingKeys.capturedImages.rawValue) as? ThumbnailImage
+        capturedImages = coder.decodeObject(forKey: CodingKeys.capturedImages.rawValue) as? Set<ThumbnailImage>
         mapPreview = coder.decodeObject(forKey: CodingKeys.mapPreview.rawValue) as? ThumbnailImage
     }
     

@@ -43,6 +43,23 @@ struct ImageButtonStyle: ButtonStyle {
     }
 }
 
+struct ScalableImageStyle: ButtonStyle {
+    let imageSize: CGSize
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .aspectRatio(contentMode: .fill)
+            .frame(width: imageSize.width, height: imageSize.height, alignment: .center)
+            .clipped()
+            .overlay(
+                RoundedRectangle(cornerRadius: 3, style: .continuous)
+                    .stroke(Color(UIColor.systemBackground),lineWidth:1)
+            )
+            .shadow(radius: configuration.isPressed ? 0 : 3.0)
+            .padding(3)
+            .scaleEffect(configuration.isPressed ? 1.0 : 0.1, anchor: .topLeading)
+    }
+}
+
 struct CollapsableOutlineBackgroundStyle: ButtonStyle {
     var collapsed: Bool = false
     

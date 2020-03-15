@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-//import UIKit
+import PDFKit
 
 
 struct ResignKeyboardOnDragGesture: ViewModifier {
@@ -152,9 +152,8 @@ struct AirDropShareView: UIViewControllerRepresentable {
     
     var items: [AirDropData]
     func makeUIViewController(context: UIViewControllerRepresentableContext<AirDropShareView>) -> UIActivityViewController {
-        let description = "Share it with your co-worker!"
         
-        let activityController = UIActivityViewController(activityItems: [items.first!], applicationActivities: nil)
+        let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         
         activityController.excludedActivityTypes = [
             .postToVimeo, .postToTwitter, .postToFacebook, .init("com.tencent.xin.sharetimeline"),
@@ -168,5 +167,78 @@ struct AirDropShareView: UIViewControllerRepresentable {
     }
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<AirDropShareView>) {
         //
+    }
+}
+
+struct PDFPreviewView: UIViewRepresentable {
+    var data: Data
+    func makeUIView(context: UIViewRepresentableContext<PDFPreviewView>) -> PDFView {
+        let pdfView = PDFView(frame: .zero)
+        pdfView.document = PDFDocument(data: data)
+        pdfView.autoScales = true
+        
+        return pdfView
+    }
+    func updateUIView(_ uiView: PDFView, context: UIViewRepresentableContext<PDFPreviewView>) {
+        //
+    }
+}
+
+struct Toolbar: ViewModifier {
+    var offset: CGFloat {
+        switch UIDevice.current.type {
+        case .iPhone11, .iPhone11Pro, .iPhone11ProMax,
+             .iPhoneX, .iPhoneXR, .iPhoneXS, .iPhoneXSmax,
+             .simulator:
+            return -24
+        default:
+            return 0
+        }
+    }
+    var doneAction: () -> Void
+    init(done: @escaping ()->Void) {
+        doneAction = done
+    }
+    func body(content: _ViewModifier_Content<Toolbar>) -> some View {
+        ZStack {
+            content
+            VStack {
+                Spacer()
+                ToolbarView(done: doneAction).offset(y: offset)
+            }
+        }.edgesIgnoringSafeArea(.all)
+    }
+}
+struct ToolbarView: UIViewRepresentable {
+    var doneAction: () -> Void
+    init(done: @escaping ()->Void) {
+        doneAction = done
+    }
+    func makeUIView(context: UIViewRepresentableContext<ToolbarView>) -> UIToolbar {
+        let toolbar = UIToolbar()
+        toolbar.barStyle = .default
+        let leadingItem = UIBarButtonItem(title: "", style: .done, target: context.coordinator, action: #selector(context.coordinator.trailingButtonAction(_:)))
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let trailingItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: context.coordinator, action: #selector(context.coordinator.trailingButtonAction(_:)))
+        toolbar.items = [trailingItem, spacer, leadingItem]
+        return toolbar
+    }
+    func updateUIView(_ uiView: UIToolbar, context: UIViewRepresentableContext<ToolbarView>) {
+        //
+    }
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: NSObject {
+        let parent: ToolbarView
+        init(_ parent: ToolbarView) {
+            self.parent = parent
+        }
+        @objc func trailingButtonAction(_ sender: UIButton) {
+            print("trailingButtonAction")
+            parent.doneAction()
+        }
     }
 }

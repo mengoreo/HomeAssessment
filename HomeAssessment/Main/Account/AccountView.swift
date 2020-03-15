@@ -15,27 +15,16 @@ struct AccountView: View {
         NavigationView {
             Form {
                 Section {
-                    NavigationLink(destination: Text("")) {
+                    NavigationLink(destination: ReportListView()) {
                         Text("我的评估报告")
                     }
-                    NavigationLink(destination: Text("")) {
+                    NavigationLink(destination: CapturedPhotosView()) {
                         Text("我的照片")
                     }
-                    Button(action:{
-                        self.showStandards.toggle()
-                    }) {
-                        HStack {
+                    NavigationLink(destination: StandardListView(viewModel: .init(user: .currentUser))
+                        .accentColor(.accentColor)) {
                             Text("可用的标准")
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .imageScale(.small)
-                                .foregroundColor(Color(UIColor.tertiaryLabel))
-                        }
-                        .sheet(isPresented: self.$showStandards) {
-                            StandardListView(viewModel: .init(user: .currentUser), selected: .constant(nil))
-                                .accentColor(.accentColor)
-                        }
-                    }.accentColor(Color(UIColor.label))
+                    }
                 }
                 
                 Section {
@@ -44,11 +33,14 @@ struct AccountView: View {
                     }
                 }
             }
-//            .listStyle(GroupedListStyle())
                 .navigationBarTitle("\(user.name)")
+            .onAppear {
+                print("account appere")
+                AppStatus.update(lastOpenedTab: 1, hideTabBar: false)
+            }.onDisappear {
+                AppStatus.update(hideTabBar: AppStatus.currentStatus.lastOpenedTab == 1)
+            }
         }
-        .onAppear {
-            AppStatus.update(lastOpenedTab: 1)
-        }
+        
     }
 }

@@ -14,8 +14,6 @@ struct NewEditAssessmentView: View {
     
     @ObservedObject var viewModel: NewEditAssessmentViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-//    var barTitle: String
-    
     var body: some View {
         NavigationView {
             List {
@@ -36,23 +34,13 @@ struct NewEditAssessmentView: View {
                 ElderSectionView(viewModel: .init(assessment: viewModel.assessment))
                     .disabled(viewModel.editingRemarks || viewModel.saving)
 
-                
-                Section(header: Text("选择标准")) {
-                    Button(action:{
-                        self.viewModel.searchStandardModal.toggle()
-                    }) {
-                        Text(self.viewModel.selectedStandard?.name ?? "点击选择")
-                            .sheet(isPresented: $viewModel.searchStandardModal) {
-                                StandardListView(
-                                    viewModel: .init(user: .currentUser),
-                                    selected: self.$viewModel.selectedStandard)
-                                    .accentColor(.accentColor)
-                                
-                        }
-                        
+                Picker("", selection: $viewModel.selectedStandardIndex) {
+                    ForEach(self.viewModel.standards.indices, id:\.self) { index in
+                        Text(self.viewModel.standards[index].name)
+                            .tag(index).foregroundColor(.init(UIColor.label))
                     }
                 }
-                .disabled(viewModel.editingRemarks || viewModel.saving)
+                .labelsHidden()
                 
                 Section(header: Text("住宅地址")) {
                     Button(action:{

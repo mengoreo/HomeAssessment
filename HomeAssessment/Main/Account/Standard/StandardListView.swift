@@ -7,116 +7,49 @@
 //
 
 import SwiftUI
-import Combine
 import CoreData
 
 struct StandardListView: View {
     @ObservedObject var viewModel: StandardListViewModel
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    var selected: Binding<Standard?>
-    
-    @State var showQuestions = false
-    
+    @State var showingQuestion = false
     var body: some View {
-        NavigationView {
-            
+        ZStack {
             List {
-                // MARK: - List body
-                ForEach(self.viewModel.standards) { standard in
-                    
-                    Button(action:{
-                        if AppStatus.currentStatus.lastOpenedTab == 0 {
-                            self.selected.wrappedValue = standard
-                            self.presentationMode.wrappedValue.dismiss()
-                        } else {
-                            self.showQuestions = true
-                            
-                        }
-                    }) {
-                        ZStack {
-                            NavigationLink(destination: QuestionListView(questions: standard.getQuestions()), isActive: self.$showQuestions) {
-                                Text("")
-                            }.hidden()
-                            
-                            HStack {
-                                VStack(alignment: .leading, spacing: 7) {
-                                    Text("\(standard.index) " + standard.name).font(.body)
-                                    Text("于 \(standard.dateString) 更新")
-                                        .font(.footnote)
-                                        .foregroundColor(Color(UIColor.secondaryLabel))
-                                }
-                                
-                                Spacer()
-                                
-                                VStack(alignment: .leading, spacing: 7) {
-                                    Text("共 \(standard.getQuestions().count) 个问题")
-                                        .font(.footnote)
-                                        .foregroundColor(Color(UIColor.secondaryLabel))
-                                    Text("关联 \(standard.getAssessments().count) 个评估")
-                                        .font(.footnote)
-                                        .foregroundColor(Color(UIColor.secondaryLabel))
-                                }
-                                if self.selected.wrappedValue != nil && self.selected.wrappedValue == standard {
-                                    Spacer().frame(width: 3)
-                                    Image(systemName: "checkmark").foregroundColor(.accentColor)
-                                }
-                                
-                            }
-                        }
-                        .padding(.vertical, 10)
-                        .contextMenu {
-                            if !standard.getQuestions().isEmpty {
-                                Button(action: {
-                                    self.showQuestions = true
-                                }) {
-                                    Text("查看问题")
-                                    Image(systemName: "arrow.right.circle")
-                                }
-                            }
-                            Button(action:{
-                                self.viewModel.aboutToDelete(standard)
-                            }) {
-                                Text("删除")
-                                Image(systemName: "trash.circle")
-                            }
-                        }
+                if viewModel.loading {
+                    HStack {
+                        Spacer()
+                        ActivityIndicator(isAnimating: .constant(true), style: .medium)
+                        Spacer()
                     }
                 }
-                .actionSheet(isPresented: self.$viewModel.showActionSheet) {
-                    ActionSheet(title: Text(self.viewModel.actionTitle),
-                                buttons: [.cancel(Text("取消"), action: {self.viewModel.cancelDelete()}),
-                                          .destructive(Text("确定"), action: {
-                                            self.viewModel.destructiveAction()
-                                          })]
-                    )
+                ForEach(viewModel.standards){standard in
+                    NavigationLink(destination: QuestionListView(questions: standard.getQuestions())) {
+                        VStack(alignment: .leading, spacing: 7) {
+                            Text(standard.name)
+                            Text("关联\(standard.assessments?.count ?? 0)个评估项目")
+                                .font(.caption)
+                                .foregroundColor(Color(UIColor.secondaryLabel))
+                        }
+                    }
                 }
             }
-            .onAppear(perform: self.viewModel.onAppear)
-
-            // MARK: - navigation bar appeareance
-            .navigationBarTitle("我的标准", displayMode: .inline)
-            .navigationBarItems(trailing:
-                Button(action: {
-                    self.viewModel.refresh()
-                }) {
-                    if self.viewModel.loading {
-                        ActivityIndicator(isAnimating: .constant(true), style: .medium)
-                    } else {
-                        Image(systemName: "arrow.2.circlepath.circle.fill")
-                            .imageScale(.large)
-                    }
-                }.contextMenu {
-                    Button(action: {
-                        self.viewModel.fakeCreate()
-
-                    }) {
-                        Text("Fake")
-                    }
+            .listStyle(PlainListStyle())
+            
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Image(systemName: "arrow.2.circlepath.circle.fill")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .offset(x: -20)
+                        .onTapGesture(perform: viewModel.refresh)
+                        .onLongPressGesture(perform: viewModel.fakeCreate)
                 }
-                
-            )
-                
+            }
         }
+        .onAppear(perform: viewModel.onAppear)
+        .navigationBarTitle("我的标准")
     }
-    
 }
+

@@ -96,7 +96,12 @@ class AssessmentRowViewModel: NSObject, ObservableObject {
     // MARK: - take snapshot
     private func takeSnapshot() {
         let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
-        mapSnapshotOptions.region = MKCoordinateRegion(center: assessment.address!.location!.coordinate, span: span)
+        guard let center = assessment.address?.location?.coordinate else {
+            print("*** center not correct")
+            self.needUpdatePreview = false
+            return
+        }
+        mapSnapshotOptions.region = MKCoordinateRegion(center: center, span: span)
         
         let snapShotter = MKMapSnapshotter(options: mapSnapshotOptions)
         

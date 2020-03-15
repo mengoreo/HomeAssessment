@@ -64,7 +64,7 @@ struct AssessmentRowView: View {
                         Text((viewModel
                             .assessment
                             .dateUpdated ?? Date())
-                            .dateString
+                            .relevantString
                             .split(separator: " ")
                             .joined(separator: "\n")
                         ).font(.system(size: 10))
