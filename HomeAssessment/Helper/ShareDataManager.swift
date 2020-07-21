@@ -30,22 +30,6 @@ class ShareDataManager {
         NotificationCenter.default.addObserver(self, selector: #selector(clearCached), name: .DoneCombineAssessments, object: nil)
     }
     
-    func handle(_ url: URL) {
-        if url.pathExtension == "haassessment",
-            AppStatus.authorised() {
-            do {
-                print("received:", url)
-                let inComing = try read(from: url)
-                if let onDevice = UserSession.currentUser.assessments?.filter({$0.uuid == inComing.uuid}).first{
-                    combine(inComing, with: onDevice)
-                } else {
-                    save(inComing)
-                }
-            } catch {
-                fatalError("error opening: \(error)")
-            }
-        }
-    }
     
     private func combine(_ inComing: Assessment, with onDevice: Assessment) {
         
@@ -96,31 +80,46 @@ class ShareDataManager {
         }
         removedOptions.removeAll()
     }
+    
     func compressAndShare(_ assessment: Assessment) throws -> AirDropData {
         let placeholder = "分享「\(assessment.remarks)」给同事\n" + ".haassessment"
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: assessment, requiringSecureCoding: true)
-            debugPrint("data:", data)
             let airDropData = AirDropData(with: data, placeholder: placeholder)
-            clearTempFolder()
             return airDropData
         } catch {
-              debugPrint(error)
               throw Error.writtingFailed
         }
     }
-    
-    func clearTempFolder() {
-        let tempFolderPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("Inbox")
-        do {
-            let filePaths = try fileManager.contentsOfDirectory(atPath: tempFolderPath.absoluteString)
-            for filePath in filePaths {
-                try fileManager.removeItem(atPath: tempFolderPath.absoluteString + filePath)
+
+    func handle(_ url: URL) {
+        if url.pathExtension == "haassessment",
+            AppStatus.authorised() {
+            do {
+                let inComing = try read(from: url)
+                // MARK: - 判断用户是否是第二次收到此评估
+                if let onDevice = UserSession.currentUser.assessments?.filter({$0.uuid == inComing.uuid}).first{
+                    combine(inComing, with: onDevice)
+                } else {
+                    save(inComing)
+                }
+            } catch {
+                fatalError("error opening: \(error)")
             }
-        } catch {
-            print("Could not clear temp folder: \(error)")
         }
     }
+    
+//    func clearTempFolder() {
+//        let tempFolderPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("Inbox")
+//        do {
+//            let filePaths = try fileManager.contentsOfDirectory(atPath: tempFolderPath.absoluteString)
+//            for filePath in filePaths {
+//                try fileManager.removeItem(atPath: tempFolderPath.absoluteString + filePath)
+//            }
+//        } catch {
+//            print("Could not clear temp folder: \(error)")
+//        }
+//    }
     private func read(from url: URL) throws -> Assessment {
         do {
             let data = try Data(contentsOf: url)
@@ -141,7 +140,6 @@ class ShareDataManager {
         inComing.delete()
     }
     func save(_ inComing: Assessment) {
-        print("saving incommin")
         if let questions = inComing.standard!.questions {
             for q in questions {
                 print("questions:", questions)

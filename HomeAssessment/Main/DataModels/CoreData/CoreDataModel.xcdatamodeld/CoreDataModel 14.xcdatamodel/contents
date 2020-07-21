@@ -87,11 +87,11 @@
         <relationship name="originalImage" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="OriginalImage" inverseName="thumbnail" inverseEntity="OriginalImage"/>
     </entity>
     <entity name="UserSession" representedClassName=".UserSession" syncable="YES">
-        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="dateUpdated" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="name" attributeType="String"/>
-        <attribute name="token" attributeType="String"/>
-        <attribute name="uuid" attributeType="UUID" defaultValueString="5095BC9D-9595-4702-9A8D-0896C75025A9" usesScalarValueType="NO"/>
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="token" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" defaultValueString="5095BC9D-9595-4702-9A8D-0896C75025A9" usesScalarValueType="NO"/>
         <relationship name="assessments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Assessment" inverseName="user" inverseEntity="Assessment"/>
         <relationship name="standards" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Standard" inverseName="user" inverseEntity="Standard"/>
     </entity>

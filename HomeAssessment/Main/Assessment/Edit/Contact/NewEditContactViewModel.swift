@@ -34,7 +34,11 @@ class NewEditContactViewModel: ObservableObject {
             contact.update(name: contactName, phone: contactPhone)
         }else {
             print("add to contacts")
-            _ = Contact.create(for: assessment, name: contactName, phone: contactPhone, in: assessment.managedObjectContext)
+            contact = Contact.create(name: contactName, phone: contactPhone)
         }
+        
+//        contact?.setPrimitiveValue(assessment, forKey: "assessment")
+        contact?.assessment = assessment
+        
     }
 }

@@ -10,9 +10,9 @@ import SwiftUI
 import CoreData
 import MapKit
 
-class NewEditAssessmentViewModel: ObservableObject {
+class NewEditAssessmentViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
     
-    @Published var searchStandardModal: Bool = false
+//    @Published var searchStandardModal: Bool = false
     @Published var selectedStandardIndex = 0
     @Published var remarks: String!
     @Published var presentingMap = false
@@ -20,78 +20,71 @@ class NewEditAssessmentViewModel: ObservableObject {
     @Published var editingRemarks = false
     @Published var saving = false
     
-    var contact: Contact? = nil
-//    var id: UUID
+//    var contact: Contact? = nil
+    let barTitle: String
     
-    var assessment: Assessment
-    init(assessment: Assessment) {
-        print("initing NewEditAssessmentView")
-        self.assessment = assessment
-//        super.init()
-        // MARK: - important?
-        remarks = assessment.remarks
-        selectedStandardIndex = Int(assessment.standard?.index ?? 0)
-        locatedAt = assessment.address == nil ? nil : MKPlacemark(placemark: assessment.address!)
+    var assessment: Assessment!
+    init(assessment: Assessment? = nil) {
+        barTitle = assessment?.remarks ?? "新建评估"
+        super.init()
+        // MARK: - 通知即将编辑评估
+        NotificationCenter.default.post(name: .WillEditAssessment, object: nil, userInfo: nil)
+        Assessment.resultController.delegate = self
+        // MARK: - 必要的初始化
+        self.assessment = assessment ?? .create(for: .currentUser, with: nil, remarks: "", address: nil)
+        remarks = self.assessment.remarks
+        selectedStandardIndex = Int(self.assessment.standard?.index ?? 0)
+        locatedAt = self.assessment.address == nil ? nil : MKPlacemark(placemark: self.assessment.address!)
     }
-    
-    
-    var barTitle: String {
-        saving
-            ? "正在保存..."
-            : (assessment.remarks.isEmpty
-                ? "新建评估"
-                : assessment.remarks)
-    }
-    
     var doneButtonDisabled: Bool {
-        print("** done button", assessment)
-        return assessment.getContacts().isEmpty // xie!!!!!!
-            || assessment.getElders().isEmpty
-            || locatedAt == nil
-            || editingRemarks
+        // MARK: - 必要信息非空之后，启用保存按钮
+        return assessment.getContacts().isEmpty || assessment.getElders().isEmpty || locatedAt == nil || editingRemarks
+    }
+    func didSelect(_ place: MKAnnotation) {
+        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)) {placemarks, error in
+            guard error == nil else {
+                return
+            }
+            if let firstPlacemark = placemarks?.first {
+                self.locatedAt = MKPlacemark(placemark: firstPlacemark)
+            }
+        }
+    }
+    func cancel() {
+        // MARK: - 取消「订阅」
+        Assessment.resultController.delegate = nil
+        // MARK: - 撤销
+        CoreDataHelper.stack.rollback()
+    }
+    func save(completionHandler: @escaping ()-> Void = {}) {
+        saving = true
+        Assessment.resultController.delegate = nil
+        if remarks.isEmpty { remarks = locatedAt?.name ?? "无备注" }
+        assessment.update(remarks: remarks, address: locatedAt, progress: assessment.progress, standard: standards.isEmpty ? nil : standards[selectedStandardIndex])
+        // MARK: - 保存
+        CoreDataHelper.stack.save()
+        completionHandler()
     }
     
     var standards: [Standard] {
-        assessment.user.standards?.sorted(by: {$0.index > $1.index}) ?? []
+        UserSession.currentUser.standards?.sorted(by: {$0.index > $1.index}) ?? []
     }
+    func onAppear() {
+        
+    }
+    
     func didBeginEditingRemarks() {
         self.editingRemarks = true
     }
     func didEndEditingRemarks() {
         self.editingRemarks = false
     }
-    func didSelect(_ place: MKAnnotation) {
-        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)) {placemarks, error in
-            guard error == nil else {
-                print("** userLocation reverse geo error: \(error!)")
-                return
-            }
-            // Most geocoding requests contain only one result.
-            if let firstPlacemark = placemarks?.first {
-                self.locatedAt = MKPlacemark(placemark: firstPlacemark)
-            }
-        }
-    }
     
     
-    func cancel() {
-        
-    }
-    func save(completionHandler: @escaping ()-> Void = {}) {
-        print("** saving")
-        if remarks.isEmpty {
-            print("empty remakr")
-            remarks = locatedAt?.name ?? "无备注"
-        }
-        assessment.update(remarks: remarks, address: locatedAt, progress: assessment.progress, standard: standards[selectedStandardIndex])
-        
-        saving = true
-        CoreDataHelper.stack.save()
-        print("** saved")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            completionHandler()
-        }
-        
+    
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        objectWillChange.send()
     }
     
 }

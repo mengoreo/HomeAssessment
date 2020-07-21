@@ -37,23 +37,17 @@ class AssessmentRowViewModel: NSObject, ObservableObject {
     }
     
     func onAppear() {
-        
-        print("objectWillChange in assrow\(DispatchTime.now().rawValue)")
         objectWillChange.send()
         if assessment.standard != nil {
             assessment.progress = Double(assessment.selectedOptions.count) / Double( assessment.standard!.getQuestions().count) * 100
-            print("progress", assessment.progress)
-        } else {
-            assessment.progress = 0
-            assessment.selectedOptions.removeAll()
-        }
-        
-//         说
-//        mapPreview = assessment.mapPreview?.uiImage ?? .mapPreview
+            if assessment.dateUpdated!.distance(to: Date()) < 1 {
+                aboutToShare()
+            }
+            print("progress", assessment.progress, "date", assessment.dateCreated, "just now?:", assessment.dateUpdated!.distance(to: Date()) < 1, assessment.dateUpdated!.distance(to: Date()))
+        } else { assessment.progress = 0; assessment.selectedOptions.removeAll() }
+        // MARK: - 重新检查是否需要更新预览图
         needUpdatePreview = assessment.mapPreviewNeedsUpdate
-        if needUpdatePreview {
-            updateMapPreview()
-        }
+        if needUpdatePreview { updateMapPreview() }
         
     }
     func showMap() {
@@ -63,6 +57,7 @@ class AssessmentRowViewModel: NSObject, ObservableObject {
         setupSnapshotOptions()
         takeSnapshot()
     }
+    
     func aboutToShare() {
         do {
             try sharedItems.append(ShareDataManager.manager.compressAndShare(assessment))
@@ -80,7 +75,6 @@ class AssessmentRowViewModel: NSObject, ObservableObject {
     }
     func editModalWillDismiss() {
         print("** editModalWillDismiss")
-        CoreDataHelper.stack.context.rollback()
         needUpdatePreview = assessment.mapPreviewNeedsUpdate // update status required!!!!
         if needUpdatePreview && assessment.address != nil {
             updateMapPreview()
@@ -131,6 +125,7 @@ class AssessmentRowViewModel: NSObject, ObservableObject {
             // required for updating preview
             self.assessment.update(preview: compositeImage) { saved in
                 DispatchQueue.main.async {
+                    print("saved")
                     self.needUpdatePreview = !saved
 //                    self.mapPreview = self.assessment.mapPreview?.uiImage ?? .mapPreview
                     self.objectWillChange.send()

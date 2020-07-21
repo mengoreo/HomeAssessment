@@ -89,6 +89,7 @@ public class Contact: NSManagedObject, Identifiable, NSSecureCoding {
     }
     func delete() {
         print(self, "deleting")
+//        setPrimitiveValue(nil, forKey: "assessment")
         CoreDataHelper.stack.context.delete(self)
     }
     func isValid() -> Bool {

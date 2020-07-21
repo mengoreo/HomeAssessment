@@ -37,7 +37,7 @@ extension Question {
         name,
         uuid,
         options,
-        standard
+        questionToStandard
     }
 }
 // MARK: - NSSecureCoding
@@ -51,7 +51,7 @@ extension Question {
         encoder.encode(name, forKey: CodingKeys.name.rawValue)
         encoder.encode(uuid, forKey: CodingKeys.uuid.rawValue)
         encoder.encode(options, forKey: CodingKeys.options.rawValue)
-        encoder.encode(standard, forKey: CodingKeys.standard.rawValue)
+        encoder.encode(standard, forKey: CodingKeys.questionToStandard.rawValue)
     }
 }
 

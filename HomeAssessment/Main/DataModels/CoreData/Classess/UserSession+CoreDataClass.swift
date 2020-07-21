@@ -13,11 +13,11 @@ public class UserSession: NSManagedObject, Identifiable, NSSecureCoding {
     required convenience public init?(coder: NSCoder) {
         print("** decoding UserSession")
         self.init(context: CoreDataHelper.stack.context)
-        dateCreated = coder.decodeObject(forKey: CodingKeys.dateCreated.rawValue) as! Date
-        dateUpdated = coder.decodeObject(forKey: CodingKeys.dateUpdated.rawValue) as! Date
+//        dateCreated = coder.decodeObject(forKey: CodingKeys.dateCreated.rawValue) as! Date
+//        dateUpdated = coder.decodeObject(forKey: CodingKeys.dateUpdated.rawValue) as! Date
         name = coder.decodeObject(forKey: CodingKeys.name.rawValue) as! String
-        token = coder.decodeObject(forKey: CodingKeys.token.rawValue) as! String
-        uuid = coder.decodeObject(forKey: CodingKeys.uuid.rawValue) as! UUID
+//        token = coder.decodeObject(forKey: CodingKeys.token.rawValue) as! String
+//        uuid = coder.decodeObject(forKey: CodingKeys.uuid.rawValue) as! UUID
 //        assessments = coder.decodeObject(forKey: CodingKeys.assessments.rawValue) as? Set<Assessment>
 //        standards = coder.decodeObject(forKey: CodingKeys.standards.rawValue) as? Set<Standard>
     }
@@ -41,9 +41,9 @@ public class UserSession: NSManagedObject, Identifiable, NSSecureCoding {
                       password: String,
                       completionHandler: @escaping (_ errorMessage: ErrorMessage?) -> Void) {
         // for test
-        if name == "Mengoreo" {
-            _ = create(name: "Mengoreo", token: "fake")
-            AppStatus.update(authorised: true, lastUserName: "Mengoreo")
+        if name == "Mengoreo1" || name == "Mengoreo2" {
+            _ = create(name: name, token: "fake")
+            AppStatus.update(authorised: true, lastUserName: name)
             completionHandler(nil)
             return
         }
@@ -56,24 +56,23 @@ public class UserSession: NSManagedObject, Identifiable, NSSecureCoding {
             completionHandler(ErrorMessage(body: "密码不能为空", type: .signInError(.passwordField)))
             return
         }
-        
+        // MARK: - 向服务器发送验证请求
         let tokenFetcher = TokenFetcher(name: name, password: password)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             tokenFetcher.fetchToken { (token, error) in
-            print("** token", token)
-            guard error == nil else {
-                AppStatus.errorMessage = ErrorMessage(body: error!.cnDescription(), type: .serverError)
-                completionHandler(ErrorMessage(body: error!.cnDescription(), type: .signInError(.passwordField)))
-                return
+                guard error == nil else {
+                    AppStatus.errorMessage = ErrorMessage(body: error!.cnDescription(), type: .serverError)
+                    completionHandler(ErrorMessage(body: error!.cnDescription(), type: .signInError(.passwordField)))
+                    return
+                }
+                if let user = findByName(with: name) {
+                    user.update(token: token)
+                } else {
+                    _ = create(name: name, token: token)
+                }
+                AppStatus.update(authorised: true, lastUserName: name)
+                completionHandler(nil)
             }
-            if let user = findByName(with: name) {
-                user.update(token: token)
-            } else {
-                _ = create(name: name, token: token)
-            }
-            AppStatus.update(authorised: true, lastUserName: name)
-            completionHandler(nil)
-        }
         }
     }
     class func initialSetup() {
@@ -114,7 +113,7 @@ public class UserSession: NSManagedObject, Identifiable, NSSecureCoding {
     var dateString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return dateFormatter.string(from: self.dateUpdated)
+        return dateFormatter.string(from: self.dateUpdated!)
     }
     
     func update(_ force: Bool = false, name: String? = nil, token: String? = nil) {

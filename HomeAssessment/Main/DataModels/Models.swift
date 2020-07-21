@@ -60,7 +60,7 @@ struct ErrorMessage {
     var type: ErrorType
 }
 
-enum ErrorType: Error {
+enum ErrorType: Error, Equatable {
     case signInError(SignInErrorType)
     case uploadError
     case serverError

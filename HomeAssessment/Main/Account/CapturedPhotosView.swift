@@ -30,13 +30,6 @@ struct CapturedPhotosView: View {
 }
 
 class CapturedPhotosViewModel: NSObject, NSFetchedResultsControllerDelegate, ObservableObject {
-    var photoRowModels: [PhotoRowModel] {
-        var rows = [PhotoRowModel]()
-        for assessment in UserSession.currentUser.assessments ?? [] {
-            rows.append(.init(assessment))
-        }
-        return rows
-    }
     @Published var fetchingPhotos = true
     var noPhotos: Bool {
         var allNone = true
@@ -46,10 +39,19 @@ class CapturedPhotosViewModel: NSObject, NSFetchedResultsControllerDelegate, Obs
         return allNone
     }
     
+    // MARK: - CapturedPhotosViewModel
+    var photoRowModels: [PhotoRowModel] {
+        var rows = [PhotoRowModel]()
+        for assessment in UserSession.currentUser.assessments ?? [] {
+            rows.append(.init(assessment))
+        }
+        return rows
+    }
     override init() {
         super.init()
         Assessment.resultController.delegate = self
     }
+    
     func onAppear() {
         print("oneppear")
         try? Assessment.resultController.performFetch()

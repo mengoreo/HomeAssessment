@@ -20,43 +20,52 @@ class AssessmentListViewModel: NSObject, NSFetchedResultsControllerDelegate, Obs
     }
     @Published var showNewAssessmentModal = false
     @Published var updating = false
+    var editingAssessment = false
     
-    var assessmentToCreate: Assessment? = nil
-    
+    override init() {
+        super.init()
+        // MARK: - 当编辑时，停止代理的更新
+        NotificationCenter.default.addObserver(self, selector: #selector(pauseUpdate), name: .WillEditAssessment, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willShare(_:)), name: .WillShareAssessment, object: nil)
+    }
     func onAppear() {
-        print("asslist will appear")
         objectWillChange.send() // perform fetch in welcom view
-        print("elders:", Elder.all())
-        print("contact:", Contact.all())
         Assessment.resultController.delegate = self
+        // MARK: - Update after delete
         try? Assessment.resultController.performFetch()
         AppStatus.update(lastOpenedTab: 0, hideTabBar: false)
+        
+        for ass in assessments {
+            print(ass.dateCreated.distance(to: Date()))
+        }
+    }
+    @objc func pauseUpdate() {
+        // MARK: - 借此停止接收更新通知
+        Assessment.resultController.delegate = nil
     }
     
+    @objc func willShare(_ noti: Notification) {
+        print(noti)
+    }
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        // MARK: - 刷新视图
+        objectWillChange.send()
+    }
+    
+    
     func fakeCreate() {
-        let a = Assessment.create(for: .currentUser, with: Standard.all().first ?? nil, remarks: "fake", address: nil)
+        let a = Assessment.create(for: .currentUser, with: UserSession.currentUser.standards?.first ?? nil, remarks: "fake", address: nil)
         _ = Contact.create(for: a, name: "fake", phone: "177")
         Elder.create(for: a, name: "fake", heightInCM: 100, status: "fake")
         a.address = MKPlacemark(coordinate: .init(latitude: 17.978733, longitude: -0.791016))
     }
     
     func aboutCreateNewAssessment() {
-        self.assessmentToCreate = .create(for: UserSession.currentUser, with: nil, remarks: "", address: nil)
         showNewAssessmentModal = true
     }
-
     func newAssessmentModalDismissed() {
-        CoreDataHelper.stack.rollback()
+        AppStatus.update(hideTabBar: false)
     }
-    private func deleteInvalids() {
-        for a in assessments {
-            if !a.isValid() {
-                CoreDataHelper.stack.delete(a)
-            }
-        }
-    }
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("ass will change", showNewAssessmentModal)
-        objectWillChange.send()
-    }
+    
+    
 }

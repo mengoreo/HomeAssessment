@@ -95,6 +95,7 @@ public class Elder: NSManagedObject, Identifiable, NSSecureCoding  {
     }
     func delete() {
         print(self, "deleting")
+//        setPrimitiveValue(nil, forKey: "assessment")
         CoreDataHelper.stack.context.delete(self)
     }
     

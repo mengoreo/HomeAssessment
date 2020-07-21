@@ -33,25 +33,19 @@ public class ThumbnailImage: NSManagedObject, Identifiable, NSSecureCoding {
                              in assessment: Assessment? = nil,
                              with image: UIImage,
                              completionHandler: @escaping (Error?, ThumbnailImage?) -> Void) {
-        let convertQueue = dispatch_queue_concurrent_t(label: "convertQueue")
-        print("*** performCreate")
+        let convertQueue = dispatch_queue_concurrent_t(label: "convertQueue") // MARK: - 并行线程处理
         
         convertQueue.async {
-            print("** converting")
             guard let imageData = image.jpegData(compressionQuality: 1) else {
-                // handle failed conversion
-                
-                print("jpg error")
                 completionHandler(NSError(domain: "ImageConvertion", code: 88, userInfo: ["detail" : "error while converting to imageData"]), nil)
                 return
             }
 
             guard let thumbnailData  = image.jpegData(compressionQuality: 0.25) else {
-                // handle failed conversion
-                print("jpg error")
                 completionHandler(NSError(domain: "ImageConvertion", code: 88, userInfo: ["detail" : "error while converting to thumbnailData"]), nil)
                 return
             }
+            // MARK: - 创建 ThumbnailImage 实例，并与 assessment 关联
             let createdThumbnail = create(for: questionID, in: assessment, imageData: imageData, thumbnailData: thumbnailData)
             
             completionHandler(nil, createdThumbnail)
@@ -61,7 +55,7 @@ public class ThumbnailImage: NSManagedObject, Identifiable, NSSecureCoding {
     
     class func create(for questionID: UUID? = nil, in assessment: Assessment? = nil, imageData: Data, thumbnailData: Data) -> ThumbnailImage {
 
-        print("creating thumbnail for \(questionID as Any)")
+        print("creating thumbnail for question \(questionID as Any), assessment: \(assessment as Any)")
         let newThumbnailImage = ThumbnailImage(context: CoreDataHelper.stack.context)
         newThumbnailImage.assessment = assessment
         newThumbnailImage.dateCreated = Date()

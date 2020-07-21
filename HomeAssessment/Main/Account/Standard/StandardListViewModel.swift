@@ -26,7 +26,6 @@ class StandardListViewModel: NSObject, ObservableObject {
         user.standards?.sorted(by: {$0.index > $1.index}) ?? []
     }
     func onAppear() {
-        
         print("objectWillChange in standardlist")
         objectWillChange.send()
         Standard.resultController.delegate = self
@@ -56,11 +55,12 @@ class StandardListViewModel: NSObject, ObservableObject {
         Option.create(for: q4, index: 3, optionDescription: "", from_val: 100, to_val: 99999, vote: 3, suggestion: "", uuidString: UUID().uuidString)
         
     }
+    // MARK: - StandardListViewModel
     func refresh() {
         loading = true
-        APIDataManager.fetchTask(.standard, with: user.token, completionHandler: handle(data:response:error:for:), for: user)
+        APIDataManager.fetchTask(.standard, with: user.token!, completionHandler: handleStandard(data:response:error:for:), for: user)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            // in case no response
+            //  3秒之后不管有无响应都置为假
             self.loading = false
         }
     }
@@ -87,7 +87,7 @@ class StandardListViewModel: NSObject, ObservableObject {
     }
     
     // MARK: - handle json data
-    private func handle(data: Data, response: URLResponse, error: Error?, for parent: NSManagedObject) {
+    private func handleStandard(data: Data, response: URLResponse, error: Error?, for parent: NSManagedObject) {
         if error != nil {
             print("*** error in handle")
             return
@@ -104,7 +104,7 @@ class StandardListViewModel: NSObject, ObservableObject {
         for standardJ in standardsJSON {
             let standard = Standard.create(for: curUser, name: standardJ.name, index: standardJ.index, uuidString: standardJ.id)
             
-            APIDataManager.fetchTask(.question(standard: standardJ.index), with: curUser.token, completionHandler: handleQuestion(data:response:error:for:), for: standard)
+            APIDataManager.fetchTask(.question(standard: standardJ.index), with: curUser.token!, completionHandler: handleQuestion(data:response:error:for:), for: standard)
         }
     }
     private func handleQuestion(data: Data, response: URLResponse, error: Error?, for parent: NSManagedObject) {
@@ -118,7 +118,7 @@ class StandardListViewModel: NSObject, ObservableObject {
         for questionJ in questionsJSON {
              let question = Question.create(for: standard, index: Int32(questionJ.index), name: questionJ.title, measurable: questionJ.isMeasurable, uuidString: questionJ.id)
             
-            APIDataManager.fetchTask(.option(standard: Int(standard.index), question: questionJ.index), with: standard.user.token, completionHandler: handleOption(data:response:error:for:), for: question)
+            APIDataManager.fetchTask(.option(standard: Int(standard.index), question: questionJ.index), with: standard.user.token!, completionHandler: handleOption(data:response:error:for:), for: question)
         }
     }
     

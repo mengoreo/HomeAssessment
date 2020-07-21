@@ -19,14 +19,18 @@ class CombiningViewModel: NSObject, NSFetchedResultsControllerDelegate, Observab
     let onDevice: Assessment?
     let combinedStandard: Standard?
     @Published var updating = false
+    @Published var showEditReport = false
+    // MARK: - CombiningViewModel
     init(onDevice: Assessment?, combinedStandard: Standard?) {
         self.onDevice = onDevice
         self.combinedStandard = combinedStandard
         super.init()
-        // MARK: - Observe question changes
+        // MARK: - 监听 Question 的变化
         Question.resultController.delegate = self
         try? Question.resultController.performFetch()
-        print("CombiningViewModel inited")
+    }
+    private func doneCombine() {
+        NotificationCenter.default.post(name: .DoneCombineAssessments, object: nil)
     }
     
     var available: Bool {
@@ -48,9 +52,6 @@ class CombiningViewModel: NSObject, NSFetchedResultsControllerDelegate, Observab
         print("** questions will change in combine")
         objectWillChange.send()
     }
-    private func doneCombine() {
-        NotificationCenter.default.post(name: .DoneCombineAssessments, object: nil)
-    }
     
     func cancel() {
         updating = true
@@ -62,7 +63,9 @@ class CombiningViewModel: NSObject, NSFetchedResultsControllerDelegate, Observab
         for q in questions {
             onDevice?.selectedOptions[q.uuid] = q.options?.first?.uuid // only one
         }
-        doneCombine()
+//        doneCombine()
+        
+        showEditReport = true
         updating = false
     }
     
@@ -72,6 +75,7 @@ struct CombiningView: View {
     @State var readyQs:Int = 0
     var body: some View {
         NavigationView {
+            Group {
             List {
                 if viewModel.questions.isEmpty {
                     Text("没有需要合并的条目")
@@ -79,7 +83,12 @@ struct CombiningView: View {
                 ForEach(viewModel.questions) { question in
                     CombineQuestionRowView(viewModel: .init(question: question))
                 }
-
+            }
+                if viewModel.available {
+                    NavigationLink(destination: ReportEditView(viewModel: .init(viewModel.onDevice!)), isActive: $viewModel.showEditReport) {
+                        Text("")
+                    }.hidden()
+                }
             }
             .navigationBarTitle("评估合并", displayMode: .inline)
                 .navigationBarItems(leading:
@@ -155,18 +164,15 @@ class CombineQuestionRowViewModel: ObservableObject {
         Array(question.options ?? [])
     }
     
-    
+    // MARK: - CombineQuestionRowViewModel
     func remove(_ option: Option) {
-        print("tapped at")
         option.setValue(nil, forKey: "question")
         ShareDataManager.manager.removedOptions[question.uuid] = option
     }
     func undo() {
-        print("** will undo")
         objectWillChange.send()
         let option = ShareDataManager.manager.removedOptions.removeValue(forKey: question.uuid)
         option?.question = question
-        
     }
 }
 

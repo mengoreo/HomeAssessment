@@ -7,30 +7,14 @@
 //
 
 import SwiftUI
-/*
- @Published var elderCondition = "B 先生，90岁，思维清晰，眼花，耳背，依靠助行器或拐杖，五年前在家中跌倒导致股骨头粉碎，起身困难。家中无保护措施。家中有妻子照顾，同时雇有保姆。"
- @Published var houseCondition = "房屋属于30年以上的多层住宅，位于二层，室内采光通风较差，室内昏暗。物品堆放杂乱，空间内家具摆放等极易对老人通过造成不便。"
- @Published var problems: [String] = [
-     "老年人从卧床到坐起需要辅助。从床上到下地站起没有扶手，有危险。",
-     "床边需要有放衣服的椅子，方便脱衣服，但是椅子是带有滑轮的办公椅，对于老年人非常危险。",
-     "马桶没有扶手助力保护，老年人如厕坐下和起身都很有可能有危险。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。fsdfasdfadsfasdfasdfasdfdsfasdfasdfafasdfadsfsd",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
-     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。",
- ]
- */
+// @Published var elderCondition = "B 先生，90岁，思维清晰，眼花，耳背，依靠助行器或拐杖，五年前在家中跌倒导致股骨头粉碎，起身困难。家中无保护措施。家中有妻子照顾，同时雇有保姆。"
+// @Published var houseCondition = "房屋属于30年以上的多层住宅，位于二层，室内采光通风较差，室内昏暗。物品堆放杂乱，空间内家具摆放等极易对老人通过造成不便。"
+// @Published var problems: [String] = [
+//     "老年人从卧床到坐起需要辅助。从床上到下地站起没有扶手，有危险。",
+//     "床边需要有放衣服的椅子，方便脱衣服，但是椅子是带有滑轮的办公椅，对于老年人非常危险。",
+//     "马桶没有扶手助力保护，老年人如厕坐下和起身都很有可能有危险。",
+//     "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。", ]
+
 class ReportEditViewModel: NSObject, ObservableObject {
     var title = ""
     let employees: [String]
@@ -47,18 +31,25 @@ class ReportEditViewModel: NSObject, ObservableObject {
         self.employees = [assessment.user.name, coworker]
         super.init()
         title = assessment.remarks
-        elderCondition = assessment.elders?.map {
-            $0.name + "，" + $0.status
-        }.joined(separator: "；") ?? ""
-        houseCondition = "请描述居室基本状况"
-        problems = assessment.selectedOptions.values.map { optionID in
-            Option.findById(with: optionID)?.suggestion ?? ""
-        }
+//        elderCondition = assessment.elders?.map {
+//            $0.name + "，" + $0.status
+//        }.joined(separator: "；") ?? ""
+        elderCondition = "B 先生，90岁，思维清晰，眼花，耳背，依靠助行器或拐杖，五年前在家中跌倒导致股骨头粉碎，起身困难。家中无保护措施。家中有妻子照顾，同时雇有保姆。"
+        houseCondition = "房屋属于30年以上的多层住宅，位于二层，室内采光通风较差，室内昏暗。物品堆放杂乱，空间内家具摆放等极易对老人通过造成不便。"
+//        houseCondition = "请描述居室基本状况"
+//        problems = assessment.selectedOptions.values.map { optionID in
+//            Option.findById(with: optionID)?.suggestion ?? ""
+//        }
+        problems = [
+        "老年人从卧床到坐起需要辅助。从床上到下地站起没有扶手，有危险。",
+        "床边需要有放衣服的椅子，方便脱衣服，但是椅子是带有滑轮的办公椅，对于老年人非常危险。",
+        "马桶没有扶手助力保护，老年人如厕坐下和起身都很有可能有危险。",
+        "沐浴房比较小，而且底座太高，出入有门槛，护理人员进不去，无法助浴，没有安全扶手，万一发生危险无法施救。", ]
         editing = Array<Bool>(repeating: false, count: problems.count + 2)
         height = Array<CGFloat>(repeating: 0, count: problems.count + 2)
     }
     
-    
+    // MARK: - ReportEditViewModel
     func show(_ index: Int) -> Bool {
         for i in editing.indices {
             if editing[i] && i != index {
@@ -93,6 +84,7 @@ struct ReportEditView: View {
     var body: some View {
             
         ScrollView(.vertical, showsIndicators: true) {
+            // MARK: - ReportEditView
             VStack(alignment: .leading, spacing: 7) {
                 Text("老人基本状况")
                     .font(.caption)

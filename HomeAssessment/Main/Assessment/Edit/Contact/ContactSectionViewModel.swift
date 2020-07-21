@@ -13,6 +13,7 @@ class ContactSectionViewModel: ObservableObject {
     let assessment: Assessment
     var contacts: [Contact] {
         assessment.getContacts()
+//        Contact.all().filter{$0.assessment == assessment}
         
     }
     
@@ -29,7 +30,9 @@ class ContactSectionViewModel: ObservableObject {
     func delete(at offsets: IndexSet) {
         objectWillChange.send()
         for index in offsets {
-            assessment.managedObjectContext?.delete(contacts[index])
+            print("index")
+//            contacts[index].setPrimitiveValue(nil, forKey: "assessment")
+            contacts[index].delete()
         }
     }
 }

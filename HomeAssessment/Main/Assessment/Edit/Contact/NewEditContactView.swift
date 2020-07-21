@@ -18,6 +18,7 @@ struct NewEditContactView: View {
                 Section {
                     TextField("姓名", text: $viewModel.contactName)
                     TextField("联系电话", text: $viewModel.contactPhone)
+                        .keyboardType(.numberPad)
                 }
                 
             }.gesture(DragGesture()

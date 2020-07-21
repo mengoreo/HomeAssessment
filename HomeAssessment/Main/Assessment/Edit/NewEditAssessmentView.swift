@@ -57,6 +57,7 @@ struct NewEditAssessmentView: View {
                 .disabled(viewModel.editingRemarks || viewModel.saving)
             }
             .listStyle(GroupedListStyle())
+            .onAppear(perform: viewModel.onAppear)
             .navigationBarTitle("\(viewModel.barTitle)", displayMode: .inline)
             .navigationBarItems(
                 leading:

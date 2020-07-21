@@ -34,20 +34,26 @@ class SignInViewModel: ObservableObject {
         }
         
     }
-    func willEditNameField() {
-        focusOnNameField()
-    }
-    func willEndEditingNameField() {
-        focusOnPasswordField()
-    }
+    func willEditNameField() { focusOnNameField() }
+    func willEndEditingNameField() { focusOnPasswordField() }
     func willEndEditingPasswordField() {
-        appearance
-            .passwordFieldScale = 0.8
-        appearance
-            .passwordFieldOpacity = 0
-        
+        appearance.passwordFieldScale = 0.8
+        appearance.passwordFieldOpacity = 0
+        // MARK: - 验证用户信息
         if !status.editingNameField {
             authorise()
+        }
+    }
+    func handleError() {
+        switch errorMessage.type {
+        case .signInError(.nameField):
+         focusOnNameField()
+         break
+        case .signInError(.passwordField):
+         focusOnPasswordField()
+         break
+        default:
+         break
         }
     }
     
@@ -59,19 +65,7 @@ class SignInViewModel: ObservableObject {
             appearance.eyeSymbol = "eye.fill"
         }
     }
-        
-    func handleError() {
-        switch errorMessage.type {
-        case .signInError(.nameField):
-            focusOnNameField()
-            break
-        case .signInError(.passwordField):
-            focusOnPasswordField()
-            break
-        default:
-            break
-        }
-    }
+     
     
     func nameV(_ d: ViewDimensions) -> CGFloat {
         if !status.editingNameField && !status.editingPasswordField {
@@ -93,6 +87,18 @@ class SignInViewModel: ObservableObject {
             return d[.bottom] + 10
         }
     }
+    private func authorise() {
+        readyForAuthorise()
+        UserSession.performCreate(name: name, password: password) { errorMessage in
+            guard errorMessage == nil else {
+                self.showError(errorMessage!)
+                self.doneAuthorising()
+                return
+            }
+            self.doneAuthorising()
+            CoreDataHelper.stack.save()
+        }
+    }
     
     
     private func readyForAuthorise() {
@@ -107,18 +113,6 @@ class SignInViewModel: ObservableObject {
             self.status.authorisingUser = false
             self.appearance.activityIndicatorOpacity = 0
             self.appearance.fieldsOpacity = 1
-        }
-    }
-    private func authorise() {
-        readyForAuthorise()
-        UserSession.performCreate(name: name, password: password) { errorMessage in
-            guard errorMessage == nil else {
-                self.showError(errorMessage!)
-                self.doneAuthorising()
-                return
-            }
-            self.doneAuthorising()
-            CoreDataHelper.stack.save()
         }
     }
     private func focusOnNameField() {

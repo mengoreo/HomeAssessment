@@ -13,6 +13,10 @@ struct EvaluatingView: View {
     var assessment: Assessment
     @State var showShareActoin = false
     @State var showEditReport = false
+    @State var share = false
+    @State var alreadyShared = false
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         Group {
             List {
@@ -31,6 +35,8 @@ struct EvaluatingView: View {
                         self.showEditReport = true
                     }),
                     ActionSheet.Button.default(Text("分享"), action: {
+                        self.share = true
+                        self.presentationMode.wrappedValue.dismiss()
                     }),
                     ActionSheet.Button.cancel(Text("取消"))
                     
@@ -39,6 +45,10 @@ struct EvaluatingView: View {
             NavigationLink(destination: ReportEditView(viewModel: .init(assessment)), isActive: $showEditReport) {
                 Text("")
             }.hidden()
+            
+            Text("").hidden().sheet(isPresented: $share) {
+                AirDropShareView(items: [try! ShareDataManager.manager.compressAndShare(self.assessment)])
+            }
         }.edgesIgnoringSafeArea(.bottom)
         .navigationBarTitle("\(assessment.remarks)", displayMode: .inline)
 //        .navigationBarItems(trailing: Group {
@@ -49,8 +59,12 @@ struct EvaluatingView: View {
 //            }
 //        })
         .navigationBarHidden(hideBackButton)
-        .navigationBarItems(trailing: Button("分享并合并"){
-            self.showShareActoin = true
+            .navigationBarItems(trailing: Button(assessment.reportData != nil ? "编辑报告" :"下一步"){
+                if self.assessment.reportData != nil {
+                    self.showEditReport = true
+                } else {
+                    self.showShareActoin = true
+                }
         })
     }
 }

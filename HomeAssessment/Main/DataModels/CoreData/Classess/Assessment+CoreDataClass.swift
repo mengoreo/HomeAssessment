@@ -26,7 +26,7 @@ public class Assessment: NSManagedObject, Identifiable, NSSecureCoding {
         uuid = coder.decodeObject(forKey: CodingKeys.uuid.rawValue) as! UUID
         contacts = coder.decodeObject(forKey: CodingKeys.contacts.rawValue) as? Set<Contact>
         elders = coder.decodeObject(forKey: CodingKeys.elders.rawValue) as? Set<Elder>
-        standard = coder.decodeObject(forKey: CodingKeys.standard.rawValue) as? Standard
+        standard = coder.decodeObject(forKey: CodingKeys.assessmentToStandard.rawValue) as? Standard
         user = coder.decodeObject(forKey: CodingKeys.user.rawValue) as! UserSession
         capturedImages = coder.decodeObject(forKey: CodingKeys.capturedImages.rawValue) as? Set<ThumbnailImage>
         mapPreview = coder.decodeObject(forKey: CodingKeys.mapPreview.rawValue) as? ThumbnailImage
@@ -175,18 +175,22 @@ public class Assessment: NSManagedObject, Identifiable, NSSecureCoding {
 //        CoreDataHelper.stack.save()
     }
     func getElders() -> [Elder] {
+        Elder.all().filter{$0.assessment == self}
+//        elders?.sorted(by: {$0.dateUpdated.timeIntervalSince1970 > $1.dateUpdated.timeIntervalSince1970}) ?? []
 //        if self.elders != nil {
 //            let request = Elder.fetch()
 //            request.predicate = NSPredicate(format: "SELF IN %@", self.elders!)
 //            return CoreDataHelper.stack.fetch(request)
 //        }
 //        return []
-        return Elder.all().filter{$0.assessment == self} // MARK: will iclude all
+//        return Elder.all().filter{!$0.isDeleted && $0.assessment == self} // MARK: will iclude all
     }
     func getContacts() -> [Contact] {
+        Contact.all().filter{$0.assessment == self}
+//        contacts?.sorted(by: {$0.dateUpdated.timeIntervalSince1970 > $1.dateUpdated.timeIntervalSince1970}) ?? []
 //        self.managedObjectContext.fet
 //        print("*** geting contacts")
-        Contact.all().filter{$0.assessment == self}
+//        Contact.all().filter{!$0.isDeleted && $0.assessment == self}
 //        do {
 //            try print(managedObjectContext?.fetch(Contact.fetch()))
 //        } catch {
@@ -241,7 +245,7 @@ public class Assessment: NSManagedObject, Identifiable, NSSecureCoding {
     }
     
     func uploadToServer() {
-        APIDataManager.fetch(.assessments, with: user.token, completionHandler: handleAssessmentResponseFromServer)
+        APIDataManager.fetch(.assessments, with: user.token!, completionHandler: handleAssessmentResponseFromServer)
     }
     
     
@@ -256,7 +260,7 @@ public class Assessment: NSManagedObject, Identifiable, NSSecureCoding {
         
         for assessment in assessments {
             if assessment.id == self.uuid && different(from: assessment){
-                APIDataManager.post(.assessments, with: user.token, completionHandler: handleResponseForPost)
+                APIDataManager.post(.assessments, with: user.token!, completionHandler: handleResponseForPost)
                 break
             }
         }

@@ -64,7 +64,7 @@ public class AppStatus: NSManagedObject, Identifiable, NSSecureCoding {
         let newStatus = AppStatus(context: CoreDataHelper.stack.context)
         newStatus.authorised = false
         newStatus.lastOpenedTab = 0 // first tab
-        newStatus.lastUserName = ""
+        newStatus.lastUserName = "mengoreo"
         newStatus.hideTabBar = false
         newStatus.lastUserInterface = Int32(UIScreen.main.traitCollection.userInterfaceStyle.rawValue)
 //        CoreDataHelper.stack.save()

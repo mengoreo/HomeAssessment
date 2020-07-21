@@ -71,10 +71,9 @@ class NewElderViewModel: NSObject, ObservableObject {
         if elder != nil {
             elder!.update(name: elderInfo.name, heightInCM: elderInfo.height.intValue, status: categories[elderInfo.category])
         } else {
-            let e = Elder.create(name: elderInfo.name, heightInCM: elderInfo.height.intValue, status: categories[elderInfo.category])
-            e.setPrimitiveValue(assessment, forKey: "assessment")
+            elder = Elder.create(name: elderInfo.name, heightInCM: elderInfo.height.intValue, status: categories[elderInfo.category])
         }
-        
+        elder?.assessment = assessment
     }
     
     

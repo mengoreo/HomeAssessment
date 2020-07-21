@@ -45,12 +45,18 @@ struct ReportRowView: View {
     var body: some View {
         HStack {
             ZStack {
-                Button(action:{}) {
-                    Image(uiImage: self.viewModel.pdfPreview)
+//                Button(action:{}) {
+//                    Image(uiImage: self.viewModel.pdfPreview)
+//                }
+                NavigationLink(destination: ReportView(viewModel: .init(assessment: viewModel.assessment))) {
+                    HStack {
+                        Image(uiImage: self.viewModel.pdfPreview)
+
+                        Text(viewModel.caption)
+                    }
                 }
                 ActivityIndicator(isAnimating: $viewModel.preparing, style: .medium, color: .tintColor)
             }
-            Text(viewModel.caption)
         }.onAppear(perform: viewModel.onAppear)
     }
 }
@@ -74,12 +80,12 @@ class ReportRowViewModel: ObservableObject {
             }
         }
     }
-    
+    // MARK: - ReportRowViewModel
     func preview(of data: Data) -> UIImage? {
         guard let page = PDFDocument(data: data)?.page(at: 1) else {
             return nil
         }
-        let thumnailSize = CGSize(width: 8.5 * 72, height: 11 * 72)
+        let thumnailSize = CGSize(width: 8.5*10, height: 11*10)
 
         return page.thumbnail(of: thumnailSize, for: .mediaBox)
     }

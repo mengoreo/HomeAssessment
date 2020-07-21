@@ -24,45 +24,42 @@ class WelcomeViewModel: NSObject, NSFetchedResultsControllerDelegate, Observable
     
     override init() {
         super.init()
+        AppStatus.resultController.delegate = self
+        // MARK: - 订阅有关合并评估的通知
         NotificationCenter.default.addObserver(self, selector: #selector(willCombine(_:)), name: .WillCombineAssessments, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(doneCombine), name: .DoneCombineAssessments, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(resetCombine), name: .SceneDidEnterBackground, object: nil)
     }
-    private lazy var appStatusController: NSFetchedResultsController<AppStatus> = {
-        let controller = AppStatus.resultController
-        controller.delegate = self
-        return controller
-    }()
-    
     func onAppear() {
-        try? appStatusController.performFetch()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
-            self.updateUIProperties()
-        }
+        // MARK: - 监听 AppStatus 的变化
+        try? AppStatus.resultController.performFetch()
+        updateUIProperties()
     }
-    
     @objc func willCombine(_ notification: Notification) {
         if let onDevice =
             notification.userInfo![UserInfoKey.onDeviceAssessment] as? Assessment,
             let combinedStandard =
             notification.userInfo![UserInfoKey.combinedStandard] as? Standard {
-            self.combinedStandard?.delete() // incase multiple transfer
+            self.combinedStandard?.delete() // 防止重复传输
+            // MARK: - 准备合并页面
             self.onDevice = onDevice
             self.combinedStandard = combinedStandard
             self.showCombineView = true
         }
     }
     @objc func doneCombine() {
+        // MARK: - 合并之后清理
         showCombineView = false
         combinedStandard?.delete()
     }
-    @objc func resetCombine() {
-        showCombineView = false
-    }
     private func updateUIProperties() {
+        // MARK: - 界面过渡动画
         AppStatus.authorised() ?
             updateUIPropertiesAfterAuthorised() :
             updateUIPropertiesBeforeSigningIn()
+    }
+    
+    @objc func pauseCombine() {
+        showCombineView = false
     }
     
     private func updateUIPropertiesAfterAuthorised() {

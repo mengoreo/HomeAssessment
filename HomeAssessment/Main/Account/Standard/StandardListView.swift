@@ -31,9 +31,15 @@ struct StandardListView: View {
                                 .foregroundColor(Color(UIColor.secondaryLabel))
                         }
                     }
-                }
+                }.onDelete(perform: viewModel.aboutToDelete(_:))
+                
+                
             }
             .listStyle(PlainListStyle())
+            
+            Text("").hidden().actionSheet(isPresented: $viewModel.showActionSheet) {
+                ActionSheet(title: Text(self.viewModel.actionTitle), buttons: [.cancel(Text("取消")), .destructive(Text("确认"), action: self.viewModel.destructiveAction)])
+            }
             
             VStack {
                 Spacer()

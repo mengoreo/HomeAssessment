@@ -25,7 +25,6 @@ struct CameraView: UIViewControllerRepresentable {
             imagePickerController.sourceType = .camera
             imagePickerController.cameraCaptureMode = .photo
         }
-//        imagePickerController.allowsEditing = true
         
         imagePickerController.delegate = context.coordinator
         
@@ -33,7 +32,6 @@ struct CameraView: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<CameraView>) {
-//        uiViewController.
     }
     
     func makeCoordinator() -> Coordinator {
@@ -48,20 +46,11 @@ struct CameraView: UIViewControllerRepresentable {
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             picker.dismiss(animated: true)
-
             guard let image = info[.originalImage] as? UIImage else {
-                print("No image found")
                 parent.completionHandler(nil)
                 return
             }
-
-            // print out the image size as a test
             parent.completionHandler(image)
         }
-        
-//        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//            picker.dismiss(animated: true)
-//        }
-        
     }
 }

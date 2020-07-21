@@ -16,17 +16,18 @@ class ReportViewModel: ObservableObject {
     let problems: [String]
     let assessment: Assessment
     init(assessment: Assessment,
-        title: String,
-         employees: [String],
-         elderCondition: String,
-         houseCondition: String,
-         problems: [String]) {
+        title: String = "",
+         employees: [String] = [],
+         elderCondition: String = "",
+         houseCondition: String = "",
+         problems: [String] = []) {
         self.assessment = assessment
         self.title = title
         self.employees = employees
         self.elderCondition = elderCondition
         self.houseCondition = houseCondition
         self.problems = problems
+        self.data = assessment.reportData
         print("init")
     }
     
@@ -36,14 +37,18 @@ class ReportViewModel: ObservableObject {
     var data: Data!
     var airDropData: AirDropData!
     
+    // MARK: - ReportViewModel
     func prepareData(){
+        if self.data != nil {
+            self.preparingData = false
+            return
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             let pdfCreator = PDFCreator(title: self.title, authors: self.employees, elderCondition: self.elderCondition, houseCondition: self.houseCondition, problems: self.problems)
             self.data =  pdfCreator.prepareData()
             self.preparingData = false
         }
     }
-    
     func share() {
         preparingShare = true
         airDropData = AirDropData(with: data, placeholder: "\(title)", type: .pdf)
@@ -54,6 +59,8 @@ class ReportViewModel: ObservableObject {
     }
     func save() {
         assessment.reportData = data
+        assessment.progress = -1
+        NotificationCenter.default.post(name: .DoneCombineAssessments, object: nil)
     }
     
 }

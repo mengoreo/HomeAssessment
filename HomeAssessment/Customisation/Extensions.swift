@@ -54,6 +54,8 @@ extension ARSCNView {
 }
 // MARK: - Foundation
 extension Notification.Name {
+    static let WillEditAssessment = NSNotification.Name("WillEditAssessment")
+    static let WillShareAssessment = NSNotification.Name("WillShareAssessment")
     static let WillCombineAssessments = NSNotification.Name("WillCombineAssessments")
     static let DoneCombineAssessments = NSNotification.Name("DoneCombineAssessments")
     static let QuestionReadyToSave = NSNotification.Name("QuestionReadyToSave")

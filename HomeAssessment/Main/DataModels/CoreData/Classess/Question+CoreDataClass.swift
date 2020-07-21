@@ -21,7 +21,7 @@ public class Question: NSManagedObject, Identifiable, NSSecureCoding {
         uuid = coder.decodeObject(forKey: CodingKeys.uuid.rawValue) as! UUID
         options = coder.decodeObject(forKey: CodingKeys.options.rawValue) as? Set<Option>
 //        // MARK: - Associate with standard, many to one REQUIRED!!
-//        standard = coder.decodeObject(forKey: CodingKeys.standard.rawValue) as! Standard
+//        standard = coder.decodeObject(forKey: CodingKeys.questionToStandard.rawValue) as! Standard
     }
     
     public static var supportsSecureCoding: Bool {

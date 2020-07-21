@@ -73,7 +73,7 @@ struct QuestionRowView: View {
                 .padding(.leading, 20)
                 .accentColor(.darkGreen)
                     .sheet(isPresented: $viewModel.cameraButtonTapped) {
-                        CameraView(completionHandler: self.viewModel.captured(_:))
+                        CameraView(completionHandler: self.viewModel.captured(_:)).edgesIgnoringSafeArea(.all)
                 }
             }
         }.padding(.vertical, 3)

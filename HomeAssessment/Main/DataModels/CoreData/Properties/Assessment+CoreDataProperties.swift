@@ -45,7 +45,7 @@ extension Assessment {
         uuid,
         contacts,
         elders,
-        standard,
+        assessmentToStandard,
         user,
         capturedImages,
         mapPreview,
@@ -69,7 +69,7 @@ extension Assessment {
         encoder.encode(uuid, forKey: CodingKeys.uuid.rawValue)
         encoder.encode(contacts, forKey: CodingKeys.contacts.rawValue)
         encoder.encode(elders, forKey: CodingKeys.elders.rawValue)
-        encoder.encode(standard, forKey: CodingKeys.standard.rawValue)
+        encoder.encode(standard, forKey: CodingKeys.assessmentToStandard.rawValue)
         encoder.encode(user, forKey: CodingKeys.user.rawValue)
         encoder.encode(capturedImages, forKey: CodingKeys.capturedImages.rawValue)
         encoder.encode(mapPreview, forKey: CodingKeys.mapPreview.rawValue)

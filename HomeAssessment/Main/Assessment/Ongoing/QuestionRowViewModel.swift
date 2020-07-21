@@ -64,34 +64,38 @@ class QuestionRowViewModel: ObservableObject {
         }
         print("objectWillChange in selected option")
     }
-    func captured(_ image: UIImage?) {
-        objectWillChange.send()
-        guard let image = image else {
-            return
-        }
-        savingImage = true
-        ThumbnailImage.performCreate(for: question.uuid, in: assessment, with: image) { (error, thumbnail) in
-            guard error == nil else {
-                fatalError((error! as NSError).userInfo["detail"] as! String)
-            }
-            DispatchQueue.main.async {
-                self.savingImage = false
-            }
-        }
-    }
     
     func measured(_ distance: Double) {
+        // MARK: - 测量完成
         for option in question.getOptions() {
             if distance > option.from_val && distance <= option.to_val {
                 assessment.selectedOptions[question.uuid] = option.uuid
                 break
             }
         }
+        // MARK: - 隐藏测量视图
         showARMeasureView = false
     }
     func willCaptureImage() {
-        print("willCaptureImage")
+        // MARK: - 显示拍照视图
         cameraButtonTapped.toggle()
+    }
+    func captured(_ image: UIImage?) {
+        objectWillChange.send()
+        guard let image = image else {
+            return
+        }
+        savingImage = true // MARK: - 等待保存完成
+        ThumbnailImage.performCreate(for: question.uuid, in: assessment, with: image) { (error, thumbnail) in
+            guard error == nil else {
+                // MARK: - 向用户展示错误信息
+                self.showError((error! as NSError).userInfo["detail"] as! String)
+                return
+            }
+            DispatchQueue.main.async {
+                self.savingImage = false // MARK: - 保存完成
+            }
+        }
     }
     
     func willShowPhotos() {
@@ -99,7 +103,9 @@ class QuestionRowViewModel: ObservableObject {
         photosButtonTapped.toggle()
     }
     
-    
+    func showError(_ detail: String) {
+        
+    }
     func willDelete(_ thumbnail: ThumbnailImage) {
         warningMessage = "确定删除在 \(thumbnail.dateCreated!.relevantString) 为 \(question.name) 拍摄的照片吗"
         warningAction =  {

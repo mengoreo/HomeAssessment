@@ -17,27 +17,34 @@ struct AssessmentListView: View {
             ZStack {
                 List {
                     ForEach(viewModel.assessments) {assessment in
-                            NavigationLink(destination:
-                                EvaluatingView(assessment: assessment)
-                                    .accentColor(.accentColor)
-                                    .animation(.myease)
-                            ) {
+//                            NavigationLink(destination:
+//                                EvaluatingView(assessment: assessment)
+//                                    .accentColor(.accentColor)
+//                                    .animation(.myease)
+//                            ) {
                                 AssessmentRowView(viewModel: .init(assessment: assessment))
                                 .animation(.myease)
                                 
-                            }
-                            .disabled(self.viewModel.updating || assessment.standard == nil)
-                    }                
+//                            }
+//                            .disabled(self.viewModel.updating || assessment.standard == nil)
+                    }
+                    .onDelete { (index) in
+                        for i in index {
+                            self.viewModel.assessments[i].delete()
+                        }
+                    }
                 }.listStyle(PlainListStyle())
                 .onAppear(perform: viewModel.onAppear)
                 .onDisappear {
+                    print("disappeard")
                     AppStatus.update(hideTabBar: AppStatus.currentStatus.lastOpenedTab == 0)
                 }
 
                 Text("").hidden().sheet(isPresented: $viewModel.showNewAssessmentModal, onDismiss: viewModel.newAssessmentModalDismissed) {
-                    NewEditAssessmentView(viewModel: .init(assessment: self.viewModel.assessmentToCreate!))
+                    NewEditAssessmentView(viewModel: .init())
                         .accentColor(.accentColor)
                 }
+                
             }
             .accentColor(.accentColor)
             .navigationBarTitle("我的评估")
@@ -66,8 +73,7 @@ struct AssessmentListView: View {
                         Button(action:{
                             self.viewModel.aboutCreateNewAssessment()
                         }){
-//                            Image.plusCircleFill.scaleEffect(1.3)
-                            Image(uiImage: UIImage(systemName: "plus.circle.fill", withConfiguration: UIImage.SymbolConfiguration(font: .boldSystemFont(ofSize: 17), scale: .large))!)
+                            Image.plusCircleFill.scaleEffect(1.3)
                         }
                         .disabled(viewModel.updating)
                         .contextMenu {
